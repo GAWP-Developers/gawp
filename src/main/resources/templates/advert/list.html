@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Spring Core Online Tutorial - List Products</title>
+    <title>Spring Core Online Tutorial - List Adverts</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
     <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
@@ -16,32 +16,32 @@
 </head>
 <body>
 <div class="container">
-    <div th:if="${not #lists.isEmpty(products)}">
-        <h2>Product List</h2>
+    <div th:if="${not #lists.isEmpty(adverts)}">
+        <h2>advert List</h2>
         <table class="table table-striped">
             <tr>
                 <th>Id</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Image URL</th>
+                <th>Deadline Date</th>
+                <th>Advert Type</th>
+                <th>Details</th>
                 <th>List</th>
                 <th>Edit</th>
                 <th>Delete</th>
             </tr>
-            <tr th:each="product : ${products}">
-                <td th:text="${product.id}"></td>
-                <td th:text="${product.description}"></td>
-                <td th:text="${product.price}"></td>
-                <td th:text="${product.imageUrl}"></td>
-                <td><a th:href="${'/product/show/' + product.id}">View</a> </td>
-                <td><a th:href="${'/product/edit/' + product.id}">Edit</a> </td>
-                <td><a th:href="${'/product/delete/' + product.id}">Delete</a> </td>
+            <tr th:each="advert : ${adverts}">
+                <td th:text="${advert.id}"></td>
+                <td th:text="${#dates.format(advert.deadlineDate, 'dd-MM-yyyy')}"></td>
+                <td th:text="${advert.type}"></td>
+                <td th:text="${advert.details}"></td>
+                <td><a th:href="${'/advert/show/' + advert.id}">View</a> </td>
+                <td><a th:href="${'/advert/edit/' + advert.id}">Edit</a> </td>
+                <td><a th:href="${'/advert/delete/' + advert.id}">Delete</a> </td>
             </tr>
         </table>
     </div>
     <div class="row">
         <div class="col-sm-3">
-            <a href="/product/new">New Product</a>
+            <a href="/advert/new">New Advert</a>
         </div>
     </div>
 </div>
