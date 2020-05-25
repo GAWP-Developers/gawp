@@ -21,21 +21,15 @@
         <table class="table table-striped">
             <tr>
                 <th>Id</th>
-                <th>Deadline Date</th>
-                <th>Advert Type</th>
                 <th>Details</th>
-                <th>List</th>
-                <th>Edit</th>
-                <th>Delete</th>
+                <th>Expires On</th>
             </tr>
             <tr th:each="advert : ${adverts}">
                 <td th:text="${advert.id}"></td>
+                <td th:text="${advert.type + ' in ' + advert.details}"></td>
                 <td th:text="${#dates.format(advert.deadlineDate, 'dd-MM-yyyy')}"></td>
-                <td th:text="${advert.type}"></td>
-                <td th:text="${advert.details}"></td>
                 <td><a th:href="${'/advert/show/' + advert.id}">View</a> </td>
-                <td><a th:href="${'/advert/edit/' + advert.id}">Edit</a> </td>
-                <td><a th:href="${'/advert/delete/' + advert.id}">Delete</a> </td>
+                <td><a th:href="${'/advert/edit/' + advert.id}">Modify</a> </td>
             </tr>
         </table>
     </div>

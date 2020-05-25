@@ -67,7 +67,6 @@ public class AdvertHandler {
 
     @RequestMapping(value = "/advert", method = RequestMethod.POST)
     public String saveOrUpdateAdvert(@Valid AdvertForm advertForm, BindingResult bindingResult){
-
         if(bindingResult.hasErrors()){
             return "advert/advertform";
         }

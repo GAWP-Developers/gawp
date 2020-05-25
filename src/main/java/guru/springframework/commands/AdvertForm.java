@@ -2,6 +2,7 @@ package guru.springframework.commands;
 
 
 import guru.springframework.domain.Advert;
+import guru.springframework.domain.AdvertType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 
@@ -18,7 +19,7 @@ public class AdvertForm {
     private Date shareDate;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date deadlineDate;
-    private Advert.AdvertType type;
+    private AdvertType type;
     private String details;
 
     public Long getId() {
@@ -61,11 +62,11 @@ public class AdvertForm {
         this.deadlineDate = deadlineDate;
     }
 
-    public Advert.AdvertType getType() {
+    public AdvertType getType() {
         return type;
     }
 
-    public void setType(Advert.AdvertType type) {
+    public void setType(AdvertType type) {
         this.type = type;
     }
 

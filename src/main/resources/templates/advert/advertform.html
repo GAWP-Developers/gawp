@@ -43,7 +43,9 @@
             <div class="form-group" th:class="${#fields.hasErrors('type')} ? 'form-group has-error' : 'form-group'">
                 <label class="col-sm-2 control-label">Type:</label>
                 <div class="col-sm-10">
-                    <input type="text" placeholder="MASTERDEGREE|PHD|PHDWITHOUTMASTER" class="form-control" th:field="*{type}" th:errorclass="has-error"/>
+                    <select type="text" class="form-control" th:field="*{type}">
+                        <option th:each="role : ${T(guru.springframework.domain.AdvertType).values()}" th:value="${role}" th:text="${role}"></option>
+                    </select>
 
                     <span class="help-block">
                        <ul>

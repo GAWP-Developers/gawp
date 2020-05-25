@@ -13,13 +13,6 @@ import java.util.Date;
  */
 @Entity
 public class Advert {
-
-    public enum AdvertType{
-        MASTERDEGREE,
-        PHD,
-        PHDWITHOUTMASTER
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
