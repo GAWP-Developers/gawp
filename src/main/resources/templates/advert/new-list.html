@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Find Right Advert</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen"/>
+
+    <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
+            th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+
+    <link href="../../static/css/spring-core.css"
+          th:href="@{css/spring-core.css}" rel="stylesheet" media="screen"/>
+</head>
+<body>
+<div class="container">
+    <div th:if="${not #lists.isEmpty(adverts)}">
+        <p>Find Right Advert</p>
+
+        <div class="container"  th:each="advert : ${adverts}">
+            <div class="container-section d-flex align-items-center justify-content-center col-4">
+                <div class="find-right-advert-section" style="box-sizing: border-box; border: solid 1px #337ab7; padding: 20px 30px 20px 30px;border-radius: 30px;box-shadow: -2px 3px 4px #f7e4e4;">
+
+                    <div class="row">
+                        <div class="col-md-4 job-attribute-part">
+
+                            <a th:href="${'/advert/show/' + advert.id}" th:text="${advert.type + ' in ' + advert.details}"></a>
+
+                        </div>
+                        <div class="col-md-4 date-attribute-part">
+                            <p th:text="${#dates.format(advert.deadlineDate, 'dd-MM-yyyy')}"></p>
+                        </div>
+                        <div class="col-md-4 button-part">
+                            <a th:href="${'/advert/edit/' + advert.id}">
+                                <button type="submit">See Details</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+
+</body>
+</html>

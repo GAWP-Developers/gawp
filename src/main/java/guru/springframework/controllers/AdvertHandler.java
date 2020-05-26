@@ -41,14 +41,15 @@ public class AdvertHandler {
     @RequestMapping({"/advert/list", "/advert"})
     public String listAdverts(Model model){
         model.addAttribute("adverts", advertService.listAll());
-        return "advert/list";
+        return "advert/grad/find-advert-grad";
+//        return "advert/list";
 //        return "advert/add-new-advert";
     }
 
     @RequestMapping({"/advert/applicant", "/advert/applicant/list"})
     public String listAdvertsForApplicant(Model model){
         model.addAttribute("adverts", advertService.listAll());
-        return "advert/applicant/list";
+        return "advert/applicant/find-advert-applicant";
     }
 
 
@@ -64,7 +65,12 @@ public class AdvertHandler {
         AdvertForm advertForm = advertToAdvertForm.convert(advert);
 
         model.addAttribute("advertForm", advertForm);
-        return "advert/advertform";
+        return "advert/add-new-advert";
+    }
+
+    @RequestMapping("/advert/add-modify-adverts")
+    public String addModifyAdvert(){
+        return "advert/add-modify-adverts";
     }
 
     @RequestMapping("/advert/new")
@@ -82,7 +88,8 @@ public class AdvertHandler {
 
         Advert savedAdvert = advertService.saveOrUpdateAdvertForm(advertForm);
 
-        return "redirect:/advert/show/" + savedAdvert.getId();
+//        return "redirect:/advert/show/" + savedAdvert.getId();
+        return "redirect:/advert/list";
     }
 
     @RequestMapping("/advert/delete/{id}")

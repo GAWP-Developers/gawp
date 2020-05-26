@@ -17,6 +17,8 @@
           th:href="@{css/spring-core.css}" rel="stylesheet" media="screen"/>
     <link href="../static/css/add-advert.css"
           th:href="@{/css/add-advert.css}" rel="stylesheet" type="text/css"/>
+
+
 </head>
 <body>
     <nav class="navbar navbar-default">
@@ -44,8 +46,11 @@
 
     <div class="container">
         <div class="container-section d-flex align-items-center justify-content-center col-4">
-            <div class="add-new-advert-title">
+            <div class="add-new-advert-title" th:if="*{advertForm.id == null}">
                 <p>Add New Advert</p>
+            </div>
+            <div class="add-new-advert-title" th:unless="*{advertForm.id == null}">
+                <p>Modify Advert</p>
             </div>
 
             <div class="second-container">
@@ -130,15 +135,7 @@
                             </div>
                             <div class="text-area-part">
                                 <label for="about-advert"></label>
-                                <textarea th:field="*{details}" class="about-advert-textarea" placeholder="About Advert ..." rows="10"></textarea>
-                            </div>
-                        </div>
-                        <div class="row requirements-part" style="margin: 0;">
-                            <div class="description-second-part">
-                                <p style="    color: #333;font-weight: 700; font-size: 15px;letter-spacing: 0.2px; margin: 0;">Requirements</p>
-                            </div>
-                            <div class="text-area-part">
-                                <textarea class="requirements-textarea" rows="5"></textarea>
+                                <textarea th:field="*{details}" class="about-advert-textarea" placeholder="About Advert ..." rows="15"></textarea>
                             </div>
                         </div>
 

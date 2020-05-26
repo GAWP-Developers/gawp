@@ -75,7 +75,8 @@ public class ApplicationHandler {
 
     @RequestMapping("/application/show/{id}")
     public String getApplication(@PathVariable String id, Model model){
-        model.addAttribute("Application", applicationService.getById(Long.valueOf(id)));
+        Application application = applicationService.getById(Long.valueOf(id));
+        model.addAttribute("applicationToShow", application);
         return "application/show";
     }
 
