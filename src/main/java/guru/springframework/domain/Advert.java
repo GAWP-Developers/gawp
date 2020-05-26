@@ -10,6 +10,7 @@ public class Advert {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ADVERT_ID")
     private Long id;
+    private String name;
     //TODO @OneToOne(fetch = FetchType.LAZY)
     //     @JoinColumn(name = "GRAD_ID")
     private Long gradID;
@@ -27,6 +28,14 @@ public class Advert {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Long getGradID() {

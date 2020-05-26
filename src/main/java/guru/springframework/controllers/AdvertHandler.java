@@ -33,12 +33,12 @@ public class AdvertHandler {
         this.advertService = advertService;
     }
 
-    @RequestMapping("/")
-    public String redirToList(){
-        return "redirect:/advert/list";
+    @RequestMapping({"/", "/index"})
+    public String redirToIndex(){
+        return "/index";
     }
 
-    @RequestMapping({"/advert/list", "/advert"})
+    @RequestMapping("/advert/list")
     public String listAdverts(Model model){
         model.addAttribute("adverts", advertService.listAll());
         return "advert/grad/find-advert-grad";
@@ -68,7 +68,7 @@ public class AdvertHandler {
         return "advert/add-new-advert";
     }
 
-    @RequestMapping("/advert/add-modify-adverts")
+    @RequestMapping("/advert")
     public String addModifyAdvert(){
         return "advert/add-modify-adverts";
     }
@@ -89,7 +89,7 @@ public class AdvertHandler {
         Advert savedAdvert = advertService.saveOrUpdateAdvertForm(advertForm);
 
 //        return "redirect:/advert/show/" + savedAdvert.getId();
-        return "redirect:/advert/list";
+        return "redirect:/advert";
     }
 
     @RequestMapping("/advert/delete/{id}")

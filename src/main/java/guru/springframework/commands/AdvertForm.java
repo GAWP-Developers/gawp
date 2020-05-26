@@ -13,6 +13,7 @@ import java.util.Date;
  */
 public class AdvertForm {
     private Long id;
+    private String name;
     private Long gradID;
     private Long intInfoID;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -28,6 +29,14 @@ public class AdvertForm {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Long getGradID() {

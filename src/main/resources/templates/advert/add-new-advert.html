@@ -58,17 +58,18 @@
                     <div class="add-advert-description-part">
                         <p>General Information</p>
                     </div>
-                    <div class="row name-of-advert-section" style="margin:0;">
-                        <div class="description-part" style="    color: #333; font-weight: 700; font-size: 15px; letter-spacing: 0.2px;">
-                            <p>Name of Advert</p>
-                        </div>
-                        <div class="text-area-part">
-                            <input class="text-area" type="text"/>
-                        </div>
 
-                    </div>
                     <form class="form-horizontal" th:object="${advertForm}" th:action="@{/advert}" method="post">
                         <input type="hidden" th:field="*{id}"/>
+                        <div class="row name-of-advert-section" style="margin:0;">
+                            <div class="description-part" style="    color: #333; font-weight: 700; font-size: 15px; letter-spacing: 0.2px;">
+                                <p>Name of Advert</p>
+                            </div>
+                            <div class="text-area-part">
+                                <input class="text-area" th:field="*{name}" type="text"/>
+                            </div>
+
+                        </div>
                         <div class="row">
                             <div class="col-md-6 ">
                                 <div class="form-group" th:class="${#fields.hasErrors('deadlineDate')} ? 'form-group has-error' : 'form-group'"></div>
@@ -90,7 +91,7 @@
                                 <label class="col control-label">Responsive Department</label>
                                 <div class="col">
                                     <select type="text" class="form-control" th:field="*{type}">
-                                        <option th:each="role : ${T(guru.springframework.domain.AdvertType).values()}" th:value="${role}" th:text="${role}"></option>
+                                        <option value="something"> </option>
                                     </select>
 
                                     <span class="help-block">

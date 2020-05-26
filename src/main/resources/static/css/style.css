@@ -1,0 +1,152 @@
+@charset "utf-8";
+
+.left, .right{
+	height: 100vh;
+	width: 100%;
+}
+
+
+.left {
+    background-image: url("./images/login-bg.png");
+    background-size: 100%;
+    background-repeat: repeat;
+}
+
+.right {
+	background: #ffffff;
+}
+
+.title{
+    display: flex !important;
+    justify-content: flex-end;
+}
+
+.title .title-part{
+    padding-right: 40px;
+}
+
+.first-header-title{
+    color: #ffffff;
+    font-size: medium;
+    text-shadow: 0px 0px #000000;
+    font-variant: normal;
+    display: flex;
+    float: right;
+    letter-spacing: 0.8px;
+    font-size: 40px;
+    }
+.second-header-title {
+    font-family: "Aeonik Medium";
+    color: #ffffff;
+    font-size: 70px;
+    text-shadow: 4px 0px 20px rgba(12,12,12,0.71);
+    display: flex;
+    float: right;
+    text-align: right;
+    font-weight: bold;
+    }
+.button-part-description{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFFFFF;
+    background: #4E90D4;
+    padding: 10px 20px 10px 20px;
+    border-top-left-radius: 20px; 
+    border-top-right-radius: 20px;
+    font-size: 25px;
+
+}
+
+#login{
+    border-style: solid;
+    border-radius: 10px;
+    border-color: #f2ffff;
+}
+
+.login-button-part{
+    box-shadow: -2px 3px 4px #f7e4e4;
+    border-radius: 20px;
+}
+
+.login-button-part .button-part{
+    padding-top:10px;
+    padding-bottom:20px;
+}
+
+.login-button-part .button-part .btn-facebook {
+    background-color:#3C599A ;
+    color: #ffffff;
+    font-size:20px;
+    border-radius: 10px;
+    padding-right:30px;
+    padding-left:30px;
+    letter-spacing: 0.5px;
+    width: 100%;
+}
+
+.login-button-part .button-part .btn-google{
+    background-color: #DB4C39;
+    font-size: 20px;
+    border-radius: 10px;
+    color:white;
+    padding-right:30px;
+    letter-spacing:0.5px;
+    width: 100%;
+}
+
+
+.facebook-button, .google-button {
+    color: #ffffff;
+    border-radius: 10px;
+    padding: 5px 30px 5px 30px;
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom:20px;
+}
+
+
+.button-part-description{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFFFFF;
+    background: #4E90D4;
+    padding: 10px 20px 10px 20px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+
+
+
+@media screen and (max-width:768px){
+	.left{
+		height: 20vh;
+
+	}
+	.right{
+		height: 80vh;
+		
+	}
+	.graduate{
+    	font-size: 20px;
+	}
+}
+
+@font-face {
+    font-family: 'Aeonik';
+    src: url('fonts/Aenoik-Black.otf');
+    src: url('fonts/Aeonik-BlackItalic.otf');
+    src: url('fonts/Aeonik-Bold.otf');
+    src: url('fonts/Aenoik-BoldItalic.otf');
+    src: url('fonts/Aenoik-Light.otf');
+    src: url('fonts/Aenoik-LightItalic.otf');
+    src: url('fonts/Aenoik-Medium.otf');
+    src: url('fonts/Aenoik-MediumItalic.otf');
+    src: url('fonts/Aenoik-Regular.otf');
+    src: url('fonts/Aenoik-RegularItalic.otf');
+    src: url('fonts/Aenoik-Thin.otf');
+    src: url('fonts/Aenoik-ThinItalic.otf') format('svg');
+    font-weight: 400
+}

@@ -16,6 +16,7 @@ public class AdvertToAdvertForm implements Converter<Advert, AdvertForm> {
         AdvertForm advertForm = new AdvertForm();
 
         advertForm.setId(advert.getId());
+        advertForm.setName(advert.getName());
         advertForm.setGradID(advert.getGradID());
         advertForm.setIntInfoID(advert.getIntInfoID());
         advertForm.setShareDate(advert.getShareDate());

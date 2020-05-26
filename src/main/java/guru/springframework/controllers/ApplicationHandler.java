@@ -3,10 +3,7 @@ package guru.springframework.controllers;
 import guru.springframework.commands.ApplicationForm;
 import guru.springframework.commands.DocumentForm;
 import guru.springframework.converters.ApplicationToApplicationForm;
-import guru.springframework.domain.Advert;
-import guru.springframework.domain.Application;
-import guru.springframework.domain.Document;
-import guru.springframework.domain.DocumentType;
+import guru.springframework.domain.*;
 import guru.springframework.services.AdvertService;
 import guru.springframework.services.ApplicationService;
 import guru.springframework.services.DocumentService;
@@ -102,18 +99,20 @@ public class ApplicationHandler {
 
     @RequestMapping(value = "/application", method = RequestMethod.POST)
     public String saveOrUpdateApplication(@Valid ApplicationForm applicationForm, BindingResult bindingResult,
-                                          @RequestParam("photo") MultipartFile photo)/*,
+                                          @RequestParam("photo") MultipartFile photo,
                                           @RequestParam("transcript") MultipartFile transcript,
                                           @RequestParam("ales") MultipartFile ales,
                                           @RequestParam("referenceLetter") MultipartFile referenceLetter,
                                           @RequestParam("permissionLetter") MultipartFile permissionLetter,
                                           @RequestParam("passport") MultipartFile passport,
-                                          @RequestParam("masterTranscript") MultipartFile masterTranscript)*/ {
+                                          @RequestParam("masterTranscript") MultipartFile masterTranscript) {
         if(bindingResult.hasErrors()){
             return "application/applicationform";
         }
 
+        applicationForm.setStatus(ApplicationStatus.WAITINGFORCONTROL);
         Application savedApplication = applicationService.saveOrUpdateApplicationForm(applicationForm);
+        System.out.println(savedApplication.getStatus());
 
         //  For each file, create corresponding Document entry in the db.
         DocumentForm photoForm = new DocumentForm();
@@ -121,42 +120,42 @@ public class ApplicationHandler {
         photoForm.setApplication(savedApplication);
         photoForm.setPath(storageService.store(photo).toString());
         documentService.saveOrUpdateDocumentForm(photoForm);
-//TODO
-//        DocumentForm transcriptForm = new DocumentForm();
-//        photoForm.setDocType(DocumentType.TRANSCRIPT);
-//        photoForm.setApplication(savedApplication);
-//        photoForm.setPath(storageService.store(transcript).toString());
-//        documentService.saveOrUpdateDocumentForm(transcriptForm);
-//
-//        DocumentForm alesForm = new DocumentForm();
-//        photoForm.setDocType(DocumentType.ALES);
-//        photoForm.setApplication(savedApplication);
-//        photoForm.setPath(storageService.store(ales).toString());
-//        documentService.saveOrUpdateDocumentForm(alesForm);
-//
-//        DocumentForm referenceLetterForm = new DocumentForm();
-//        photoForm.setDocType(DocumentType.REFERENCELETTER);
-//        photoForm.setApplication(savedApplication);
-//        photoForm.setPath(storageService.store(referenceLetter).toString());
-//        documentService.saveOrUpdateDocumentForm(referenceLetterForm);
-//
-//        DocumentForm permissionLetterForm = new DocumentForm();
-//        photoForm.setDocType(DocumentType.PERMISSIONLETTER);
-//        photoForm.setApplication(savedApplication);
-//        photoForm.setPath(storageService.store(permissionLetter).toString());
-//        documentService.saveOrUpdateDocumentForm(permissionLetterForm);
-//
-//        DocumentForm passportForm = new DocumentForm();
-//        photoForm.setDocType(DocumentType.PASSPORT);
-//        photoForm.setApplication(savedApplication);
-//        photoForm.setPath(storageService.store(passport).toString());
-//        documentService.saveOrUpdateDocumentForm(passportForm);
-//
-//        DocumentForm masterTranscriptForm = new DocumentForm();
-//        photoForm.setDocType(DocumentType.MASTERTRANSCRIPT);
-//        photoForm.setApplication(savedApplication);
-//        photoForm.setPath(storageService.store(masterTranscript).toString());
-//        documentService.saveOrUpdateDocumentForm(masterTranscriptForm);
+
+        DocumentForm transcriptForm = new DocumentForm();
+        photoForm.setDocType(DocumentType.TRANSCRIPT);
+        photoForm.setApplication(savedApplication);
+        photoForm.setPath(storageService.store(transcript).toString());
+        documentService.saveOrUpdateDocumentForm(transcriptForm);
+
+        DocumentForm alesForm = new DocumentForm();
+        photoForm.setDocType(DocumentType.ALES);
+        photoForm.setApplication(savedApplication);
+        photoForm.setPath(storageService.store(ales).toString());
+        documentService.saveOrUpdateDocumentForm(alesForm);
+
+        DocumentForm referenceLetterForm = new DocumentForm();
+        photoForm.setDocType(DocumentType.REFERENCELETTER);
+        photoForm.setApplication(savedApplication);
+        photoForm.setPath(storageService.store(referenceLetter).toString());
+        documentService.saveOrUpdateDocumentForm(referenceLetterForm);
+
+        DocumentForm permissionLetterForm = new DocumentForm();
+        photoForm.setDocType(DocumentType.PERMISSIONLETTER);
+        photoForm.setApplication(savedApplication);
+        photoForm.setPath(storageService.store(permissionLetter).toString());
+        documentService.saveOrUpdateDocumentForm(permissionLetterForm);
+
+        DocumentForm passportForm = new DocumentForm();
+        photoForm.setDocType(DocumentType.PASSPORT);
+        photoForm.setApplication(savedApplication);
+        photoForm.setPath(storageService.store(passport).toString());
+        documentService.saveOrUpdateDocumentForm(passportForm);
+
+        DocumentForm masterTranscriptForm = new DocumentForm();
+        photoForm.setDocType(DocumentType.MASTERTRANSCRIPT);
+        photoForm.setApplication(savedApplication);
+        photoForm.setPath(storageService.store(masterTranscript).toString());
+        documentService.saveOrUpdateDocumentForm(masterTranscriptForm);
 
 //        return "redirect:/application/show/" + savedApplication.getId();
         return "redirect:/application/list";
