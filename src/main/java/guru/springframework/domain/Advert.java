@@ -1,22 +1,20 @@
 package guru.springframework.domain;
 
-import jdk.nashorn.internal.objects.annotations.Getter;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
-/**
- * Created by jt on 1/10/17.
- */
+
 @Entity
 public class Advert {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ADVERT_ID")
     private Long id;
+    //TODO @OneToOne(fetch = FetchType.LAZY)
+    //     @JoinColumn(name = "GRAD_ID")
     private Long gradID;
+    //TODO @OneToOne(fetch = FetchType.LAZY)
+    //     @JoinColumn(name = "INT_INFO_ID")
     private Long intInfoID;
     private Date shareDate;
     private Date deadlineDate;
