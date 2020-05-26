@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add New Advert</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>
+
+    <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
+            th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+
+    <link href="../../static/css/spring-core.css"
+          th:href="@{css/spring-core.css}" rel="stylesheet" media="screen"/>
+    <link href="../static/css/add-advert.css"
+          th:href="@{/css/add-advert.css}" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+    <nav class="navbar navbar-default">
+		<div class="container">
+			<div class="navbar-header">
+
+				<a href="#" class="navbar-brand">GAWP - Grad School</a>
+			</div>
+			
+			<ul class="nav navbar-nav navbar-right">
+    <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            <span class="glyphicon glyphicon-menu-hamburger"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Sign Out</a></li>
+        </ul>
+    </li>
+</ul>
+		</div>
+	</nav><!-- end of the navbar-->
+
+
+
+    <div class="container">
+        <div class="container-section d-flex align-items-center justify-content-center col-4">
+            <div class="add-new-advert-title">
+                <p>Add New Advert</p>
+            </div>
+
+            <div class="second-container">
+                <div class="second-container-attributes">
+                    <div class="add-advert-description-part">
+                        <p>General Information</p>
+                    </div>
+                    <div class="row name-of-advert-section" style="margin:0;">
+                        <div class="description-part" style="    color: #333; font-weight: 700; font-size: 15px; letter-spacing: 0.2px;">
+                            <p>Name of Advert</p>
+                        </div>
+                        <div class="text-area-part">
+                            <input class="text-area" type="text"/>
+                        </div>
+
+                    </div>
+                    <form class="form-horizontal" th:object="${advertForm}" th:action="@{/advert}" method="post">
+                        <input type="hidden" th:field="*{id}"/>
+                        <div class="row">
+                            <div class="col-md-6 ">
+                                <div class="form-group" th:class="${#fields.hasErrors('deadlineDate')} ? 'form-group has-error' : 'form-group'"></div>
+                                <label class="col control-label">Type of Advert</label>
+                                <div class="col">
+                                    <select type="text" class="form-control" th:field="*{type}">
+                                        <option th:each="role : ${T(guru.springframework.domain.AdvertType).values()}" th:value="${role}" th:text="${role}"></option>
+                                    </select>
+
+                                    <span class="help-block">
+                                    <ul>
+                                        <li th:each="err : ${#fields.errors('type')}" th:text="${err}" />
+                                    </ul>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group" th:class="${#fields.hasErrors('deadlineDate')} ? 'form-group has-error' : 'form-group'"></div>
+                                <label class="col control-label">Responsive Department</label>
+                                <div class="col">
+                                    <select type="text" class="form-control" th:field="*{type}">
+                                        <option th:each="role : ${T(guru.springframework.domain.AdvertType).values()}" th:value="${role}" th:text="${role}"></option>
+                                    </select>
+
+                                    <span class="help-block">
+                                    <ul>
+                                        <li th:each="err : ${#fields.errors('type')}" th:text="${err}" />
+                                    </ul>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 ">
+                                <div class="form-group" th:class="${#fields.hasErrors('deadlineDate')} ? 'form-group has-error' : 'form-group'"></div>
+                                <label class="col control-label">Share Date of Advert</label>
+                                <div class="col">
+                                    <input type="date" class="form-control" th:field="*{shareDate}" th:errorclass="has-error"/>
+                                    <span class="help-block">
+                                    <ul>
+                                        <li th:each="err : ${#fields.errors('type')}" th:text="${err}" />
+                                    </ul>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group" th:class="${#fields.hasErrors('deadlineDate')} ? 'form-group has-error' : 'form-group'"></div>
+                                <label class="col control-label">Deadline Date</label>
+                                <div class="col">
+                                    <input type="date" class="form-control" th:field="*{deadlineDate}" th:errorclass="has-error"/>
+                                    <span class="help-block">
+                                    <ul>
+                                        <li th:each="err : ${#fields.errors('type')}" th:text="${err}" />
+                                    </ul>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row about-advert-part" style="margin: 0;">
+                            <div class="description-part">
+                                <p style="margin: 0;     color: #333; font-weight: 700; font-size: 15px; letter-spacing: 0.2px;">About Advert</p>
+                            </div>
+                            <div class="text-area-part">
+                                <label for="about-advert"></label>
+                                <textarea th:field="*{details}" class="about-advert-textarea" placeholder="About Advert ..." rows="10"></textarea>
+                            </div>
+                        </div>
+                        <div class="row requirements-part" style="margin: 0;">
+                            <div class="description-second-part">
+                                <p style="    color: #333;font-weight: 700; font-size: 15px;letter-spacing: 0.2px; margin: 0;">Requirements</p>
+                            </div>
+                            <div class="text-area-part">
+                                <textarea class="requirements-textarea" rows="5"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="row button-part">
+                            <button type="submit" class="btn btn-default cancel">Cancel</button>
+                            <button type="submit" class="btn btn-default share">Share</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+
+
+
+</body>
+</html>

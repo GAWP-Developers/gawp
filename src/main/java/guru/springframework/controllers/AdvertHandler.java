@@ -42,6 +42,7 @@ public class AdvertHandler {
     public String listAdverts(Model model){
         model.addAttribute("adverts", advertService.listAll());
         return "advert/list";
+//        return "advert/add-new-advert";
     }
 
     @RequestMapping({"/advert/applicant", "/advert/applicant/list"})
@@ -69,7 +70,8 @@ public class AdvertHandler {
     @RequestMapping("/advert/new")
     public String newAdvert(Model model){
         model.addAttribute("advertForm", new AdvertForm());
-        return "advert/advertform";
+//        return "advert/advertform";
+        return "advert/add-new-advert";
     }
 
     @RequestMapping(value = "/advert", method = RequestMethod.POST)

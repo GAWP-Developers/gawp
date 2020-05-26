@@ -16,18 +16,20 @@
 </head>
 <body>
 <div class="container">
-    <div th:if="${not #lists.isEmpty(application)}">
+    <div th:if="${not #lists.isEmpty(applications)}">
         <h2>application List</h2>
         <table class="table table-striped">
             <tr>
                 <th>Id</th>
                 <th>Application Degree</th>
+                <th>Form Document Id</th>
                 <th>Status</th>
             </tr>
-            <tr th:each="application : ${applications}">
-                <td th:text="${application.id}"></td>
-                <td th:text="${application.applicationDegree}"></td>
-                <td th:text="${application.status}"></td>
+            <tr th:each="element : ${applications}">
+                <td th:text="${element.id}"></td>
+                <td th:text="${element.applicationDegree}"></td>
+                <td th:text="${element.documents.get(0).id}"></td>
+                <td th:text="${element.status}"></td>
             </tr>
         </table>
     </div>
