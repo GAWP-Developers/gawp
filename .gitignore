@@ -18,4 +18,8 @@ target
 *.iml
 
 Wallet_DB202005251321
-upload-dir
+# exclude everything
+upload-dir/*
+
+# exception to the rule
+!upload-dir/.gitkeep
