@@ -34,7 +34,11 @@ public class AdvertServiceImpl implements AdvertService {
 
     @Override
     public Advert getById(Long id) {
-        return advertRepository.findOne(id);
+        if (advertRepository.findById(id).isPresent()) {
+            return advertRepository.findById(id).get();
+        }
+        else
+            return null;
     }
 
     @Override
@@ -45,7 +49,7 @@ public class AdvertServiceImpl implements AdvertService {
 
     @Override
     public void delete(Long id) {
-        advertRepository.delete(id);
+        advertRepository.deleteById(id);
 
     }
 

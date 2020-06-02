@@ -33,7 +33,11 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     @Override
     public Application getById(Long id) {
-        return applicationRepository.findOne(id);
+        if (applicationRepository.findById(id).isPresent()) {
+            return applicationRepository.findById(id).get();
+        } else {
+            return null;
+        }
     }
 
     @Override
@@ -44,7 +48,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     @Override
     public void delete(Long id) {
-        applicationRepository.delete(id);
+        applicationRepository.deleteById(id);
 
     }
 

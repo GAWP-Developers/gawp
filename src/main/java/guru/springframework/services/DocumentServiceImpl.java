@@ -36,7 +36,11 @@ public class DocumentServiceImpl implements DocumentService {
 
     @Override
     public Document getById(Long id) {
-        return documentRepository.findOne(id);
+        if (documentRepository.findById(id).isPresent()) {
+            return documentRepository.findById(id).get();
+        } else {
+            return null;
+        }
     }
 
     @Override
@@ -47,7 +51,7 @@ public class DocumentServiceImpl implements DocumentService {
 
     @Override
     public void delete(Long id) {
-        documentRepository.delete(id);
+        documentRepository.deleteById(id);
 
     }
 
