@@ -8,9 +8,16 @@ spring:
             client-secret: 83f5kcj3jUU3p3vycforgUaS
             scope: profile
   datasource:
-    url: jdbc:oracle:thin:@//localhost:1521/orcl
-    username: system
-    password: oracle
+#    Settings To Run on Oracle VM database
+#    url: jdbc:oracle:thin:@//localhost:1521/orcl
+#    username: system
+#    password: oracle
+
+#    Settings T Run on Locally Stored Database
+    url: jdbc:h2:file:./data/demo_db;AUTO_SERVER=TRUE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
 
   jpa:
     show-sql: true
@@ -22,7 +29,10 @@ spring:
 
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.Oracle10gDialect
+#        Setting To Run on Oracle VM Database
+#        dialect: org.hibernate.dialect.Oracle10gDialect
+#        Setting To Run on Locally Stored Database
+        dialect: org.hibernate.dialect.H2Dialect
   servlet:
     multipart:
       max-file-size: 15MB

@@ -9,7 +9,6 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 
 @Configuration
 @EnableWebSecurity
-@EnableOAuth2Client
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
