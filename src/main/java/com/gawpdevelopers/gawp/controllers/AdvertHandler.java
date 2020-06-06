@@ -1,5 +1,6 @@
 package com.gawpdevelopers.gawp.controllers;
 
+<<<<<<< HEAD:src/main/java/com/gawpdevelopers/gawp/controllers/AdvertHandler.java
 import com.gawpdevelopers.gawp.services.AdvertService;
 import com.gawpdevelopers.gawp.commands.AdvertForm;
 import com.gawpdevelopers.gawp.converters.AdvertToAdvertForm;
@@ -24,6 +25,9 @@ public class AdvertHandler {
     private AdvertToAdvertForm advertToAdvertForm;
 
     @Autowired
+    private MailSender emailService;
+
+    @Autowired
     public void setAdvertToAdvertForm(AdvertToAdvertForm advertToadvertForm) {
         this.advertToAdvertForm = advertToadvertForm;
     }
@@ -38,7 +42,24 @@ public class AdvertHandler {
         return "/index";
     }
 
+<<<<<<< HEAD:src/main/java/com/gawpdevelopers/gawp/controllers/AdvertHandler.java
     @RequestMapping("/grad/advert/list")
+=======
+
+    //Mail yollamaca brom
+    @RequestMapping({"/sendmail"})
+    public String sendmail(){
+        Mail mail = new Mail();
+        mail.setFrom("noreply@gawp.com");
+        mail.setTo("sebahattinyavuzkurt@std.iyte.edu.tr");
+        mail.setSubject("Size Spring ilen Salamlar getirmişem");
+        mail.setContent("Azerbaycandan gucak dolusu salamlar");
+        emailService.sendSimpleMessage(mail);
+        return "index";
+    }
+
+    @RequestMapping("/advert/list")
+>>>>>>> caner_login:src/main/java/guru/springframework/controllers/AdvertHandler.java
     public String listAdverts(Model model){
         model.addAttribute("adverts", advertService.listAll());
         return "grad/find-advert-grad";
