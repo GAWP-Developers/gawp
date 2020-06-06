@@ -3,7 +3,9 @@ package guru.springframework.controllers;
 import guru.springframework.commands.AdvertForm;
 import guru.springframework.converters.AdvertToAdvertForm;
 import guru.springframework.domain.Advert;
+import guru.springframework.domain.Mail;
 import guru.springframework.services.AdvertService;
+import guru.springframework.services.MailSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +26,9 @@ public class AdvertHandler {
     private AdvertToAdvertForm advertToAdvertForm;
 
     @Autowired
+    private MailSender emailService;
+
+    @Autowired
     public void setAdvertToAdvertForm(AdvertToAdvertForm advertToadvertForm) {
         this.advertToAdvertForm = advertToadvertForm;
     }
@@ -33,9 +38,24 @@ public class AdvertHandler {
         this.advertService = advertService;
     }
 
+
+
     @RequestMapping({"/", "/index"})
     public String redirToIndex(){
         return "/index";
+    }
+
+
+    //Mail yollamaca brom
+    @RequestMapping({"/sendmail"})
+    public String sendmail(){
+        Mail mail = new Mail();
+        mail.setFrom("noreply@gawp.com");
+        mail.setTo("sebahattinyavuzkurt@std.iyte.edu.tr");
+        mail.setSubject("Size Spring ilen Salamlar getirmişem");
+        mail.setContent("Azerbaycandan gucak dolusu salamlar");
+        emailService.sendSimpleMessage(mail);
+        return "index";
     }
 
     @RequestMapping("/advert/list")

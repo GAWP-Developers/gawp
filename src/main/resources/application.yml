@@ -7,6 +7,30 @@ spring:
             client-id: 986548165541-jp3t55f30sfek5unmtp0rpddeq10qeh2.apps.googleusercontent.com
             client-secret: 83f5kcj3jUU3p3vycforgUaS
             scope: profile
+          facebook:
+            client-id: 572634080113010
+            client-secret: 0c237063889028c4212b4632fa167078
+
+  mail:
+    default-encoding: UTF-8
+    host: smtp.gmail.com
+    username: group10.gawp@gmail.com
+    password: projeseysi10
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+    protocol: smtp
+    test-connection: false
+
+
+
+
+
+
   datasource:
 #    Settings To Run on Oracle VM database
 #    url: jdbc:oracle:thin:@//localhost:1521/orcl
