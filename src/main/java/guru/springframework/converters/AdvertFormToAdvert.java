@@ -6,9 +6,6 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-/**
- * Created by jt on 1/10/17.
- */
 @Component
 public class AdvertFormToAdvert implements Converter<AdvertForm, Advert> {
 

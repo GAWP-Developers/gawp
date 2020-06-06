@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Add New Advert</title>
+    <title>Find Right Advert</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
     <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
@@ -15,8 +15,8 @@
 
     <link href="../../static/css/spring-core.css"
           th:href="@{css/spring-core.css}" rel="stylesheet" media="screen"/>
-    <link href="../static/css/add-modify-adverts.css"
-          th:href="@{/css/add-modify-adverts.css}" rel="stylesheet" type="text/css"/>
+    <link href="../../static/css/find-advert-grad.css"
+          th:href="@{/static/css/find-advert-grad.css}" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"/>
 </head>
 <body>
@@ -41,43 +41,45 @@
 		</div>
 	</nav><!-- end of the navbar-->
 
-    <div class="container">
+
+
+<div class="section">
+    <div th:if="${not #lists.isEmpty(adverts)}">
+        <p class="main-title">Find Right Advert</p>
+		
+		
+
+    <div class="container"  th:each="advert : ${adverts}" style="margin-bottom: 10px; ">
         <div class="container-section d-flex align-items-center justify-content-center col-4">
-            <div class="home-button-section">
-                <a href="#">
-                    <div class="home-button">
-                        <button class="btn btn-home"><i class="fas fa-chevron-left" style="padding-right: 10px;"></i>Home</button>
-                    </div>
-                </a>
-            </div>
-            <div class="container-second-section">
-                <div class="container-second-part">
-                    <div class="second-part-description-section">
-                        <p>Add New Advert or Modify Adverts</p>
-                    </div>
+            <div class="find-right-advert-section" style="box-sizing: border-box; border: solid 1px #383232; padding: 20px 30px 20px 30px;border-radius: 30px;box-shadow: -2px 3px 4px #f7e4e4; ">
 
-                    <div class="row button-part-section">
-                        <a href="/advert/new">
-                            <div class="col-md-6 add-new-advert-button">
-                                <button type="submit" class="btn btn-default add-new-advert" style="width: 100%; border: solid 2px #db6961; border-radius: 15px; font-size: 15px; color: #707070; letter-spacing: 0.2px;">Add New Advert</button>
-                            </div>
+                <div class="row">
+                    <div class="col-md-3 col-lg-3 job-attribute-part">
+                        <p th:text="${advert.type + ' in ' + advert.name}"></p>
+                    </div>
+                    <div class="col-md-3 col-lg-3 date-attribute-part">
+                        <p th:text="${#dates.format(advert.deadlineDate, 'dd-MM-yyyy')}"></p>
+                    </div>
+                    <div class="col-md-3 col-lg-3 button-part" >
+                        <a th:href="${'/advert/show/' + advert.id}">
+                            <button type="submit" class="btn btn-default see-details" >See Details</button>
                         </a>
-
-                        <a href="/advert/list">
-                            <div class="col-md-6 modify-adverts-button">
-                                <button type="submit" class="btn btn-default modify-adverts" style="width: 100%; border: solid 2px #db6961; border-radius: 15px; font-size: 15px; color: #707070; letter-spacing: 0.2px;">Modify Adverts</button>
-                            </div>
-                        </a>
-
                     </div>
-
-
+					<div class="col-md-3 col-lg-3 button-part-second" > 
+                        <a th:href="${'/advert/edit/' + advert.id}">
+                            <button type="submit"  class="btn btn-default apply" >Modify</button>
+                        </a>
+                    </div>
                 </div>
-
             </div>
-        
-        </div> 
+        </div>
     </div>
-</body>
 
+</div>
+
+</div>
+
+
+
+</body>
 </html>
