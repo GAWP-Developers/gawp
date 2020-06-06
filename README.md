@@ -1,6 +1,6 @@
 # GAWP
-
-* To run this project you will need to download and install the Oracle JDBC driver ojdbc7.jar from https://www.oracle.com/database/technologies/jdbc-drivers-12c-downloads.html.
-* To install, move the ojdbc7.jar to the project folder. Then, open a cmd/terminal in the project folder and paste `mvn install:install-file -Dfile=ojdbc7.jar -DgroupId=com.oracle -DartifactId=ojdbc7 -Dversion=12.1.0.1 -Dpackaging=jar`
-* You also need a running oracle database. I recommend setting up in a virtualbox. Download the ovm file from here: https://www.oracle.com/database/technologies/databaseappdev-vm.html
+* You no longer need a running oracle database. Project is set up to work on a local db that is stored in the data file.
+* If you want to use the oracle VM machine, after you install it (see the following lines) comment the h2db lines in the src/main/resources/application.yml and uncomment the oracle db lines in the same file. I have shown which lines are h2db lines and which lines are oracledb lines in the .yml file.
+To install oracle db to the virtualbox;
+* Download the ovm file from here: https://www.oracle.com/database/technologies/databaseappdev-vm.html
 * After the download, click to file -> import appliance in the virtualbox to set up the oracle database.

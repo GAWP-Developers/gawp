@@ -22,7 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 
 /**
- * Created by jt on 1/10/17.
+ * Controller class that responds to the /application/* requests.
  */
 @Controller
 public class ApplicationHandler {

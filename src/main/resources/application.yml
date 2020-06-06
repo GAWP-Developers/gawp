@@ -1,0 +1,42 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          facebook:
+            client-id: 1358295744379741
+            client-secret: 588466acc1613f956f992c51a3065a27
+          google:
+            client-id: 986548165541-jp3t55f30sfek5unmtp0rpddeq10qeh2.apps.googleusercontent.com
+            client-secret: 83f5kcj3jUU3p3vycforgUaS
+            scope: profile
+  datasource:
+#    Settings To Run on Oracle VM database
+#    url: jdbc:oracle:thin:@//localhost:1521/orcl
+#    username: system
+#    password: oracle
+
+#    Settings To Run on Locally Stored Database
+    url: jdbc:h2:file:./data/demo_db;AUTO_SERVER=TRUE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyHbmImpl
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+
+    properties:
+      hibernate:
+#        Setting To Run on Oracle VM Database
+#        dialect: org.hibernate.dialect.Oracle10gDialect
+#        Setting To Run on Locally Stored Database
+        dialect: org.hibernate.dialect.H2Dialect
+  servlet:
+    multipart:
+      max-file-size: 15MB
+      max-request-size: 15MB

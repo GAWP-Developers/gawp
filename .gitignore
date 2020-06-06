@@ -20,6 +20,8 @@ target
 Wallet_DB202005251321
 # exclude everything
 upload-dir/*
+data/*
 
 # exception to the rule
 !upload-dir/.gitkeep
+!data/.gitkeep

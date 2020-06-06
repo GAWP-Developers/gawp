@@ -9,7 +9,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.util.Date;
 
 /**
- * Created by jt on 1/10/17.
+ * Used to send to the html file for the user to form.
+ * It is get from the post request sent by the user to html form.
  */
 public class AdvertForm {
     private Long id;

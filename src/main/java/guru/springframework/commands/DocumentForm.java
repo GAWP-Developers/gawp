@@ -3,7 +3,10 @@ package guru.springframework.commands;
 import guru.springframework.domain.Application;
 import guru.springframework.domain.DocumentType;
 
-
+/**
+ * Used to send to the html file for the user to form.
+ * It is get from the post request sent by the user to html form.
+ */
 public class DocumentForm {
     private Long id;
     private DocumentType docType;

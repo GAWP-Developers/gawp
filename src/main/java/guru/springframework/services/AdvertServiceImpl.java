@@ -10,9 +10,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by jt on 1/10/17.
- */
 @Service
 public class AdvertServiceImpl implements AdvertService {
 
@@ -34,7 +31,11 @@ public class AdvertServiceImpl implements AdvertService {
 
     @Override
     public Advert getById(Long id) {
-        return advertRepository.findOne(id);
+        if (advertRepository.findById(id).isPresent()) {
+            return advertRepository.findById(id).get();
+        }
+        else
+            return null;
     }
 
     @Override
@@ -45,7 +46,7 @@ public class AdvertServiceImpl implements AdvertService {
 
     @Override
     public void delete(Long id) {
-        advertRepository.delete(id);
+        advertRepository.deleteById(id);
 
     }
 

@@ -7,6 +7,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Used to send to the html file for the user to form.
+ * It is get from the post request sent by the user to html form.
+ */
 public class ApplicationForm {
     private Long id;
     private Advert advert;  // Advert ID - Will be Set Later
