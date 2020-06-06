@@ -38,26 +38,26 @@ public class AdvertHandler {
         return "/index";
     }
 
-    @RequestMapping("/advert/list")
+    @RequestMapping("/grad/advert/list")
     public String listAdverts(Model model){
         model.addAttribute("adverts", advertService.listAll());
-        return "gradschool/find-advert-grad";
+        return "grad/find-advert-grad";
     }
 
-    @RequestMapping({"/advert/applicant", "/advert/applicant/list"})
+    @RequestMapping({"/applicant/advert/", "/applicant/advert/list"})
     public String listAdvertsForApplicant(Model model){
         model.addAttribute("adverts", advertService.listAll());
         return "applicant/find-advert-applicant";
     }
 
 
-    @RequestMapping("/advert/show/{id}")
+    @RequestMapping({"/applicant/advert/show/{id}", "/grad/advert/show/{id}"})
     public String getAdvert(@PathVariable String id, Model model){
         model.addAttribute("advert", advertService.getById(Long.valueOf(id)));
         return "advert/show";
     }
 
-    @RequestMapping("advert/edit/{id}")
+    @RequestMapping("/grad/advert/edit/{id}")
     public String edit(@PathVariable String id, Model model){
         Advert advert = advertService.getById(Long.valueOf(id));
         AdvertForm advertForm = advertToAdvertForm.convert(advert);
@@ -66,16 +66,16 @@ public class AdvertHandler {
         return "gradschool/add-new-advert";
     }
 
-    @RequestMapping("/advert")
+    @RequestMapping("/grad/advert")
     public String addModifyAdvert(){
-            return "advert/add-modify-adverts";
+            return "grad/add-modify-adverts";
     }
 
-    @RequestMapping("/advert/new")
+    @RequestMapping("/grad/advert/new")
     public String newAdvert(Model model){
         model.addAttribute("advertForm", new AdvertForm());
 //        return "advert/advertform";
-        return "gradschool/add-new-advert";
+        return "grad/add-new-advert";
     }
 
     @RequestMapping(value = "/advert", method = RequestMethod.POST)
@@ -86,13 +86,12 @@ public class AdvertHandler {
 
         Advert savedAdvert = advertService.saveOrUpdateAdvertForm(advertForm);
 
-//        return "redirect:/advert/show/" + savedAdvert.getId();
-        return "redirect:/advert";
+        return "redirect:/grad/find-advert-grad";
     }
 
-    @RequestMapping("/advert/delete/{id}")
+    @RequestMapping("/grad/advert/delete/{id}")
     public String delete(@PathVariable String id){
         advertService.delete(Long.valueOf(id));
-        return "redirect:/advert/list";
+        return "redirect:/grad/find-advert-grad";
     }
 }
