@@ -1,4 +1,4 @@
-package guru.springframework.domain;
+package com.gawpdevelopers.gawp.domain;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

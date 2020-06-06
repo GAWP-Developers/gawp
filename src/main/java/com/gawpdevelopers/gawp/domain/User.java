@@ -1,9 +1,9 @@
-package guru.springframework.domain;
+package com.gawpdevelopers.gawp.domain;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "UserInfo")
+@Table(name = "User_Info")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

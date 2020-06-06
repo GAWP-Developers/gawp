@@ -1,10 +1,10 @@
 package com.gawpdevelopers.gawp.controllers;
-
-<<<<<<< HEAD:src/main/java/com/gawpdevelopers/gawp/controllers/AdvertHandler.java
+import com.gawpdevelopers.gawp.domain.Mail;
 import com.gawpdevelopers.gawp.services.AdvertService;
 import com.gawpdevelopers.gawp.commands.AdvertForm;
 import com.gawpdevelopers.gawp.converters.AdvertToAdvertForm;
 import com.gawpdevelopers.gawp.domain.Advert;
+import com.gawpdevelopers.gawp.services.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,11 +25,15 @@ public class AdvertHandler {
     private AdvertToAdvertForm advertToAdvertForm;
 
     @Autowired
-    private MailSender emailService;
+    private MailService emailService;
 
     @Autowired
     public void setAdvertToAdvertForm(AdvertToAdvertForm advertToadvertForm) {
         this.advertToAdvertForm = advertToadvertForm;
+    }
+
+    public void setEmailService(MailService emailService){
+        this.emailService = emailService;
     }
 
     @Autowired
@@ -41,10 +45,6 @@ public class AdvertHandler {
     public String redirToIndex(){
         return "/index";
     }
-
-<<<<<<< HEAD:src/main/java/com/gawpdevelopers/gawp/controllers/AdvertHandler.java
-    @RequestMapping("/grad/advert/list")
-=======
 
     //Mail yollamaca brom
     @RequestMapping({"/sendmail"})
@@ -58,8 +58,7 @@ public class AdvertHandler {
         return "index";
     }
 
-    @RequestMapping("/advert/list")
->>>>>>> caner_login:src/main/java/guru/springframework/controllers/AdvertHandler.java
+    @RequestMapping("/grad/advert/list")
     public String listAdverts(Model model){
         model.addAttribute("adverts", advertService.listAll());
         return "grad/find-advert-grad";
@@ -84,7 +83,7 @@ public class AdvertHandler {
         AdvertForm advertForm = advertToAdvertForm.convert(advert);
 
         model.addAttribute("advertForm", advertForm);
-        return "gradschool/add-new-advert";
+        return "grad/add-new-advert";
     }
 
     @RequestMapping("/grad/advert")
@@ -107,12 +106,12 @@ public class AdvertHandler {
 
         Advert savedAdvert = advertService.saveOrUpdateAdvertForm(advertForm);
 
-        return "redirect:/grad/find-advert-grad";
+        return "redirect:/grad/advert";
     }
 
     @RequestMapping("/grad/advert/delete/{id}")
     public String delete(@PathVariable String id){
         advertService.delete(Long.valueOf(id));
-        return "redirect:/grad/find-advert-grad";
+        return "redirect:/grad/advert";
     }
 }

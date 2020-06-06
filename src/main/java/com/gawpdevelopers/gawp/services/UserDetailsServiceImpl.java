@@ -1,8 +1,8 @@
-package guru.springframework.services;
+package com.gawpdevelopers.gawp.services;
 
-import guru.springframework.domain.UserDetailsImpl;
-import guru.springframework.domain.User;
-import guru.springframework.repositories.UserRepository;
+import com.gawpdevelopers.gawp.domain.User;
+import com.gawpdevelopers.gawp.domain.UserDetailsImpl;
+import com.gawpdevelopers.gawp.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

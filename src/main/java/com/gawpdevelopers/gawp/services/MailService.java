@@ -1,13 +1,13 @@
-package guru.springframework.services;
+package com.gawpdevelopers.gawp.services;
 
-import guru.springframework.domain.Mail;
+import com.gawpdevelopers.gawp.domain.Mail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MailSender {
+public class MailService {
 
     @Autowired
     private JavaMailSender emailSender;

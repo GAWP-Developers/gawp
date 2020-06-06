@@ -1,6 +1,7 @@
-package guru.springframework.repositories;
+package com.gawpdevelopers.gawp.repositories;
 
-import guru.springframework.domain.User;
+
+import com.gawpdevelopers.gawp.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

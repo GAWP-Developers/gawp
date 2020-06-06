@@ -7,7 +7,6 @@ import com.gawpdevelopers.gawp.services.AdvertService;
 import com.gawpdevelopers.gawp.commands.ApplicationForm;
 import com.gawpdevelopers.gawp.commands.DocumentForm;
 import com.gawpdevelopers.gawp.converters.ApplicationToApplicationForm;
-import guru.springframework.domain.*;
 import com.gawpdevelopers.gawp.services.ApplicationService;
 import com.gawpdevelopers.gawp.services.DocumentService;
 import com.gawpdevelopers.gawp.services.StorageService;

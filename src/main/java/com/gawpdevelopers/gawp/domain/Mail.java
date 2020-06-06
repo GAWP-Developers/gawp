@@ -1,4 +1,4 @@
-package guru.springframework.domain;
+package com.gawpdevelopers.gawp.domain;
 
 public class Mail {
 
