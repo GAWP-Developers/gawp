@@ -36,8 +36,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/advert/applicant/**").hasRole("USER")
                 .antMatchers("/user","/application/**","/advert/show/**").hasAnyRole("ADMIN", "USER")
                 .antMatchers("/").permitAll()
-                .and().formLogin()
-                .and().oauth2Login();
+                .and().formLogin().loginPage("/persLogin").defaultSuccessUrl("/grad/add-modify-adverts")
+                .and().oauth2Login().defaultSuccessUrl("/application").loginPage("/login/oauth2").authorizationEndpoint()
+       			.baseUri("/login/oauth2/authorization");
     }
 
     @Bean

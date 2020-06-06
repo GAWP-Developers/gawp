@@ -41,10 +41,10 @@ public class AdvertHandler {
         this.advertService = advertService;
     }
 
-    @RequestMapping({"/", "/index"})
-    public String redirToIndex(){
-        return "/index";
-    }
+//    @RequestMapping({"/", "/index"})
+//    public String redirToIndex(){
+//        return "/index";
+//    }
 
     //Mail yollamaca brom
     @RequestMapping({"/sendmail"})
