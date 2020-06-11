@@ -23,10 +23,10 @@ public class LoginHandler {
   public String login(){
       return "login";
   }
-  @RequestMapping({"/login"})
-  public String login2(){
-      return "securedPage";
-  }
+  //@RequestMapping({"/login"})
+  //public String login2(){
+    //  return "securedPage";
+ // }
   @RequestMapping({"/securedPage"})
   public String login(Model model,  
           @RegisteredOAuth2AuthorizedClient OAuth2AuthorizedClient authorizedClient,  
@@ -36,20 +36,31 @@ public class LoginHandler {
 		model.addAttribute("userAttributes", oauth2User.getAttributes());  
 		return "securedPage";  
 }
+    @RequestMapping({"/login"})
+    public String whoisit(){
+        return "whoisit";
+    }
   
   @RequestMapping("/login-error")  
   public String loginError(Model model) {  
       model.addAttribute("loginError", true);  
       return "index";  
   }
-  @RequestMapping(value="/persLogin",method=RequestMethod.GET)
-  public String perIndex(Model model){
-	  model.addAttribute("userForm", new User());
-      return "persLogin";
+
+  @RequestMapping("/gradLogin")
+  public String perIndex(){
+
+      return "/persLogin";
   }
-  @RequestMapping(value="/persLogin",method=RequestMethod.POST)
-  public String perIndex(@ModelAttribute("userForm") User userForm){
-	  System.out.println("name "+userForm.getUserName());
-      return "advert";
-  }
+    @RequestMapping(value="/persLogin",method=RequestMethod.GET)
+    public String perIndex(Model model){
+        model.addAttribute("userForm", new User());
+        return "persLogin";
+    }
+    @RequestMapping(value="/persLogin",method=RequestMethod.POST)
+    public String perIndex(@ModelAttribute("userForm") User userForm){
+        System.out.println("name "+userForm.getUserName());
+        return "redirect:/grad/advert";
+    }
+
 }

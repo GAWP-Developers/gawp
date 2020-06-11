@@ -31,13 +31,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .antMatcher("/**").authorizeRequests()
-                .antMatchers("/advert/edit/**").hasRole("GRAD")
-                .antMatchers("/admin", "/advert","/advert/list","/advert/new/**","/advert/delete/**").hasRole("ADMIN")
-                .antMatchers("/advert/applicant/**").hasRole("USER")
+                .antMatchers("/grad/advert/edit/**").hasRole("GRAD")
+                .antMatchers("/admin", "/grad/advert","/grad/advert/list","/grad/advert/new/**","/grad/advert/delete/**").hasRole("ADMIN")
+                .antMatchers("/grad/advert/applicant/**").hasRole("USER")
                 .antMatchers("/user","/application/**","/advert/show/**").hasAnyRole("ADMIN", "USER")
                 .antMatchers("/").permitAll()
-                .and().formLogin().loginPage("/persLogin").defaultSuccessUrl("/grad/add-modify-adverts")
-                .and().oauth2Login().defaultSuccessUrl("/application").loginPage("/login/oauth2").authorizationEndpoint()
+                .and().formLogin().loginPage("/gradLogin").usernameParameter("username").passwordParameter("password").permitAll()
+                .loginProcessingUrl("/persLogin")
+                .successForwardUrl("/grad/advert")
+                .and().oauth2Login().defaultSuccessUrl("/applicant/advert/").loginPage("/login/oauth2").authorizationEndpoint()
        			.baseUri("/login/oauth2/authorization");
     }
 

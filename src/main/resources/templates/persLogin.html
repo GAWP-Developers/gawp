@@ -1,61 +1,68 @@
 
+
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:tiles="http://www.w3.org/1999/xhtml">
 <head>
-<meta charset="utf-8"/>
-<title>GAWP - Login Page</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
-<link href="../static/css/style.css"
-	  th:href="@{/css/style.css}" rel="stylesheet" type="text/css"/>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"/>
+	<meta charset="utf-8"/>
+	<title>GAWP - Login Page</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+	<link href="../static/css/style.css"
+		  th:href="@{/css/style.css}" rel="stylesheet" type="text/css"/>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"/>
 </head>
 
 <body>
-	
-	<div class="row no-gutters">
-		<div class="col-md-7 no-gutters">
-			<div class="left d-flex justify-content-center align-items-center">
-				<div class="title">
-					<div class="title-part col-md-4">
-						<div class="first-header-title">
-							<p style="margin:0">Welcome to</p>
-						</div>
-						
-						<div class="second-header-title" >
-							<p style="margin: 0;">Graduate Application Program</p>
-						</div>
+
+<div class="row no-gutters">
+	<div class="col-md-7 no-gutters">
+		<div class="left d-flex justify-content-center align-items-center">
+			<div class="title">
+				<div class="title-part col-md-4">
+					<div class="first-header-title">
+						<p style="margin:0">Welcome to</p>
+					</div>
+
+					<div class="second-header-title" >
+						<p style="margin: 0;">Graduate Application Program</p>
 					</div>
 				</div>
 			</div>
 		</div>
-		
-		<div class="col-md-5 no-gutters">
-		  <div class="right d-flex justify-content-center align-items-center">
-            <section id="login">
-				    <div tiles:fragment="content">
-			        <form th:action="@{/persLogin}" form method="POST" modelAttribute="userForm" class="form-signin">               
-			            <fieldset>
-			                <legend>Please Login</legend>
-			                <div th:if="${param.error}" class="alert alert-error">    
-			                    Invalid username and password.
-			                </div>
-			                <div th:if="${param.logout}" class="alert alert-success"> 
-			                    You have been logged out.
-			                </div>
-			                <label for="username">Username</label>
-			                <input type="text" id="username" name="username"/>        
-			                <label for="password">Password</label>
-			                <input type="password" id="password" name="password"/>    
-			                <div class="form-actions">
-			                    <button type="submit" class="btn">Log in</button>
-			                </div>
-			            </fieldset>
-			        </form>
-			    </div>
-			  </section>
-          </div>
-			
-        </div>
 	</div>
+
+	<div class="col-md-5 no-gutters">
+		<div class="right d-flex justify-content-center align-items-center">
+			<section id="login">
+				<div class="login-button-part">
+					<div class="button-part-description">
+						<p style="margin: 0;">Grad/Department Login</p>
+					</div>
+
+					<div tiles:fragment="content">
+						<form th:action="@{/persLogin}" form method="POST" modelAttribute="userForm" class="form-signin">
+							<fieldset>
+								<legend>Please Login</legend>
+								<div th:if="${param.error}" class="alert alert-error">
+									Invalid username and password.
+								</div>
+								<div th:if="${param.logout}" class="alert alert-success">
+									You have been logged out.
+								</div>
+								<label for="username">Username</label>
+								<input type="text" id="username" name="username"/>
+								<label for="password">Password</label>
+								<input type="password" id="password" name="password"/>
+								<div class="form-actions">
+									<button type="submit" class="btn">Log in</button>
+								</div>
+							</fieldset>
+						</form>
+					</div>
+				</div>
+			</section>
+		</div>
+
+	</div>
+</div>
 </body>
 </html>

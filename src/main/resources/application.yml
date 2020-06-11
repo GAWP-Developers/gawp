@@ -33,7 +33,7 @@ spring:
 #    password: oracle
 
 #    Settings To Run on Locally Stored Database
-    url: jdbc:h2:file:./data/local_db;AUTO_SERVER=TRUE
+    url: jdbc:h2:file:~/data/demo_db;AUTO_SERVER=TRUE
     driver-class-name: org.h2.Driver
     username: sa
     password:
