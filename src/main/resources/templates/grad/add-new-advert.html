@@ -76,7 +76,7 @@
                                 <label class="col control-label">Type of Advert</label>
                                 <div class="col">
                                     <select type="text" class="form-control" th:field="*{type}">
-                                        <option th:each="role : ${T(guru.springframework.domain.AdvertType).values()}" th:value="${role}" th:text="${role}"></option>
+                                        <option th:each="role : ${T(com.gawpdevelopers.gawp.domain.AdvertType).values()}" th:value="${role}" th:text="${role}"></option>
                                     </select>
 
                                     <span class="help-block">
