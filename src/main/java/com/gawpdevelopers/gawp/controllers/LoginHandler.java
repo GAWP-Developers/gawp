@@ -60,7 +60,7 @@ public class LoginHandler {
           newApplicant.setActive(true);
           applicantService.saveOrUpdate(newApplicant);
       }
-      model.addAttribute("name", newApplicant.getUserName());
+      model.addAttribute("name", attributes.get("name"));
       return "applicant/main-page-applicant";
 
 
