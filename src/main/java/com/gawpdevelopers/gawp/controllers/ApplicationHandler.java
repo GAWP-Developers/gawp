@@ -1,9 +1,6 @@
 package com.gawpdevelopers.gawp.controllers;
 
-import com.gawpdevelopers.gawp.domain.Applicant;
-import com.gawpdevelopers.gawp.domain.Application;
-import com.gawpdevelopers.gawp.domain.ApplicationStatus;
-import com.gawpdevelopers.gawp.domain.DocumentType;
+import com.gawpdevelopers.gawp.domain.*;
 import com.gawpdevelopers.gawp.services.*;
 import com.gawpdevelopers.gawp.commands.ApplicationForm;
 import com.gawpdevelopers.gawp.commands.DocumentForm;
@@ -11,6 +8,7 @@ import com.gawpdevelopers.gawp.converters.ApplicationToApplicationForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -70,6 +68,15 @@ public class ApplicationHandler {
 //        return "redirect:/application/list";
 //    }
 
+//    @RequestMapping("/applicant")
+//    public String applicantMenu(Model model){
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//
+//
+//        model.addAttribute("name",auth.getDetails() );
+//        return "applicant/main-page-applicant";
+//    }
+
     @RequestMapping({"/application/list", "/application"})
     public String listApplications(Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -94,7 +101,7 @@ public class ApplicationHandler {
         return "application/applicationform";
     }
 
-    @RequestMapping("/application/new/{advert_id}")
+    @RequestMapping("/applicant/application/new/{advert_id}")
     public String newApplication(@PathVariable Long advert_id, Model model){
         System.out.println("GELDİM ÇOK YAKINIM");
         ApplicationForm appForm = new ApplicationForm();
@@ -102,7 +109,8 @@ public class ApplicationHandler {
         model.addAttribute("applicationForm", appForm);
 //        System.out.println("Advert is null: " + advert == null);
 //        model.addAttribute("target_advert", advert);
-        return "application/applicationform";
+//        return "application/applicationform";
+        return "applicant/new-application";
     }
 
     @RequestMapping(value = "/application", method = RequestMethod.POST)

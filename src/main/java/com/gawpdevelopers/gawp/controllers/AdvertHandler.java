@@ -74,7 +74,7 @@ public class AdvertHandler {
     @RequestMapping({"/applicant/advert/show/{id}", "/grad/advert/show/{id}"})
     public String getAdvert(@PathVariable String id, Model model){
         model.addAttribute("advert", advertService.getById(Long.valueOf(id)));
-        return "advert/show";
+        return "applicant/advert-detail-applicant";
     }
 
     @RequestMapping("/grad/advert/edit/{id}")

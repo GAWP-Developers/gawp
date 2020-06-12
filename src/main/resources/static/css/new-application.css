@@ -1,0 +1,244 @@
+@charset "utf-8";
+
+
+
+#first_btn{
+      background-color: green;
+    }
+    #first_btn:active{
+      background-color: yellow;
+    }
+    
+    #first_btn.active{
+  background-color: yellow;
+}
+
+
+
+
+
+
+
+
+
+
+body{
+    height: 100vh;
+    width: 100%;
+    background-color: #f6f6f6;
+}
+
+.navbar-default .navbar-brand {
+    color: #d6d6d6;
+	display: inline-block;
+    float: none;
+}
+
+ .navbar-header {
+    text-align: center;
+    width: 90%;
+    color: #FFFFFF;
+}
+
+
+.navbar-default{
+	background: #4E90D4;
+}
+
+
+.dropdown-menu {
+	color: #000000;
+}
+.nav.navbar-nav.navbar-right li a {
+    color: white;
+}
+
+.nav.navbar-nav.navbar-right li  ul li a {
+    color: black;
+}
+
+
+/*advert part*/
+
+
+/* end of advert part*/
+
+
+.container-section{
+    padding-top: 40px;
+}
+
+.container .container-section .container-section-part{
+    box-sizing: border-box;
+    border:solid 1px #ececd1;
+    padding: 6% 5% 8% 13%;
+    border-radius: 30px;
+    background-color: #FFFFFF;
+    box-shadow: -2px 3px 4px #fefefe;
+}
+
+
+
+.container .container-section .container-section-part .cs-first-title{
+    font-size: 20px;
+    color: #35609F;
+}
+
+.container .container-section .container-section-part .cs-first-title p{
+	margin-bottom:  0;
+    
+}
+
+
+
+.step{
+	margin-bottom: 40px;
+}
+
+.step-title{
+    font-size: 18px;
+	margin-bottom: 5px;
+	margin-left: -25px;
+    
+}
+
+.just-letter{
+	padding: 0px;
+}
+
+.info-letter{
+    border: 1px solid #A9A9A9;
+    border-radius: 10px;
+    width: 45%;
+	margin-top: 5px;
+	margin-left: 5px;
+}
+
+.info-letter.big{
+	padding-top: 5px;
+	padding-bottom: 40px;
+}
+
+
+
+.step-question-part{
+	margin-bottom: 15px;
+}
+
+.upload-button{
+	padding: 2px;
+}
+
+.no-yes{
+	padding-left: 10px;
+}
+
+.disc-letter p {
+	padding-top: 10px;
+	padding-left: 30px;
+	font-size: 12px;
+}
+
+.need-space{
+	margin-bottom: 40px;
+}
+
+.bottom-buttons{
+	margin: 80px 0;
+}
+
+textarea {
+ 	resize: none;
+	overflow: hidden;
+}
+
+ input[type="date"]:before {
+    content: attr(placeholder) !important;
+    color: #aaa;
+    margin-right: 0.5em;
+ }
+input[type="date"]:focus:before,
+input[type="date"]:valid:before {
+    content: "";
+}
+
+
+
+
+@media screen and (max-width: 500px){
+	.container .container-section .container-section-part .cs-first-title{
+    	font-size: 15px;
+	}
+	
+	.container .container-section .container-section-part .cs-first .cs-first-description .see-details{
+    	padding-right: 40px;
+	}
+
+}
+
+/* Kazım's Address Part */
+.container-second-section{
+    box-sizing: border-box;
+    border:solid 1px #ececd1;
+    padding: 20px 0px 20px 0px;
+    border-radius: 30px;
+    background-color: #FFFFFF;
+    box-shadow: -2px 3px 4px #f7e4e4;
+}
+
+.container-second-section .container-second-part{
+    margin: 15px 25px 30px 25px;
+}
+
+.container-second-section .container-second-part .second-part-title-section{
+    color: #35609F;
+    letter-spacing: 0.3px;
+    font-size: 20px !important;
+    font-weight: 400;
+    display: flex;
+    justify-content: initial;
+}
+
+.container-second-section .container-second-part .second-part-description-part{
+    color: #656565;
+    font-size: 17px !important;
+    font-weight: 400;
+    display: flex;
+    justify-content: initial;
+    
+}
+
+
+
+.container-second-section .container-second-part .button-part-section{
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+
+.container-second-section .container-second-part .form-part{
+    margin: 10px 20px 20px 20px;
+}
+
+.text-area{
+    border: solid 1px #A0a0a0;
+    border-radius: 8px;
+    color: #A0a0a0;
+    width: 100%;
+    outline: 0px !important;
+    padding:5px 0px 5px 20px;
+}
+
+.text-area-fourth-section, .text-area-last-section{
+    padding-top: 10px;
+}
+
+.address-part{
+    padding-top: 20px;
+	width: 92%;
+}
+
+.container-second-section .container-second-part .form-part .address-part .title-part{
+    font-size: 20px;
+    color:#1e1e1e;
+}
+

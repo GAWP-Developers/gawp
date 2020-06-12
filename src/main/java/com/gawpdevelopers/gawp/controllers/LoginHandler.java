@@ -46,7 +46,7 @@ public class LoginHandler {
  // }
   @RequestMapping({"/save"})
   public String login(@RegisteredOAuth2AuthorizedClient OAuth2AuthorizedClient authorizedClient,
-                      @AuthenticationPrincipal OAuth2User oauth2User) {
+                      @AuthenticationPrincipal OAuth2User oauth2User, Model model) {
 
       Applicant newApplicant = new Applicant();
       Map<String, Object> attributes = oauth2User.getAttributes();
@@ -60,10 +60,12 @@ public class LoginHandler {
           newApplicant.setActive(true);
           applicantService.saveOrUpdate(newApplicant);
       }
+      model.addAttribute("name", newApplicant.getUserName());
+      return "applicant/main-page-applicant";
+
 
 		//("clientName", authorizedClient.getClientRegistration().getClientName());
 		//("userAttributes", oauth2User.getAttributes());
-		return "redirect:applicant/advert/";
 }
     @RequestMapping({"/login"})
     public String whoisit(Model  model){
