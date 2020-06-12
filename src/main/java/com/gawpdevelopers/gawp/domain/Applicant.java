@@ -1,9 +1,7 @@
 package com.gawpdevelopers.gawp.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Applicant {
@@ -11,15 +9,14 @@ public class Applicant {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String provider;
-
-
-
     private String userName;
     private String apiID;
     private String email;
     private boolean active;
     private String roles;
     private String  pictureUrl;
+    @OneToMany(mappedBy = "applicant")
+    private List<Application> applications;
 
     public String getPictureUrl() {
         return pictureUrl;

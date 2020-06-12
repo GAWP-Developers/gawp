@@ -1,6 +1,7 @@
 package com.gawpdevelopers.gawp.commands;
 
 import com.gawpdevelopers.gawp.domain.Advert;
+import com.gawpdevelopers.gawp.domain.Applicant;
 import com.gawpdevelopers.gawp.domain.ApplicationStatus;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -15,7 +16,7 @@ public class ApplicationForm {
     private Long id;
     private Advert advert;  // Advert ID - Will be Set Later
     private Long intID;     //  Interview ID - Will be Set Later
-    private Long applicantID;
+    private Applicant applicant;
     private ApplicationStatus status;
     private String applicationDegree; //TODO Keep it or lose it.
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -46,12 +47,12 @@ public class ApplicationForm {
         this.intID = intID;
     }
 
-    public Long getApplicantID() {
-        return applicantID;
+    public Applicant getApplicant() {
+        return applicant;
     }
 
-    public void setApplicantID(Long applicantID) {
-        this.applicantID = applicantID;
+    public void setApplicant(Applicant applicant) {
+        this.applicant = applicant;
     }
 
     public ApplicationStatus getStatus() {

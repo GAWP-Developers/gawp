@@ -74,7 +74,7 @@ public class ApplicationHandler {
     public String listApplications(Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Applicant applicant = applicantService.getByApiId(auth.getName());
-        model.addAttribute("applications", applicationService.listAllById(applicant.getId()));
+        model.addAttribute("applications", applicationService.listAllByApplicant(applicant));
         return "application/list";
     }
 
@@ -121,7 +121,7 @@ public class ApplicationHandler {
         applicationForm.setStatus(ApplicationStatus.WAITINGFORCONTROL);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Applicant applicant = applicantService.getByApiId(auth.getName());
-        applicationForm.setApplicantID(applicant.getId());
+        applicationForm.setApplicant(applicant);
         Application savedApplication = applicationService.saveOrUpdateApplicationForm(applicationForm);
         System.out.println(savedApplication.getStatus());
 
