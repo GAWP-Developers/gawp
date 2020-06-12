@@ -31,10 +31,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .antMatcher("/**").authorizeRequests()
-                .antMatchers("/grad/advert/edit/**").hasRole("GRAD")
-                .antMatchers("/admin", "/grad/advert","/grad/advert/list","/grad/advert/new/**","/grad/advert/delete/**").hasRole("ADMIN")
-                .antMatchers("/grad/advert/applicant/**").hasRole("USER")
-                .antMatchers("/user","/application/**","/advert/show/**").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/grad/**").hasRole("GRAD")
+                .antMatchers("/application/**").hasRole("USER")
                 .antMatchers("/").permitAll()
 
                 .and().formLogin().loginPage("/gradLogin").usernameParameter("username").passwordParameter("password").permitAll()
@@ -42,7 +40,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .successForwardUrl("/grad/advert")
                 .and().oauth2Login().defaultSuccessUrl("/save").loginPage("/login/oauth2")
                 .authorizationEndpoint()
-       			.baseUri("/login/oauth2/authorization");
+                .baseUri("/login/oauth2/authorization");
+
     }
 
     @Bean

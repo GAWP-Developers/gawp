@@ -30,6 +30,13 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
+    public List<Application> listAllById(Long id) {
+        List<Application> applications = new ArrayList<>();
+        applicationRepository.findByApplicantID(id).forEach(applications::add);
+        return  applications;
+    }
+
+    @Override
     public Application getById(Long id) {
         if (applicationRepository.findById(id).isPresent()) {
             return applicationRepository.findById(id).get();

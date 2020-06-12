@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ApplicationService {
     List<Application> listAll();
-
+    List<Application> listAllById(Long id);
     Application getById(Long id);
 
     Application saveOrUpdate(Application application);

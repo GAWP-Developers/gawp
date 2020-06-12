@@ -72,8 +72,9 @@ public class ApplicationHandler {
 
     @RequestMapping({"/application/list", "/application"})
     public String listApplications(Model model){
-        System.out.println("AGAM GİREMEDİM");
-        model.addAttribute("applications", applicationService.listAll());
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Applicant applicant = applicantService.getByApiId(auth.getName());
+        model.addAttribute("applications", applicationService.listAllById(applicant.getId()));
         return "application/list";
     }
 
