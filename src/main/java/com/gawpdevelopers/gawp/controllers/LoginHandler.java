@@ -1,6 +1,12 @@
 package com.gawpdevelopers.gawp.controllers;
 
+import com.gawpdevelopers.gawp.domain.Applicant;
+
+import com.gawpdevelopers.gawp.services.ApplicantService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -12,8 +18,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.gawpdevelopers.gawp.domain.User;
 
+import java.security.Principal;
+import java.util.Map;
+
 @Controller
 public class LoginHandler {
+    private ApplicantService applicantService;
+
+    @Autowired
+    public void setApplicantService(ApplicantService applicantService) {
+        this.applicantService = applicantService;
+    }
+
 
   @RequestMapping({"/"})
   public String index(){
@@ -23,21 +39,41 @@ public class LoginHandler {
   public String login(){
       return "login";
   }
+
   //@RequestMapping({"/login"})
   //public String login2(){
     //  return "securedPage";
  // }
-  @RequestMapping({"/securedPage"})
-  public String login(Model model,  
-          @RegisteredOAuth2AuthorizedClient OAuth2AuthorizedClient authorizedClient,  
-          @AuthenticationPrincipal OAuth2User oauth2User) {  
-		model.addAttribute("userName", oauth2User.getName());  
-		model.addAttribute("clientName", authorizedClient.getClientRegistration().getClientName());  
-		model.addAttribute("userAttributes", oauth2User.getAttributes());  
-		return "securedPage";  
+  @RequestMapping({"/save"})
+  public String login(@RegisteredOAuth2AuthorizedClient OAuth2AuthorizedClient authorizedClient,
+                      @AuthenticationPrincipal OAuth2User oauth2User) {
+
+      Applicant newApplicant = new Applicant();
+      Map<String, Object> attributes = oauth2User.getAttributes();
+      if(applicantService.getByApiId(oauth2User.getName())==null){
+          newApplicant.setProvider(authorizedClient.getClientRegistration().getClientName());
+          newApplicant.setApiID(oauth2User.getName());
+          newApplicant.setEmail((String) attributes.get("email"));
+          newApplicant.setUserName((String) attributes.get("name"));
+          newApplicant.setPictureUrl((String) attributes.get("picture"));
+          newApplicant.setRoles("ROLE_USER");
+          newApplicant.setActive(true);
+          applicantService.saveOrUpdate(newApplicant);
+      }
+
+		//("clientName", authorizedClient.getClientRegistration().getClientName());
+		//("userAttributes", oauth2User.getAttributes());
+		return "redirect:applicant/advert/";
 }
     @RequestMapping({"/login"})
-    public String whoisit(){
+    public String whoisit(Model  model){
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("mail",auth.getAuthorities());
+       // model.addAttribute("details", auth.getDetails());
+
+        model.addAttribute("name",auth.getName() );
+        //model.addAttribute("credential",auth.getCredentials().toString());
         return "whoisit";
     }
   

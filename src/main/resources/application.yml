@@ -9,7 +9,7 @@ spring:
           google:
             client-id: 986548165541-jp3t55f30sfek5unmtp0rpddeq10qeh2.apps.googleusercontent.com
             client-secret: 83f5kcj3jUU3p3vycforgUaS
-            scope: profile
+
 
   mail:
     default-encoding: UTF-8

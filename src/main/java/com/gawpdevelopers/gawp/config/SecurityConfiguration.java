@@ -36,10 +36,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/grad/advert/applicant/**").hasRole("USER")
                 .antMatchers("/user","/application/**","/advert/show/**").hasAnyRole("ADMIN", "USER")
                 .antMatchers("/").permitAll()
+
                 .and().formLogin().loginPage("/gradLogin").usernameParameter("username").passwordParameter("password").permitAll()
                 .loginProcessingUrl("/persLogin")
                 .successForwardUrl("/grad/advert")
-                .and().oauth2Login().defaultSuccessUrl("/applicant/advert/").loginPage("/login/oauth2").authorizationEndpoint()
+                .and().oauth2Login().defaultSuccessUrl("/save").loginPage("/login/oauth2")
+                .authorizationEndpoint()
        			.baseUri("/login/oauth2/authorization");
     }
 

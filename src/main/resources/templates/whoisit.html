@@ -2,7 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <body>
-    <div sec:authorize="isAuthenticated()">
-          Authenticated as <span sec:authentication="name"></span></div>
+   
+   *auth <span th:text="${mail}" />
+   *principal* <span th:text="${name}" />
+
+
+
+</tr>
 </body>
 </html>
