@@ -1,6 +1,5 @@
 package com.gawpdevelopers.gawp.domain;
 
-
 import javax.persistence.*;
 import java.util.Date;
 

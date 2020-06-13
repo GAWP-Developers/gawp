@@ -5,9 +5,6 @@ import com.gawpdevelopers.gawp.domain.Advert;
 
 import java.util.List;
 
-/**
- * Created by jt on 1/10/17.
- */
 public interface AdvertService {
 
     List<Advert> listAll();

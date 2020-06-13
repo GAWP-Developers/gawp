@@ -1,9 +1,7 @@
 package com.gawpdevelopers.gawp.controllers;
 
 import com.gawpdevelopers.gawp.domain.Interview;
-import com.gawpdevelopers.gawp.domain.InterviewInfo;
 import com.gawpdevelopers.gawp.services.ApplicationService;
-import com.gawpdevelopers.gawp.services.InterviewInfoService;
 import com.gawpdevelopers.gawp.services.InterviewService;
 import com.gawpdevelopers.gawp.services.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.validation.Valid;
 import java.util.Date;
 
 /**

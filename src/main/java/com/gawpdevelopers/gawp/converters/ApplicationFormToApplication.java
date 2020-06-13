@@ -1,6 +1,5 @@
 package com.gawpdevelopers.gawp.converters;
 
-
 import com.gawpdevelopers.gawp.commands.ApplicationForm;
 import com.gawpdevelopers.gawp.domain.Application;
 import org.springframework.core.convert.converter.Converter;

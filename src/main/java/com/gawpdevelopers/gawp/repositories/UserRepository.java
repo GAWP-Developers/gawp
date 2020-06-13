@@ -1,6 +1,5 @@
 package com.gawpdevelopers.gawp.repositories;
 
-
 import com.gawpdevelopers.gawp.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 

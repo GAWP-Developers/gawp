@@ -1,6 +1,5 @@
 package com.gawpdevelopers.gawp.services;
 
-
 import com.gawpdevelopers.gawp.domain.Interview;
 import com.gawpdevelopers.gawp.repositories.InterviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,8 +1,6 @@
 package com.gawpdevelopers.gawp.converters;
 
-import com.gawpdevelopers.gawp.commands.AdvertForm;
 import com.gawpdevelopers.gawp.commands.InterviewInfoForm;
-import com.gawpdevelopers.gawp.domain.Advert;
 import com.gawpdevelopers.gawp.domain.InterviewInfo;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
