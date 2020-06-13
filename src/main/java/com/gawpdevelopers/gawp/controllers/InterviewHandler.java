@@ -57,7 +57,7 @@ public class InterviewHandler {
                                         @RequestParam("place") String place,
                                         @RequestParam("date") Date date,
                                         @RequestParam("comment") String comment,
-                                        @RequestParam("point") int point,
+                                        @RequestParam("point") Double point,
                                         @PathVariable Long application_id) {
         if(bindingResult.hasErrors())
             return "interview";
