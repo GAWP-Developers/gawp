@@ -4,6 +4,7 @@ import com.gawpdevelopers.gawp.commands.ApplicationForm;
 import com.gawpdevelopers.gawp.converters.ApplicationFormToApplication;
 import com.gawpdevelopers.gawp.domain.Applicant;
 import com.gawpdevelopers.gawp.domain.Application;
+import com.gawpdevelopers.gawp.domain.ApplicationStatus;
 import com.gawpdevelopers.gawp.repositories.ApplicationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +36,13 @@ public class ApplicationServiceImpl implements ApplicationService {
         List<Application> applications = new ArrayList<>();
         applicationRepository.findByApplicant(applicant).forEach(applications::add);
         return  applications;
+    }
+
+    @Override
+    public List<Application> listByStatus(ApplicationStatus status) {
+        List<Application> applications = new ArrayList<>();
+        applicationRepository.findByStatus(status).forEach(applications::add); //fun with Java 8
+        return applications;
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.gawpdevelopers.gawp.services;
 
 import com.gawpdevelopers.gawp.commands.AdvertForm;
 import com.gawpdevelopers.gawp.domain.Advert;
+import com.gawpdevelopers.gawp.domain.ApplicationStatus;
 
 import java.util.List;
 

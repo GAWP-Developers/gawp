@@ -20,6 +20,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 import javax.validation.Valid;
+import java.util.List;
+
+
 
 /**
  * Controller class that responds to the /application/* requests.
@@ -172,13 +175,13 @@ public class ApplicationHandler {
         photoForm.setApplication(savedApplication);
         photoForm.setPath(storageService.store(referenceLetter).toString());
         documentService.saveOrUpdateDocumentForm(referenceLetterForm);
-
+        //TODO what if applicant is not working, no need to upload this file
         DocumentForm permissionLetterForm = new DocumentForm();
         photoForm.setDocType(DocumentType.PERMISSIONLETTER);
         photoForm.setApplication(savedApplication);
         photoForm.setPath(storageService.store(permissionLetter).toString());
         documentService.saveOrUpdateDocumentForm(permissionLetterForm);
-
+        //TODO what if applicant has turkish id card, no need to upload this file
         DocumentForm passportForm = new DocumentForm();
         photoForm.setDocType(DocumentType.PASSPORT);
         photoForm.setApplication(savedApplication);
@@ -208,7 +211,9 @@ public class ApplicationHandler {
 
     @RequestMapping("/grad/applicationsBeforeForwarding/preReview")
     public String listPreReviewApplications(Model model){
-        //TODO List preview applications and add it as attribute to model
+        List<Application> applicationList= applicationService.listByStatus(ApplicationStatus.WAITINGFORCONTROL);
+        model.addAttribute("applications",applicationList);
+
         return "/grad/applications-to-pre-review";
 
     }
@@ -216,6 +221,7 @@ public class ApplicationHandler {
     @RequestMapping("/grad/applicationsBeforeForwarding/declined")
     public String listDeclinedApplications(Model model){
         //TODO List declined applications and add it as attribute to model
+
         return "/grad/declined-applications";
     }
 
