@@ -32,8 +32,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .antMatcher("/**").authorizeRequests()
                 .antMatchers("/grad/**").hasRole("GRAD")
-                .antMatchers("/application/**").hasRole("USER")
-                .antMatchers("/").permitAll()
+                .antMatchers("/application/**","/applicant/**").hasRole("USER")
+                .antMatchers("/index").permitAll()
 
                 .and().formLogin()
                 .loginPage("/gradLogin")
