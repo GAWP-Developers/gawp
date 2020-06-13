@@ -71,7 +71,7 @@ public class LoginHandler {
     public String whoisit(Model  model){
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        model.addAttribute("mail",auth.getAuthorities());
+        model.addAttribute("mail",auth.getAuthorities().toString());
 
 
         model.addAttribute("name",auth.getName() );
@@ -81,7 +81,7 @@ public class LoginHandler {
   
   @RequestMapping("/login-error")  
   public String loginError(Model model) {  
-      model.addAttribute("loginError", true);  
+      model.addAttribute("msg", " something went wrong. try again.");
       return "index";  
   }
 
@@ -98,9 +98,21 @@ public class LoginHandler {
     }
     @RequestMapping(value="/persLogin",method=RequestMethod.POST)
     public String perIndex(@ModelAttribute("userForm") User userForm){
-        System.out.println("name "+userForm.getUserName());
-        System.out.println("Grad");
-        return "redirect:/grad";
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        return "check";
+    }
+    @RequestMapping("/check")
+    public String check(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if(auth.getAuthorities().toString().equals("[ROLE_DEPT]")){
+            return "redirect:login";
+        }
+        if(auth.getAuthorities().toString().equals("[ROLE_GRAD]")){
+            return "redirect:/grad";
+        }
+
+        return "redirect:/login-error";
     }
     @RequestMapping(value="/logout", method=RequestMethod.GET)
     public String logoutPage(HttpServletRequest request, HttpServletResponse response) {

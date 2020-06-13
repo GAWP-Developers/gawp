@@ -32,6 +32,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .antMatcher("/**").authorizeRequests()
                 .antMatchers("/grad/**").hasRole("GRAD")
+                .antMatchers("/applicant").hasRole("DEPT")
                 .antMatchers("/application/**","/applicant/**").hasRole("USER")
                 .antMatchers("/index").permitAll()
                 .and().formLogin()
@@ -39,7 +40,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                       .usernameParameter("username")
                       .passwordParameter("password").permitAll()
                     .loginProcessingUrl("/persLogin")
-                    .defaultSuccessUrl("/grad")
+                    .defaultSuccessUrl("/check")
                 .and().logout()
                     .logoutUrl("/logout")
                     .logoutSuccessUrl("/")
