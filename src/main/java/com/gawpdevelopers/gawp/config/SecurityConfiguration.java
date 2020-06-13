@@ -43,7 +43,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .successForwardUrl("/grad/advert")
                 .and().logout()
                     .logoutUrl("/logout")
-                    .logoutSuccessUrl("/").permitAll()
+                    .logoutSuccessUrl("/")
                 .and().oauth2Login()
                     .defaultSuccessUrl("/save").loginPage("/login/oauth2")
                     .authorizationEndpoint()
