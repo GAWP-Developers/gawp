@@ -36,7 +36,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/index").permitAll()
 
                 .and().formLogin()
-                .loginPage("/gradLogin")
+                .loginPage("/")
                       .usernameParameter("username")
                       .passwordParameter("password").permitAll()
                     .loginProcessingUrl("/persLogin")
