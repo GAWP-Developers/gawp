@@ -1,9 +1,6 @@
 package com.gawpdevelopers.gawp.controllers;
 
-import com.gawpdevelopers.gawp.domain.Applicant;
-import com.gawpdevelopers.gawp.domain.Application;
-import com.gawpdevelopers.gawp.domain.ApplicationStatus;
-import com.gawpdevelopers.gawp.domain.DocumentType;
+import com.gawpdevelopers.gawp.domain.*;
 import com.gawpdevelopers.gawp.services.*;
 import com.gawpdevelopers.gawp.commands.ApplicationForm;
 import com.gawpdevelopers.gawp.commands.DocumentForm;
@@ -11,6 +8,7 @@ import com.gawpdevelopers.gawp.converters.ApplicationToApplicationForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -70,6 +68,20 @@ public class ApplicationHandler {
 //        return "redirect:/application/list";
 //    }
 
+//    @RequestMapping("/applicant")
+//    public String applicantMenu(Model model){
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//
+//
+//        model.addAttribute("name",auth.getDetails() );
+//        return "applicant/main-page-applicant";
+//    }
+
+    @RequestMapping("/applicant")
+    public String applicantMainMenu(){
+        return "applicant/main-page-applicant";
+    }
+
     @RequestMapping({"/application/list", "/application"})
     public String listApplications(Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -94,7 +106,7 @@ public class ApplicationHandler {
         return "application/applicationform";
     }
 
-    @RequestMapping("/application/new/{advert_id}")
+    @RequestMapping("/applicant/application/new/{advert_id}")
     public String newApplication(@PathVariable Long advert_id, Model model){
         System.out.println("GELDİM ÇOK YAKINIM");
         ApplicationForm appForm = new ApplicationForm();
@@ -102,7 +114,13 @@ public class ApplicationHandler {
         model.addAttribute("applicationForm", appForm);
 //        System.out.println("Advert is null: " + advert == null);
 //        model.addAttribute("target_advert", advert);
-        return "application/applicationform";
+//        return "application/applicationform";
+        return "applicant/new-application";
+    }
+
+    @RequestMapping("/applicant/application/new/success")
+    public String applicationSuccess(){
+        return "applicant/succesful-application";
     }
 
     @RequestMapping(value = "/application", method = RequestMethod.POST)
@@ -114,6 +132,7 @@ public class ApplicationHandler {
                                           @RequestParam("permissionLetter") MultipartFile permissionLetter,
                                           @RequestParam("passport") MultipartFile passport,
                                           @RequestParam("masterTranscript") MultipartFile masterTranscript) {
+        System.out.println("UPLOAD ZAMANI");
         if(bindingResult.hasErrors()){
             return "application/applicationform";
         }
@@ -169,7 +188,7 @@ public class ApplicationHandler {
         documentService.saveOrUpdateDocumentForm(masterTranscriptForm);
 
 //        return "redirect:/application/show/" + savedApplication.getId();
-        return "redirect:/application/list";
+        return "redirect:/applicant/application/new/success";
     }
 
     @RequestMapping("/application/delete/{id}")
@@ -177,4 +196,36 @@ public class ApplicationHandler {
         applicationService.delete(Long.valueOf(id));
         return "redirect:/application/list";
     }
+
+    @RequestMapping("/grad/applicationsBeforeForwarding")
+    public String applicationsBeforeForwarding(){
+        return "/grad/application-before-forwarding-to-deparment";
+    }
+
+    @RequestMapping("/grad/applicationsBeforeForwarding/preReview")
+    public String listPreReviewApplications(Model model){
+        //TODO List preview applications and add it as attribute to model
+        return "/grad/applications-to-pre-review";
+
+    }
+
+    @RequestMapping("/grad/applicationsBeforeForwarding/declined")
+    public String listDeclinedApplications(Model model){
+        //TODO List declined applications and add it as attribute to model
+        return "/grad/declined-applications";
+    }
+
+    @RequestMapping("/grad/applicationsBeforeForwarding/verifiedAndApproved")
+    public String listVerifiedAndApprovedApplications(Model model){
+        //TODO List verified and approved applications and add it as attribute to model
+        return "/grad/verfied-and-approved-applications";
+    }
+
+    @RequestMapping("/grad/applicationsBeforeForwarding/verify")
+    public String listApplicationsToVerify(Model model){
+        //TODO List approved applications and add it as attribute to model
+        return "/grad/verify-approved-applications";
+    }
+
+
 }

@@ -1,0 +1,98 @@
+@charset "utf-8";
+
+body{
+    height: 100vh;
+    width: 100%;
+    background-color: #f6f6f6;
+}
+
+.navbar-default .navbar-brand {
+    color: #d6d6d6;
+	display: inline-block;
+    float: none;
+}
+
+ .navbar-header {
+    text-align: center;
+    width: 90%;
+    color: #FFFFFF;
+}
+
+
+.navbar-default{
+	background: #5F262F;
+}
+
+
+.dropdown-menu {
+	color: #000000;
+}
+.nav.navbar-nav.navbar-right li a {
+    color: white;
+}
+
+.nav.navbar-nav.navbar-right li  ul li a {
+    color: black;
+}
+
+.container-section{
+    padding-top: 40px;
+}
+
+.container .container-section .container-section-part{
+    box-sizing: border-box;
+    border:solid 1px #ececd1;
+    padding: 20px 30px 20px 30px;
+    border-radius: 30px;
+    background-color: #FFFFFF;
+    box-shadow: -2px 3px 4px #f7e4e4;
+}
+
+.container-section .container-section-part .cs-first .cs-first-title{
+    padding-left: 150px;
+    text-align: center;
+    padding-right: 150px;
+}
+.container-section .container-section-part .cs-first .cs-first-description{
+    text-align: center;
+}
+
+.container-section .container-section-part .container-section-second{
+    margin:30px;
+}
+
+.container-section .container-section-part .container-section-second .cs-second-button-part .first-button .app-first-button {
+    width: 100%;
+    text-align: initial;
+    color: #FFFFFF;
+    background: #E87C74;
+    font-size: 15px;
+    border-radius: 10px;
+    padding-left: 100px;
+    margin-bottom: 15px;
+    letter-spacing: 0.2px;
+}
+
+.container-section .container-section-part .container-section-second .cs-second-button-part .second-button .app-second-button {
+    width: 100%;
+    text-align: initial;
+    color: #FFFFFF;
+    background: #DB6961;
+    font-size: 15px;
+    border-radius: 10px;
+    padding-left: 100px;
+    margin-bottom: 15px;
+    letter-spacing: 0.2px;
+}
+
+.container-section .container-section-part .container-section-second .cs-second-button-part .third-button .app-third-button {
+    width: 100%;
+    text-align: initial;
+    color: #FFFFFF;
+    background: #CB534B;
+    font-size: 15px;
+    border-radius: 10px;
+    padding-left: 100px;
+    margin-bottom: 15px;
+    letter-spacing: 0.2px;
+}

@@ -1,0 +1,141 @@
+@charset "utf-8";
+
+body{
+    height: 100vh;
+    width: 100%;
+    background-color: #f6f6f6;
+}
+
+.navbar-default .navbar-brand {
+    color: #fff;
+	display: inline-block;
+    float: none;
+}
+
+.navbar-default .navbar-brand:hover {
+    color: #D6D6FF;
+	display: inline-block;
+    float: none;
+	font-size: 130%; 
+}
+
+ .navbar-header {
+    text-align: center;
+    width: 90%;
+    color: #FFFFFF;
+}
+
+
+.navbar-default{
+	background: #4E90D4;
+}
+
+
+.dropdown-menu {
+	color: #000000;
+}
+.nav.navbar-nav.navbar-right li a {
+    color: white;
+}
+
+.nav.navbar-nav.navbar-right li  ul li a {
+    color: black;
+}
+
+.container-section{
+    padding-top: 40px;
+}
+
+.container .container-section .container-section-part{
+    box-sizing: border-box;
+    border:solid 1px #ececd1;
+    padding: 20px 30px 20px 30px;
+    border-radius: 30px;
+    background-color: #FFFFFF;
+    box-shadow: -2px 3px 4px #f7e4e4;
+}
+
+.container-section .container-section-part .cs-first .cs-first-title{
+    text-align: center;
+	display: flex;
+	justify-content: center;
+}
+.container-section .container-section-part .cs-first .cs-first-description{
+    text-align: center;
+}
+
+.container-section .container-section-part .container-section-second{
+    margin:30px;
+}
+
+.container-section .container-section-part .container-section-second .cs-second-button-part .first-button .app-button {
+	width: 60%;
+	padding: 25% 0 25% 0;
+    text-align: center;
+    color: #FFFFFF;
+    font-size: 18px;
+    margin-bottom: 15px;
+    letter-spacing: 0.2px;
+}
+
+.container-section .container-section-part .container-section-second .cs-second-button-part .first-button .one{
+	border-radius: 30px 0px 30px 30px;
+	background: #7AAEE4;
+}
+
+.container-section .container-section-part .container-section-second .cs-second-button-part .first-button .two{
+	border-radius: 0px 30px 30px 30px;
+	background: #3F78B3;
+}
+
+
+@media screen and (max-width: 600px){
+	.container .container-section .container-section-part{
+    padding: 20px 0px 20px 0px;
+ 
+}
+	
+	
+	.container-section .container-section-part .container-section-second .cs-second-button-part .first-button .app-button {
+		width: 80%;
+		padding: 35% 0 35% 0;
+		font-size: 15px;
+		margin-bottom: 15px;
+		letter-spacing: 0.2px;
+	}
+	
+	.container-section .container-section-part .container-section-second .cs-second-button-part .first-button .one{
+		border-radius: 20px 0px 20px 20px;
+	}
+
+	.container-section .container-section-part .container-section-second .cs-second-button-part .first-button .two{
+		border-radius: 0px 20px 20px 20px;
+	}
+}
+
+@media screen and (max-width: 400px){
+	.container .container-section .container-section-part{
+    	padding: 20px 0px 20px 0px;
+ 
+	}
+	.container .container-section .container-section-part .container-section-second{
+    	margin: 5px;
+	}
+	
+	.container-section .container-section-part .container-section-second .cs-second-button-part .first-button .app-button {
+		width: 100%;
+		padding: 42% 0 42% 0;
+		font-size: 12px;
+		margin-bottom: 10px;
+		letter-spacing: 0.2px;
+	}
+	
+	.container-section .container-section-part .container-section-second .cs-second-button-part .first-button .one{
+		border-radius: 20px 0px 20px 20px;
+	}
+
+	.container-section .container-section-part .container-section-second .cs-second-button-part .first-button .two{
+		border-radius: 0px 20px 20px 20px;
+	}
+}
+

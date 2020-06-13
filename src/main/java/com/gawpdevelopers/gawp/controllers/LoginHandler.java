@@ -49,7 +49,7 @@ public class LoginHandler {
  // }
   @RequestMapping({"/save"})
   public String login(@RegisteredOAuth2AuthorizedClient OAuth2AuthorizedClient authorizedClient,
-                      @AuthenticationPrincipal OAuth2User oauth2User) {
+                      @AuthenticationPrincipal OAuth2User oauth2User, Model model) {
 
 
       Map<String, Object> attributes = oauth2User.getAttributes();
@@ -64,9 +64,8 @@ public class LoginHandler {
           newApplicant.setActive(true);
           applicantService.saveOrUpdate(newApplicant);
       }
-
-
-		return "redirect:applicant/advert/";
+      model.addAttribute("name", attributes.get("name"));
+      return "applicant/main-page-applicant";
 }
     @RequestMapping({"/login"})
     public String whoisit(Model  model){
@@ -100,7 +99,8 @@ public class LoginHandler {
     @RequestMapping(value="/persLogin",method=RequestMethod.POST)
     public String perIndex(@ModelAttribute("userForm") User userForm){
         System.out.println("name "+userForm.getUserName());
-        return "redirect:/grad/advert";
+        System.out.println("Grad");
+        return "redirect:/grad";
     }
     @RequestMapping(value="/logout", method=RequestMethod.GET)
     public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
