@@ -32,16 +32,22 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .antMatcher("/**").authorizeRequests()
                 .antMatchers("/grad/**").hasRole("GRAD")
-                .antMatchers("/application/**").hasRole("USER")
-                .antMatchers("/").permitAll()
+                .antMatchers("/application/**","/applicant/**").hasRole("USER")
+                .antMatchers("/index").permitAll()
 
-                .and().formLogin().loginPage("/gradLogin").usernameParameter("username").passwordParameter("password").permitAll()
-                .loginProcessingUrl("/persLogin")
-                .defaultSuccessUrl("/grad")
-                //.successForwardUrl("/grad")
-                .and().oauth2Login().defaultSuccessUrl("/save").loginPage("/login/oauth2")
-                .authorizationEndpoint()
-                .baseUri("/login/oauth2/authorization");
+                .and().formLogin()
+                .loginPage("/")
+                      .usernameParameter("username")
+                      .passwordParameter("password").permitAll()
+                    .loginProcessingUrl("/persLogin")
+                    .defaultSuccessUrll("/grad")
+                .and().logout()
+                    .logoutUrl("/logout")
+                    .logoutSuccessUrl("/")
+                .and().oauth2Login()
+                    .defaultSuccessUrl("/save").loginPage("/login/oauth2")
+                    .authorizationEndpoint()
+                    .baseUri("/login/oauth2/authorization");
 
     }
 
