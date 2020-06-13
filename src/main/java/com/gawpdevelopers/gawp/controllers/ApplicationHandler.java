@@ -78,7 +78,11 @@ public class ApplicationHandler {
 //    }
 
     @RequestMapping("/applicant")
-    public String applicantMainMenu(){
+    public String applicantMainMenu(Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Applicant applicant = applicantService.getByApiId(auth.getName());
+        model.addAttribute("name", applicant.getUserName());
+
         return "applicant/main-page-applicant";
     }
 
@@ -134,7 +138,7 @@ public class ApplicationHandler {
                                           @RequestParam("masterTranscript") MultipartFile masterTranscript) {
         System.out.println("UPLOAD ZAMANI");
         if(bindingResult.hasErrors()){
-            return "application/applicationform";
+            return "/applicant";
         }
 
         applicationForm.setStatus(ApplicationStatus.WAITINGFORCONTROL);

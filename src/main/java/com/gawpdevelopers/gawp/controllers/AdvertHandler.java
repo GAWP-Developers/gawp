@@ -59,7 +59,11 @@ public class AdvertHandler {
 //    }
 
     @RequestMapping("/grad")
-    public String gradMainMenu(){
+    public String gradMainMenu(Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetailsImpl  user =  (UserDetailsImpl) userDetailsService.loadUserByUsername(auth.getName());
+        System.out.println(String.join("  ", user.getfName(), user.getlName()));
+        model.addAttribute("name", String.join("  ", user.getfName(), user.getlName()));
         return "grad/main-page-grad";
     }
 

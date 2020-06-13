@@ -14,7 +14,10 @@ public class UserDetailsImpl implements UserDetails {
     private String userName;
     private String password;
     private boolean active;
+    private String fName;
+    private String lName;
     private List<GrantedAuthority> authorities;
+
 
     public UserDetailsImpl(User user) {
         this.id=user.getId();
@@ -24,6 +27,8 @@ public class UserDetailsImpl implements UserDetails {
         this.authorities = Arrays.stream(user.getRoles().split(","))
                     .map(SimpleGrantedAuthority::new)
                     .collect(Collectors.toList());
+        this.fName = user.getfName();
+        this.lName = user.getlName();
     }
 
     @Override
@@ -66,5 +71,21 @@ public class UserDetailsImpl implements UserDetails {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getfName() {
+        return fName;
+    }
+
+    public void setfName(String fName) {
+        this.fName = fName;
+    }
+
+    public String getlName() {
+        return lName;
+    }
+
+    public void setlName(String lName) {
+        this.lName = lName;
     }
 }

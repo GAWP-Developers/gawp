@@ -12,6 +12,8 @@ public class User {
     private String password;
     private boolean active;
     private String roles;
+    private String fName;
+    private String lName;
 
     public long getId() {
         return id;
@@ -51,5 +53,21 @@ public class User {
 
     public void setRoles(String roles) {
         this.roles = roles;
+    }
+
+    public String getfName() {
+        return fName;
+    }
+
+    public void setfName(String fName) {
+        this.fName = fName;
+    }
+
+    public String getlName() {
+        return lName;
+    }
+
+    public void setlName(String lName) {
+        this.lName = lName;
     }
 }
