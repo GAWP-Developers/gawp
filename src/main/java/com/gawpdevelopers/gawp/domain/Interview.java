@@ -12,7 +12,7 @@ public class Interview {
     private String place;
     private Date date;
     private String comment;
-    private Integer point;
+    private Integer point; // TODO make double
     @ManyToOne
     @JoinColumn(name = "INTINFO_ID")
     private InterviewInfo info;
