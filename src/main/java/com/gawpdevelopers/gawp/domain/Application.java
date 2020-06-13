@@ -15,7 +15,9 @@ public class Application {
     @JoinColumn(name = "ADVERT_ID")
     private Advert advert;  // Advert ID - Will be Set Later
     //TODO @NotNull
-    private Long applicantID;
+    @ManyToOne
+    @JoinColumn(name = "APPLICANT_ID", nullable = false)
+    private Applicant applicant;
     private ApplicationStatus status;
     private String applicationDegree; //TODO Keep it or lose it.
     private Date lastUpdateDate;
@@ -46,12 +48,12 @@ public class Application {
         this.intID = intID;
     }
 
-    public Long getApplicantID() {
-        return applicantID;
+    public Applicant getApplicant() {
+        return applicant;
     }
 
-    public void setApplicantID(Long applicantID) {
-        this.applicantID = applicantID;
+    public void setApplicant(Applicant applicant) {
+        this.applicant = applicant;
     }
 
     public ApplicationStatus getStatus() {

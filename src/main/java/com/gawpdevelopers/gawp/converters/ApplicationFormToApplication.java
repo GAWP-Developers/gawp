@@ -20,7 +20,7 @@ public class ApplicationFormToApplication implements Converter<ApplicationForm, 
         application.setId(applicationForm.getId());
         application.setAdvert(applicationForm.getAdvert());
         application.setIntID(applicationForm.getIntID());
-        application.setApplicantID(applicationForm.getApplicantID());
+        application.setApplicant(applicationForm.getApplicant());
         application.setStatus(applicationForm.getStatus());
         application.setApplicationDegree(applicationForm.getApplicationDegree());
         application.setLastUpdateDate(applicationForm.getLastUpdateDate());

@@ -31,9 +31,23 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .antMatcher("/**").authorizeRequests()
-                .antMatchers("/**").permitAll()
+                .antMatchers("/grad/**").hasRole("GRAD")
+                .antMatchers("/application/**","/applicant/**").hasRole("USER")
+                .antMatchers("/index").permitAll()
                 .and().formLogin()
-                .and().oauth2Login();
+                .loginPage("/")
+                      .usernameParameter("username")
+                      .passwordParameter("password").permitAll()
+                    .loginProcessingUrl("/persLogin")
+                    .defaultSuccessUrl("/grad")
+                .and().logout()
+                    .logoutUrl("/logout")
+                    .logoutSuccessUrl("/")
+                .and().oauth2Login()
+                    .defaultSuccessUrl("/save").loginPage("/login/oauth2")
+                    .authorizationEndpoint()
+                    .baseUri("/login/oauth2/authorization");
+
     }
 
     @Bean

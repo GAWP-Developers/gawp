@@ -1,12 +1,19 @@
 package com.gawpdevelopers.gawp.controllers;
 
 import com.gawpdevelopers.gawp.domain.Mail;
+import com.gawpdevelopers.gawp.domain.User;
+import com.gawpdevelopers.gawp.domain.UserDetailsImpl;
 import com.gawpdevelopers.gawp.services.AdvertService;
 import com.gawpdevelopers.gawp.commands.AdvertForm;
 import com.gawpdevelopers.gawp.converters.AdvertToAdvertForm;
 import com.gawpdevelopers.gawp.domain.Advert;
 import com.gawpdevelopers.gawp.services.MailService;
+import com.gawpdevelopers.gawp.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,6 +32,7 @@ public class AdvertHandler {
 
     private AdvertToAdvertForm advertToAdvertForm;
 
+    private UserDetailsServiceImpl userDetailsService;
     @Autowired
     private MailService emailService;
 
@@ -32,7 +40,10 @@ public class AdvertHandler {
     public void setAdvertToAdvertForm(AdvertToAdvertForm advertToadvertForm) {
         this.advertToAdvertForm = advertToadvertForm;
     }
-
+    @Autowired
+    public void setUserDetailsServiceImpl(UserDetailsServiceImpl userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
     public void setEmailService(MailService emailService){
         this.emailService = emailService;
     }
@@ -42,9 +53,14 @@ public class AdvertHandler {
         this.advertService = advertService;
     }
 
-    @RequestMapping({"/", "/index"})
-    public String redirToIndex(){
-        return "/index";
+//    @RequestMapping({"/", "/index"})
+//    public String redirToIndex(){
+//        return "/index";
+//    }
+
+    @RequestMapping("/grad")
+    public String gradMainMenu(){
+        return "grad/main-page-grad";
     }
 
     //Mail yollamaca brom
@@ -75,7 +91,7 @@ public class AdvertHandler {
     @RequestMapping({"/applicant/advert/show/{id}", "/grad/advert/show/{id}"})
     public String getAdvert(@PathVariable String id, Model model){
         model.addAttribute("advert", advertService.getById(Long.valueOf(id)));
-        return "advert/show";
+        return "applicant/advert-detail-applicant";
     }
 
     @RequestMapping("/grad/advert/edit/{id}")
@@ -104,7 +120,9 @@ public class AdvertHandler {
         if(bindingResult.hasErrors()){
             return "advert/advertform";
         }
-
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetailsImpl  user =  (UserDetailsImpl) userDetailsService.loadUserByUsername(auth.getName());
+        advertForm.setGradID(user.getId());
         Advert savedAdvert = advertService.saveOrUpdateAdvertForm(advertForm);
 
         return "redirect:/grad/advert";

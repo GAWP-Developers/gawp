@@ -61,12 +61,12 @@
                         <p th:text="${#dates.format(advert.deadlineDate, 'dd-MM-yyyy')}"></p>
                     </div>
                     <div class="col-md-3 col-lg-3 button-part" >
-                        <a th:href="${'/advert/show/' + advert.id}">
+                        <a th:href="${'/grad/advert/show/' + advert.id}">
                             <button type="submit" class="btn btn-default see-details" >See Details</button>
                         </a>
                     </div>
 					<div class="col-md-3 col-lg-3 button-part-second" > 
-                        <a th:href="${'/advert/edit/' + advert.id}">
+                        <a th:href="${'/grad/advert/edit/' + advert.id}">
                             <button type="submit"  class="btn btn-default apply" >Modify</button>
                         </a>
                     </div>

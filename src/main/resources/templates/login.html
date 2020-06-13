@@ -37,33 +37,19 @@
 					  </div>
 
 					  <div class="button-part">
-
-							<!-- a class="btn btn-block btn-social btn-facebook customBtn" th:href="@{/auth/facebook}">
-    							<span class="fa fa-facebook width42px"></span> Sign in with Facebook
-  							</a>
-  							
-  							<a class="btn btn-block btn-social btn-google customBtn" th:href="@{/auth/google}">
-    							<span class="fa fa-google width42px"></span> Sign in with Google
-  							</a> -->
-  						<a href="/login/oauth2">
-						 	<div class="facebook-button">
-						 		<input class="btn-applicant" type="button" value="Login as an Applicant" />
-						 	</div>
-						   
-						</a>
-						 <a href="/persLogin">
-						 	<div class="facebook-button">
-						 		<input class="btn-non-applicant" type="button" value="Login as a Departmant or GradSchool" />
-						 	</div>
-
-						</a>
-
-
-
+						  <a href="/login/oauth2/authorization/facebook">
+						  	<div class="facebook-button">
+								<button class="btn btn-facebook"><i class="facebook-icon fab fa-facebook-f" style="padding-right:20px;"></i> Sign in/up with Facebook</button>
+						  	</div>
+						  </a>
+						  <a href="/login/oauth2/authorization/google">
+							<div class="google-button">
+									<button class="btn btn-google"><i class="google-icon fab fa-google" style="padding-right:20px;"></i> Sign in/up with Google</button>
+							</div>
+						  </a>
 
 					  </div>
-				  </div>  
-				  
+				  </div>
 			  </section>
           </div>
 			
