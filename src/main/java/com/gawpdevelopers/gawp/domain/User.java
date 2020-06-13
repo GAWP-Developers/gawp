@@ -11,7 +11,7 @@ public class User {
     private String userName;
     private String password;
     private boolean active;
-    private String roles;
+    private UserRoles role;
     private String fName;
     private String lName;
 
@@ -47,13 +47,9 @@ public class User {
         this.active = active;
     }
 
-    public String getRoles() {
-        return roles;
-    }
+    public UserRoles getRole() { return role; }
 
-    public void setRoles(String roles) {
-        this.roles = roles;
-    }
+    public void setRole() { this.role = role; }
 
     public String getfName() {
         return fName;

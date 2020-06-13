@@ -87,7 +87,6 @@ public class LoginHandler {
 
   @RequestMapping("/index")
   public String perIndex(){
-
       return "/persLogin";
   }
 
