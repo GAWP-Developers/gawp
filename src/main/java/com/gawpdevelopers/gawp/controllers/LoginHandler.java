@@ -98,7 +98,8 @@ public class LoginHandler {
     @RequestMapping(value="/persLogin",method=RequestMethod.POST)
     public String perIndex(@ModelAttribute("userForm") User userForm){
         System.out.println("name "+userForm.getUserName());
-        return "redirect:/grad/advert";
+        System.out.println("Grad");
+        return "redirect:/grad";
     }
 
 }

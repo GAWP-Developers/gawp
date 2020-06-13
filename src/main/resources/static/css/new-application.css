@@ -222,7 +222,7 @@ input[type="date"]:valid:before {
 .text-area{
     border: solid 1px #A0a0a0;
     border-radius: 8px;
-    color: #A0a0a0;
+    color: #363636;
     width: 100%;
     outline: 0px !important;
     padding:5px 0px 5px 20px;

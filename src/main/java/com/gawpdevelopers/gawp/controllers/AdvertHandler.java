@@ -46,6 +46,11 @@ public class AdvertHandler {
 //        return "/index";
 //    }
 
+    @RequestMapping("/grad")
+    public String gradMainMenu(){
+        return "grad/main-page-grad";
+    }
+
     //Mail yollamaca brom
     @RequestMapping({"/sendmail"})
     public String sendmail(){

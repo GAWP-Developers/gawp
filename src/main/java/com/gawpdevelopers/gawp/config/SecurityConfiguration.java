@@ -37,7 +37,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
                 .and().formLogin().loginPage("/gradLogin").usernameParameter("username").passwordParameter("password").permitAll()
                 .loginProcessingUrl("/persLogin")
-                .successForwardUrl("/grad/advert")
+                .defaultSuccessUrl("/grad")
+                //.successForwardUrl("/grad")
                 .and().oauth2Login().defaultSuccessUrl("/save").loginPage("/login/oauth2")
                 .authorizationEndpoint()
                 .baseUri("/login/oauth2/authorization");

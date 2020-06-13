@@ -17,7 +17,6 @@
           th:href="@{css/spring-core.css}" rel="stylesheet" media="screen"/>
     <link href="../../static/css/new-application.css"
 		  th:href="@{/css/new-application.css}" rel="stylesheet" type="text/css"/>
-	<script src="new-application.js"></script>
 	<script src="../../static/js/new-application.js"
 			th:src="@{/js/new-application.js}"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"/>
@@ -45,13 +44,12 @@
 	</nav><!-- end of the navbar-->
 			
 
-    <div th:with="advert=${applicationForm.getAdvert()}" class="container" style="margin-bottom: 0px; ">
+    <div class="container" style="margin-bottom: 0px; ">
         <div class="container-section d-flex align-items-center justify-content-center col-4">
             <div class="container-section-part ">
                 <div class="row cs-first">
                     <div class="row cs-first-title col-xs-6">
-<!--                        <p><span th:utext="${applicationForm.getAdvert().getName()}"/></p>-->
-						<p><span th:utext="${advert.getName()}"/></p>
+                        <p>Advert Name Is This.</p>
                     </div>
 					
 					<div class="col-xs-4">
@@ -59,12 +57,12 @@
 							<p>Expire Date: </p>
 						</div>
 						<div class="date col-xs-2 col-sm-2 col-md-2 col-lg-2">
-							<p><span th:utext="${#dates.format(advert.getDeadlineDate(), 'dd-MM-yyyy')}"/></p>
+							<p>02/05/2020</p>
 						</div>
 					</div>
 					
                     <div class="cs-first-description col-xs-2">
-                        <a th:href="${'/advert/show/' + advert.getId()}" style="display: flex; justify-content: flex-end;">
+                        <a href="#" style="display: flex; justify-content: flex-end;">
                             <button type="button" class="btn btn-default see-details" style="width: 100%;background: #fff;color:#3F78B3 ;border-color: #3F78B3;border-radius: 15px;">See Details</button>
                         </a>
                     </div>
@@ -76,13 +74,8 @@
 	
 	<div class="container" style="margin-bottom: 10px; ">
         <div class="container-section d-flex align-items-center justify-content-center col-4" style="padding-top: 10px;">
-            <form th:object="${applicationForm}" th:action="@{/application}" method="post" enctype="multipart/form-data" class="container-section-part ">
-				
-				
-				
+            <form id="applicationForm" class="container-section-part " th:object="${applicationForm}" th:action="@{/application}" method="post" enctype="multipart/form-data">
 
-				
-				
                 <div class="row step">
                     <div class="row step-title">
                         <p>STEP-1</p>
@@ -139,7 +132,7 @@
                             </div>
 							
 							<!--Can address inputu olarak aşağıdakini al-->
-							<input id="address-full"   type="text" value="" style="display:none"/>
+							<input id="address-full"  name="address" type="text" value="" style="display:none"/>
                     </div>
 						
 				</div>
@@ -155,13 +148,18 @@
 						<div class="just-letter col-xs-5 col-sm-5 col-md-5 col-lg-5">
 							<p>Please upload your photo*</p>
 						</div>
-						<div class="upload col-xs-2 col-sm-2 col-md-2 col-lg-2">
-<!--							<input type="file" accept=".png,.jpg,.jpeg" name="photo" /></td></tr>-->
-							<a  style="display: flex; justify-content: flex-end;">
-								<input type="file" accept=".png,.jpg,.jpeg" name="photo" for="photo-input" class="btn btn-default upload-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Upload</input>
+						<div id="upload1" class="upload col-xs-2 col-sm-2 col-md-2 col-lg-2">	
+							<a   style="display: flex; justify-content: flex-end;">
+							<label type="button"   for="photo-input" class="btn btn-default upload-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Upload</label>
 							</a>
-							<input id="photo-input" type="file" style="visibility:hidden;" value="Upload">
-                		</div>
+							<input id="photo-input" name="photo" onchange="show_1();"  required type="file" accept=".jpg,.jpeg" style=" visibility:hidden;" />
+						</div>
+						<div class="upload col-xs-2 col-sm-2 col-md-2 col-lg-2" style="padding: 0px;">
+							<p id="info1" style="color: #9C9C9C; text-align: center;"></p>							
+						</div>
+						<div class="upload col-xs-2 col-sm-2 col-md-2 col-lg-2" style="padding-left: 5px;">
+							<p  id="x1" class="btn btn-default upload-button" onclick="back_1();" style="height:25px; width: 25px; border-color: rgb(148, 85, 98); border-radius: 20px; color: rgb(179, 82, 101); visibility: hidden;" ;>X</p>							
+						</div>
 						
 					</div>
 					
@@ -169,33 +167,54 @@
 						<div class="just-letter col-xs-5 col-sm-5 col-md-5 col-lg-5">
 							<p>Please add your undergraduate transcript/s?*</p>
 						</div>
-						<div class="upload col-xs-2 col-sm-2 col-md-2 col-lg-2">
-							<a href="#" style="display: flex; justify-content: flex-end;">
-								<button type="button" class="btn btn-default upload-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Upload</button>
+						<div id="upload2" class="upload col-xs-2 col-sm-2 col-md-2 col-lg-2">	
+							<a   style="display: flex; justify-content: flex-end;">
+							<label type="button"   for="trans-input" class="btn btn-default upload-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Upload</label>
 							</a>
-                		</div>
+							<input id="trans-input" name="transcript" onchange="show_2();" required type="file" accept=".pdf" style=" visibility:hidden;" />
+						</div>
+						<div class="upload col-xs-2 col-sm-2 col-md-2 col-lg-2" style="padding: 0px;">
+							<p id="info2" style="color: #9C9C9C; text-align: center;"></p>							
+						</div>
+						<div class="upload col-xs-2 col-sm-2 col-md-2 col-lg-2" style="padding-left: 5px;">
+							<p  id="x2" class="btn btn-default upload-button" onclick="back_2();" style="height:25px; width: 25px; border-color: rgb(148, 85, 98); border-radius: 20px; color: rgb(179, 82, 101); visibility: hidden;" ;>X</p>							
+						</div>
 					</div>
 					
 					<div  class="row step-question-part">
 						<div class="just-letter col-xs-5 col-sm-5 col-md-5 col-lg-5">
 							<p>Do you have ALES result?*</p>
 						</div>
-						<div class="upload col-xs-2 col-sm-2 col-md-2 col-lg-2">
-							<a href="#" style="display: flex; justify-content: flex-end;">
-								<button type="button" class="btn btn-default upload-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Upload</button>
+						<div id="upload3" class="upload col-xs-2 col-sm-2 col-md-2 col-lg-2">	
+							<a   style="display: flex; justify-content: flex-end;">
+							<label type="button"   for="ales-input" class="btn btn-default upload-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Upload</label>
 							</a>
-                		</div>
+							<input id="ales-input" name="ales" onchange="show_3();" required type="file" accept=".pdf" style=" visibility:hidden;" />
+						</div>
+						<div class="upload col-xs-2 col-sm-2 col-md-2 col-lg-2" style="padding: 0px;">
+							<p id="info3" style="color: #9C9C9C; text-align: center;"></p>							
+						</div>
+						<div class="upload col-xs-2 col-sm-2 col-md-2 col-lg-2" style="padding-left: 5px;">
+							<p  id="x3" class="btn btn-default upload-button" onclick="back_3();" style="height:25px; width: 25px; border-color: rgb(148, 85, 98); border-radius: 20px; color: rgb(179, 82, 101); visibility: hidden;" ;>X</p>							
+						</div>
 					</div>
 					
 					<div  class="row step-question-part">
 						<div class="just-letter col-xs-5 col-sm-5 col-md-5 col-lg-5">
 							<p>Do you have any English Exam Result?</p>
 						</div>
-						<div class="upload col-xs-2 col-sm-2 col-md-2 col-lg-2">
-							<a href="#" style="display: flex; justify-content: flex-end;">
-								<button type="button" class="btn btn-default upload-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Upload</button>
+						<div id="upload4" class="upload col-xs-2 col-sm-2 col-md-2 col-lg-2">	
+							<a   style="display: flex; justify-content: flex-end;">
+							<label type="button"   for="ee-input" class="btn btn-default upload-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Upload</label>
 							</a>
-                		</div>
+							<input id="ee-input" name="englishExam" onchange="show_4();"  type="file" accept=".pdf" style=" visibility:hidden;" />
+						</div>
+						<div class="upload col-xs-2 col-sm-2 col-md-2 col-lg-2" style="padding: 0px;">
+							<p id="info4" style="color: #9C9C9C; text-align: center;"></p>							
+						</div>
+						<div class="upload col-xs-2 col-sm-2 col-md-2 col-lg-2" style="padding-left: 5px;">
+							<p  id="x4" class="btn btn-default upload-button" onclick="back_4();" style="height:25px; width: 25px; border-color: rgb(148, 85, 98); border-radius: 20px; color: rgb(179, 82, 101); visibility: hidden;" ;>X</p>							
+						</div>
 					</div>
 					 
                 </div>
@@ -210,7 +229,8 @@
 						<div class="just-letter col-xs-12 col-sm-12 col-md-12 col-lg-12">
 							<p>Why you are applying to Master in Computer Engineering - Network Enginnering? Please write a purpose of that?* </p>
 						</div>
-						<textarea class="info-letter big  col-xs-12 col-sm-12 col-md-12 col-lg-12" style="width: 90%" placeholder="About Advert ..." rows="10" required>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia voluptatem distinctio veritatis modi incidunt animi, totam nihil molestiae molestias, dolor quod neque numquam tempora odio fugiat magnam? Eos, alias reprehenderit!</textarea>
+						<textarea id="propose" onchange="addPropopose()"class="info-letter big  col-xs-12 col-sm-12 col-md-12 col-lg-12" style="width: 90%" placeholder="About Advert ..." rows="10" required>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia voluptatem distinctio veritatis modi incidunt animi, totam nihil molestiae molestias, dolor quod neque numquam tempora odio fugiat magnam? Eos, alias reprehenderit!</textarea>
+						<input id="propose-input" name="statementOfPurpose" required type="file" accept=".pdf" style=" visibility:hidden;" >
 						
 						
 						<div class="row" >
@@ -219,10 +239,17 @@
 							<div class="disc-letter col-xs-3 col-sm-3 col-md-3 col-lg-3">
 								<p>Upload your reference letters.* :</p>
 							</div>
-							<div class="upload col-xs-2 col-sm-2 col-md-2 col-lg-2" style="padding-top:5px">
-								<a href="#" style="display: flex; justify-content: flex-start;">
-									<button type="button" class="btn btn-default upload-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px; ">Upload</button>
+							<div id="upload5" class="upload col-xs-2 col-sm-2 col-md-2 col-lg-2" style="padding-top: 5px;">
+								<a   style="display: flex; justify-content: flex-end;">
+								<label type="button"   for="ref-input" class="btn btn-default upload-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Upload</label>
 								</a>
+								<input id="ref-input" name="referenceLetter" onchange="show_5();" required type="file" accept=".pdf" style=" visibility:hidden;" />
+							</div>
+							<div class="upload col-xs-2 col-sm-2 col-md-2 col-lg-2" style="padding: 0px; padding-top: 5px;">
+								<p id="info5" style="color: #9C9C9C; text-align: center;"></p>
+							</div>
+							<div class="upload col-xs-2 col-sm-2 col-md-2 col-lg-2" style="padding: 5px  0 0 5px; ">
+								<p  id="x5" class="btn btn-default upload-button" onclick="back_5();" style="height:25px; width: 25px; border-color: rgb(148, 85, 98); border-radius: 20px; color: rgb(179, 82, 101); visibility: hidden;" ;>X</p>
 							</div>
 						</div>
 						
@@ -238,7 +265,7 @@
 									
 					<div  class="row select-part need-space">
 						<div class="just-letter col-xs-12 col-sm-12 col-md-12 col-lg-12">
-							<p>Are you have Turkish identity card?* </p>
+							<p>Do you have Turkish identity card?* </p>
 						</div>
 						<div class="row no-yes col-xs-6 col-sm-6 col-md-6 col-lg-6">
 								<a style="display: flex; justify-content: flex-end;">
@@ -252,18 +279,26 @@
 								</a>
 						</div>
 						
-						<div id="extra-1" style="visibility: hidden;">
+						<div id="extra-1" style="visibility: hidden;" title= "e1-0">
 							<div class="row disc-letter col-xs-12 col-sm-12 col-md-12 col-lg-12">
 								<p>If no, please upload your copy of passport.</p>
 							</div>
 
 							<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"></div>
 
-							<div class="row upload col-xs-2 col-sm-2 col-md-2 col-lg-2">
-								<a  style="display: flex; justify-content: flex-end;">
-									<button type="button" id="button2" disabled class="btn btn-default upload-button" style="width: 100%;background: #fff;color:#D6D6D6 ;border-color:#D6D6D6; border-radius: 15px;">Upload</button>
+							<div id="upload6" class="upload col-xs-2 col-sm-2 col-md-2 col-lg-2">	
+								<a   style="display: flex; justify-content: center;">
+									<label type="button"   for="id-input" class="btn btn-default upload-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Upload</label>
 								</a>
+								<input id="id-input" name="passport" onchange="show_6();"  type="file" accept=".pdf" style=" visibility:hidden;" />
 							</div>
+							<div class="upload col-xs-2 col-sm-2 col-md-2 col-lg-2" style="padding: 0px;">
+								<p id="info6" style="color: #9C9C9C; text-align: center;"></p>							
+							</div>
+							<div class="upload col-xs-2 col-sm-2 col-md-2 col-lg-2" style="padding-left: 5px;">
+								<p  id="x6" class="btn btn-default upload-button" onclick="back_6();" style="height:25px; width: 25px; border-color: rgb(148, 85, 98); border-radius: 20px; color: rgb(179, 82, 101); visibility: hidden;" ;>X</p>							
+							</div>
+
 						</div>
 					</div>
 						
@@ -274,27 +309,36 @@
 						</div>
 						<div class="row no-yes col-xs-6 col-sm-6 col-md-6 col-lg-6">
 								<a style="display: flex; justify-content: flex-end;">
-									<button type="button" class="btn btn-default no-yes-button" id="button6" onclick="disableButton5()" style="width: 95%;background: #fff;color:##A0A0A0 ;border-color: #A0A0A0;border-radius: 15px;">No</button>
+									<button type="button" class="btn btn-default no-yes-button" id="button6" onclick="disableButton5()" style="width: 95%;background: #fff;color:#A0A0A0 ;border-color: #A0A0A0;border-radius: 15px;">No</button>
 								</a>
 						</div>
 						
 						<div class= "row no-yes col-xs-6 col-sm-6 col-md-6 col-lg-6" style="align-items: center;text-align: center;">
 							<div>
-									<button type="button" class="btn btn-default no-yes-button" id="button4" onclick="enableButton5()" style="width: 95%;background: #fff;color:##A0A0A0 ;border-color: #A0A0A0;border-radius: 15px;">Yes</button>
+									<button type="button" class="btn btn-default no-yes-button" id="button4" onclick="enableButton5()" style="width: 95%;background: #fff;color:#A0A0A0 ;border-color: #A0A0A0;border-radius: 15px;">Yes</button>
 		
 							</div>
 							
-							<div id="extra-2" style="visibility: hidden;">
+							<div id="extra-2" style="visibility: hidden;" title= "e2-0">
 								<div  class="row disc-letter col-xs-12 col-sm-12 col-md-12 col-lg-12">
 									<p >If yes*, please upload your permission letter to studying from company</p>
 								</div>
 
 								<div class=" col-xs-4 col-sm-4 col-md-4 col-lg-4" ></div>
-								<div class="upload col-xs-4 col-sm-4 col-md-4 col-lg-4">
-									<a href="#" style="display: flex; justify-content: flex-end;">
-										<button type="button" id="button5" disabled class="btn btn-default upload-button" style="width: 100%;background: #fff;color:#D6D6D6 ;border-color:#D6D6D6; border-radius: 15px;">Upload</button>
+								<div id="upload7" class="upload col-xs-4 col-sm-4 col-md-4 col-lg-4">	
+									<a   style="display: flex; justify-content: center;">
+										<label type="button"   for="work-input" class="btn btn-default upload-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Upload</label>
 									</a>
+									<input id="work-input" name="permissionLetter" onchange="show_7();" type="file" accept=".pdf" style=" visibility:hidden;" >
 								</div>
+								<div class="upload col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding: 0px;">
+									<p id="info7" style="color: #9C9C9C; text-align: center;"></p>							
+								</div>
+								<div class="upload col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-left: 5px;">
+									<p  id="x7" class="btn btn-default upload-button" onclick="back_7();" style="height:25px; width: 25px; border-color: rgb(148, 85, 98); border-radius: 20px; color: rgb(179, 82, 101); visibility: hidden;" ;>X</p>							
+								</div>
+
+								
 							</div>
 							
 							
@@ -313,12 +357,20 @@
 							<p>You are in last step. You are trying  to apply to an PhD advert. Please upload your Master Transcript to complete application.* </p>
 						</div>
 						
-
-						<div class="upload col-xs-12 col-sm-12 col-md-12 col-lg-12">
-							<a href="#" style="display: flex; justify-content: center;">
-								<button type="button" class="btn btn-default upload-button" style="width: 15%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Upload</button>
+						<div class="upload col-xs-4 col-sm-4 col-md-4 col-lg-4"></div>
+						<div id="upload8" class="upload col-xs-2 col-sm-2 col-md-2 col-lg-2">	
+							<a   style="display: flex; justify-content: center;">
+							<label type="button"   for="phd-input" class="btn btn-default upload-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Upload</label>
 							</a>
+							<input id="phd-input" name="masterTranscript" onchange="show_8();"  type="file" accept=".pdf" style=" visibility:hidden;" >
 						</div>
+						<div class="upload col-xs-2 col-sm-2 col-md-2 col-lg-2" style="padding: 0px;">
+							<p id="info8" style="color: #9C9C9C; text-align: center;"></p>							
+						</div>
+						<div class="upload col-xs-2 col-sm-2 col-md-2 col-lg-2" style="padding-left: 5px;">
+							<p  id="x8" class="btn btn-default upload-button" onclick="back_8();" style="height:25px; width: 25px; border-color: rgb(148, 85, 98); border-radius: 20px; color: rgb(179, 82, 101); visibility: hidden;" ;>X</p>							
+						</div>
+
 					</div>
 				</div>
 				
@@ -333,10 +385,14 @@
 
 					<div class="cs-first-description col-xs-2">
 							<a href="#" style="display: flex; justify-content: flex-end;">
-								<button  type="submit" class="btn btn-default update" style="width: 100%;background: #3F78B3;color:#fff ;border-color: #3F78B3;border-radius: 15px;">Apply</button>
+								<button  type="submit" onclick="checkRequiredInputs()" class="btn btn-default update" style="width: 100%;background: #3F78B3;color:#fff ;border-color: #3F78B3;border-radius: 15px;">Apply</button>
 							</a>
 					</div>
+
+					<div class="col-xs-8"></div>
+					<div id="apply-error" class="col-xs-4" style="color: red; text-align: center; display:none"> Please complete required places.</div>
 				</div>
+
 				
 			</form>
 		</div>

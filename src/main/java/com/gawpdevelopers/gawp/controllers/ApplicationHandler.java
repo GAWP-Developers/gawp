@@ -77,6 +77,11 @@ public class ApplicationHandler {
 //        return "applicant/main-page-applicant";
 //    }
 
+    @RequestMapping("/applicant")
+    public String applicantMainMenu(){
+        return "applicant/main-page-applicant";
+    }
+
     @RequestMapping({"/application/list", "/application"})
     public String listApplications(Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -113,6 +118,11 @@ public class ApplicationHandler {
         return "applicant/new-application";
     }
 
+    @RequestMapping("/applicant/application/new/success")
+    public String applicationSuccess(){
+        return "applicant/succesful-application";
+    }
+
     @RequestMapping(value = "/application", method = RequestMethod.POST)
     public String saveOrUpdateApplication(@Valid ApplicationForm applicationForm, BindingResult bindingResult,
                                           @RequestParam("photo") MultipartFile photo,
@@ -122,6 +132,7 @@ public class ApplicationHandler {
                                           @RequestParam("permissionLetter") MultipartFile permissionLetter,
                                           @RequestParam("passport") MultipartFile passport,
                                           @RequestParam("masterTranscript") MultipartFile masterTranscript) {
+        System.out.println("UPLOAD ZAMANI");
         if(bindingResult.hasErrors()){
             return "application/applicationform";
         }
@@ -177,7 +188,7 @@ public class ApplicationHandler {
         documentService.saveOrUpdateDocumentForm(masterTranscriptForm);
 
 //        return "redirect:/application/show/" + savedApplication.getId();
-        return "redirect:/application/list";
+        return "redirect:/applicant/application/new/success";
     }
 
     @RequestMapping("/application/delete/{id}")
@@ -185,4 +196,36 @@ public class ApplicationHandler {
         applicationService.delete(Long.valueOf(id));
         return "redirect:/application/list";
     }
+
+    @RequestMapping("/grad/applicationsBeforeForwarding")
+    public String applicationsBeforeForwarding(){
+        return "/grad/application-before-forwarding-to-deparment";
+    }
+
+    @RequestMapping("/grad/applicationsBeforeForwarding/preReview")
+    public String listPreReviewApplications(Model model){
+        //TODO List preview applications and add it as attribute to model
+        return "/grad/applications-to-pre-review";
+
+    }
+
+    @RequestMapping("/grad/applicationsBeforeForwarding/declined")
+    public String listDeclinedApplications(Model model){
+        //TODO List declined applications and add it as attribute to model
+        return "/grad/declined-applications";
+    }
+
+    @RequestMapping("/grad/applicationsBeforeForwarding/verifiedAndApproved")
+    public String listVerifiedAndApprovedApplications(Model model){
+        //TODO List verified and approved applications and add it as attribute to model
+        return "/grad/verfied-and-approved-applications";
+    }
+
+    @RequestMapping("/grad/applicationsBeforeForwarding/verify")
+    public String listApplicationsToVerify(Model model){
+        //TODO List approved applications and add it as attribute to model
+        return "/grad/verify-approved-applications";
+    }
+
+
 }
