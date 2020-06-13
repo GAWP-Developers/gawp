@@ -10,13 +10,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class UserDetailsImpl implements UserDetails {
-
+    private long id;
     private String userName;
     private String password;
     private boolean active;
     private List<GrantedAuthority> authorities;
 
     public UserDetailsImpl(User user) {
+        this.id=user.getId();
         this.userName = user.getUserName();
         this.password = user.getPassword();
         this.active = user.isActive();
@@ -58,5 +59,12 @@ public class UserDetailsImpl implements UserDetails {
     @Override
     public boolean isEnabled() {
         return active;
+    }
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

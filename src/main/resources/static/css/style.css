@@ -95,6 +95,26 @@
     width: 100%;
 }
 
+.login-button-part .button-part .btn-applicant{
+    background-color:#3C599A ;
+    color: #ffffff;
+    font-size:20px;
+    border-radius: 10px;
+    padding-right:30px;
+    padding-left:30px;
+    letter-spacing: 0.5px;
+    width: 100%;
+}
+.login-button-part .button-part .btn-non-applicant{
+    background-color: #DB4C39;
+    font-size: 20px;
+    border-radius: 10px;
+    color:white;
+    padding-right:30px;
+    letter-spacing:0.5px;
+    width: 100%;
+}
+
 
 .facebook-button, .google-button {
     color: #ffffff;

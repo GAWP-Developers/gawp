@@ -3,21 +3,21 @@ package com.gawpdevelopers.gawp.domain;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "User_Info")
+@Table(name = "USER")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private long id;
     private String userName;
     private String password;
     private boolean active;
     private String roles;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

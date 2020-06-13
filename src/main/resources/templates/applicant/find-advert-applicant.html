@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Find Right Advert</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -20,6 +20,9 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"/>
 </head>
 <body>
+
+
+
     <nav class="navbar navbar-default">
 		<div class="container">
 			<div class="navbar-header">
@@ -41,7 +44,7 @@
 		</div>
 	</nav><!-- end of the navbar-->
 
-
+    <a href="/logout ">Click here to logout</a>
 
 <div class="section">
     <div th:if="${not #lists.isEmpty(adverts)}">

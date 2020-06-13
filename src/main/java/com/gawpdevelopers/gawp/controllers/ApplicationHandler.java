@@ -1,16 +1,16 @@
 package com.gawpdevelopers.gawp.controllers;
 
+import com.gawpdevelopers.gawp.domain.Applicant;
 import com.gawpdevelopers.gawp.domain.Application;
 import com.gawpdevelopers.gawp.domain.ApplicationStatus;
 import com.gawpdevelopers.gawp.domain.DocumentType;
-import com.gawpdevelopers.gawp.services.AdvertService;
+import com.gawpdevelopers.gawp.services.*;
 import com.gawpdevelopers.gawp.commands.ApplicationForm;
 import com.gawpdevelopers.gawp.commands.DocumentForm;
 import com.gawpdevelopers.gawp.converters.ApplicationToApplicationForm;
-import com.gawpdevelopers.gawp.services.ApplicationService;
-import com.gawpdevelopers.gawp.services.DocumentService;
-import com.gawpdevelopers.gawp.services.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,12 +32,17 @@ public class ApplicationHandler {
 
     private ApplicationToApplicationForm applicationToApplicationForm;
     private AdvertService advertService;
+    private ApplicantService applicantService;
     private StorageService storageService;
     private DocumentService documentService;
 
     @Autowired
     public void setApplicationToApplicationForm(ApplicationToApplicationForm applicationToApplicationForm) {
         this.applicationToApplicationForm = applicationToApplicationForm;
+    }
+    @Autowired
+    public void setApplicantService(ApplicantService applicantService) {
+        this.applicantService = applicantService;
     }
 
     @Autowired
@@ -67,8 +72,9 @@ public class ApplicationHandler {
 
     @RequestMapping({"/application/list", "/application"})
     public String listApplications(Model model){
-        System.out.println("AGAM GİREMEDİM");
-        model.addAttribute("applications", applicationService.listAll());
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Applicant applicant = applicantService.getByApiId(auth.getName());
+        model.addAttribute("applications", applicationService.listAllByApplicant(applicant));
         return "application/list";
     }
 
@@ -113,6 +119,9 @@ public class ApplicationHandler {
         }
 
         applicationForm.setStatus(ApplicationStatus.WAITINGFORCONTROL);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Applicant applicant = applicantService.getByApiId(auth.getName());
+        applicationForm.setApplicant(applicant);
         Application savedApplication = applicationService.saveOrUpdateApplicationForm(applicationForm);
         System.out.println(savedApplication.getStatus());
 

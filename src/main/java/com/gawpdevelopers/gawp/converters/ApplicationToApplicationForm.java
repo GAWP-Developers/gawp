@@ -18,7 +18,7 @@ public class ApplicationToApplicationForm implements Converter<Application, Appl
         applicationForm.setId(application.getId());
         //applicationForm.setAdvert(application.getAdvert());
         applicationForm.setIntID(application.getIntID());
-        applicationForm.setApplicantID(application.getApplicantID());
+        applicationForm.setApplicant(application.getApplicant());
         applicationForm.setStatus(application.getStatus());
         applicationForm.setApplicationDegree(application.getApplicationDegree());
         applicationForm.setLastUpdateDate(application.getLastUpdateDate());
