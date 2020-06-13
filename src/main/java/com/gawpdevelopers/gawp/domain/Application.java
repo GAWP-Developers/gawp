@@ -8,6 +8,7 @@ import java.util.List;
 public class Application {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "APPLICATION_ID")
     private Long id;
     private Long intID;     //  Interview ID - Will be Set Later
     @OneToOne(fetch = FetchType.LAZY)
