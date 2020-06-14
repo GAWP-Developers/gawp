@@ -107,11 +107,12 @@ public class LoginHandler {
         if(auth.getAuthorities().toString().equals("[ROLE_DEPT]")){
             return "redirect:login";
         }
+        
         if(auth.getAuthorities().toString().equals("[ROLE_GRAD]")){
             return "redirect:/grad";
         }
 
-        return "redirect:/login-error";
+        return "redirect:/logout";
     }
     @RequestMapping(value="/logout", method=RequestMethod.GET)
     public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
