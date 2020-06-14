@@ -20,6 +20,7 @@ public class Advert {
     private Date shareDate;
     private Date deadlineDate;
     private AdvertType type;
+    @Column(columnDefinition = "varchar(max)")
     private String details;
 
     public Long getId() {

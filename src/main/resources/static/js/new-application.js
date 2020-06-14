@@ -367,7 +367,7 @@ function checkRequiredInputs(){
 		
 	 }
 
-	 if(document.getElementById("phd-input").value == ""){
+	 if(document.getElementById("advert_type").value == "PHD" && document.getElementById("phd-input").value == ""){
 		var elem = document.getElementById('info8');
 		elem.style = "color: red"
 		elem.innerHTML = "Please upload a file.";

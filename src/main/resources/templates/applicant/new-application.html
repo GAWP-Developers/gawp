@@ -76,6 +76,10 @@
         <div class="container-section d-flex align-items-center justify-content-center col-4" style="padding-top: 10px;">
             <form id="applicationForm" class="container-section-part " th:object="${applicationForm}" th:action="@{/application}" method="post" enctype="multipart/form-data">
 
+				<input hidden th:field="*{id}" th:value="${applicationForm.id}"/>
+				<input hidden th:field="*{advert}" th:value="${applicationForm.advert}"/>
+				<input hidden th:field="*{applicant}" th:value="${applicationForm.applicant}" />
+
                 <div class="row step">
                     <div class="row step-title">
                         <p>STEP-1</p>
@@ -345,8 +349,10 @@
 						</div>
 					</div>
 				</div>
-				
-				
+
+				<div id="advert_type" th:value="${applicationForm.advert.type.toString()}"/>
+<!--				<input hidden id="dummy" name="masterTranscript" type="file" />-->
+				<div th:if="${applicationForm.advert.type.toString().equals('PHD')}" >
 				<div class="row step">
                     <div class="row step-title">
                         <p>PhD Application</p>
@@ -372,6 +378,7 @@
 						</div>
 
 					</div>
+				</div>
 				</div>
 				
 				
