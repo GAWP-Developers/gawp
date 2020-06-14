@@ -3,8 +3,10 @@ package com.gawpdevelopers.gawp.converters;
 import com.gawpdevelopers.gawp.commands.InterviewForm;
 import com.gawpdevelopers.gawp.domain.Interview;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+@Component
 public class InterviewFormToInterview implements Converter<InterviewForm, Interview> {
 
     @Override
@@ -20,6 +22,7 @@ public class InterviewFormToInterview implements Converter<InterviewForm, Interv
         interview.setApplication(interviewForm.getApplication());
         interview.setDate(interviewForm.getDate());
         interview.setPoint(interviewForm.getPoint());
+        interview.setInfo(null);
         return interview;
     }
 }

@@ -118,8 +118,8 @@ public class ApplicationHandler {
         ApplicationForm appForm = new ApplicationForm();
         appForm.setAdvert(advertService.getById(advert_id));
         model.addAttribute("applicationForm", appForm);
-        System.out.println("232 app new");
-        System.out.println(appForm.getId());
+        /**System.out.println("232 app new");
+        System.out.println(appForm.getId());*/
 //        System.out.println("Advert is null: " + advert == null);
 //        model.addAttribute("target_advert", advert);
 //        return "application/applicationform";
@@ -195,8 +195,8 @@ public class ApplicationHandler {
         photoForm.setPath(storageService.store(masterTranscript).toString());
         documentService.saveOrUpdateDocumentForm(masterTranscriptForm);
 
-        System.out.println("232 app update");
-        System.out.println(applicationForm.getId());
+        /**System.out.println("232 app update");
+        System.out.println(applicationForm.getId());*/
 
 //        return "redirect:/application/show/" + savedApplication.getId();
         return "redirect:/applicant/application/new/success";

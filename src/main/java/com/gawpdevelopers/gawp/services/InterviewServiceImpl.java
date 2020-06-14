@@ -3,9 +3,11 @@ package com.gawpdevelopers.gawp.services;
 import com.gawpdevelopers.gawp.commands.AdvertForm;
 import com.gawpdevelopers.gawp.commands.InterviewForm;
 import com.gawpdevelopers.gawp.converters.AdvertFormToAdvert;
+import com.gawpdevelopers.gawp.converters.ApplicationFormToApplication;
 import com.gawpdevelopers.gawp.converters.InterviewFormToInterview;
 import com.gawpdevelopers.gawp.domain.Advert;
 import com.gawpdevelopers.gawp.domain.Interview;
+import com.gawpdevelopers.gawp.repositories.ApplicationRepository;
 import com.gawpdevelopers.gawp.repositories.InterviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,8 +22,9 @@ public class InterviewServiceImpl implements InterviewService{
     private InterviewFormToInterview interviewFormToInterview;
 
     @Autowired
-    public InterviewServiceImpl(InterviewRepository interviewRepository) {
+    public InterviewServiceImpl(InterviewRepository interviewRepository, InterviewFormToInterview interviewFormToInterview) {
         this.interviewRepository = interviewRepository;
+        this.interviewFormToInterview = interviewFormToInterview;
     }
 
     @Override

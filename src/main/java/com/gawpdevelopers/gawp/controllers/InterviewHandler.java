@@ -96,17 +96,22 @@ public class InterviewHandler {
         return "redirect:/department/interview/list";
     }*/
 
+    @RequestMapping("/department/interview/new/success")
+    public String interviewSuccess(){
+        return "department/succesful-interview";
+    }
+
     @RequestMapping("/department/interview/new/{application_id}")
     public String newInterview(@PathVariable Long application_id, Model model){
         InterviewForm interviewForm = new InterviewForm();
         interviewForm.setApplication(applicationService.getById(application_id));
         model.addAttribute("interviewForm", interviewForm);
-        System.out.println("application");
+        /**System.out.println("application");
 
         System.out.println(interviewForm.getApplication().getId());
 
         System.out.println(interviewForm.getId());
-        System.out.println(25);
+        System.out.println(25);*/
 //        System.out.println("Advert is null: " + advert == null);
 //        model.addAttribute("target_advert", advert);
 //        return "application/applicationform";
@@ -118,22 +123,10 @@ public class InterviewHandler {
         if(bindingResult.hasErrors()){
             return "interview/interviewform";
         }
-        System.out.println("datee");
-        System.out.println(interviewForm.getDate());
-        System.out.println("place");
 
-        System.out.println(interviewForm.getPlace());
-        System.out.println("point");
-
-        System.out.println(interviewForm.getPoint());
-        System.out.println("application");
-
-        System.out.println(interviewForm.getApplication().getId());
-
-        System.out.println(23);
         Interview savedInterview = interviewService.saveOrUpdateInterviewForm(interviewForm);
 
-        return "redirect:/grad/advert";
+        return "redirect:/department/interview/new/success";
     }
 
     @RequestMapping("/department/interview/delete/{id}")
