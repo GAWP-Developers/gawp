@@ -20,6 +20,7 @@ public class InterviewToInterviewForm implements Converter<Interview, InterviewF
         interviewForm.setApplication(interview.getApplication());
         interviewForm.setDate(interview.getDate());
         interviewForm.setPoint(interview.getPoint());
+        interviewForm.setTime(interview.getTime());
         return interviewForm;
     }
 }

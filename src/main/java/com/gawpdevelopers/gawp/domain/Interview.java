@@ -18,6 +18,15 @@ public class Interview {
     @OneToOne
     @JoinColumn(name = "APPLICATION_ID")
     private Application application;
+    private String time;
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
 
     public Long getId() {
         return id;
