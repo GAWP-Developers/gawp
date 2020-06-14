@@ -1,5 +1,10 @@
 package com.gawpdevelopers.gawp.services;
 
+import com.gawpdevelopers.gawp.commands.AdvertForm;
+import com.gawpdevelopers.gawp.commands.InterviewForm;
+import com.gawpdevelopers.gawp.converters.AdvertFormToAdvert;
+import com.gawpdevelopers.gawp.converters.InterviewFormToInterview;
+import com.gawpdevelopers.gawp.domain.Advert;
 import com.gawpdevelopers.gawp.domain.Interview;
 import com.gawpdevelopers.gawp.repositories.InterviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +17,7 @@ import java.util.List;
 public class InterviewServiceImpl implements InterviewService{
 
     private InterviewRepository interviewRepository;
+    private InterviewFormToInterview interviewFormToInterview;
 
     @Autowired
     public InterviewServiceImpl(InterviewRepository interviewRepository) {
@@ -44,5 +50,13 @@ public class InterviewServiceImpl implements InterviewService{
     public void delete(Long id) {
         interviewRepository.deleteById(id);
 
+    }
+
+    @Override
+    public Interview saveOrUpdateInterviewForm(InterviewForm interviewForm) {
+        Interview savedInterview = saveOrUpdate(interviewFormToInterview.convert(interviewForm));
+
+        System.out.println("Saved Interview Id: " + savedInterview.getId());
+        return savedInterview;
     }
 }

@@ -1,10 +1,19 @@
 package com.gawpdevelopers.gawp.controllers;
 
+import com.gawpdevelopers.gawp.commands.AdvertForm;
+import com.gawpdevelopers.gawp.commands.ApplicationForm;
+import com.gawpdevelopers.gawp.commands.InterviewForm;
+import com.gawpdevelopers.gawp.domain.Advert;
 import com.gawpdevelopers.gawp.domain.Interview;
+import com.gawpdevelopers.gawp.domain.UserDetailsImpl;
 import com.gawpdevelopers.gawp.services.ApplicationService;
 import com.gawpdevelopers.gawp.services.InterviewService;
 import com.gawpdevelopers.gawp.services.MailService;
+import com.gawpdevelopers.gawp.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,17 +21,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.validation.Valid;
 import java.util.Date;
 
 /**
  * Controller class that responds to the /interview/* requests.
  */
+@Controller
 public class InterviewHandler {
 
     private InterviewService interviewService;
     //private InterviewInfoService interviewInfoService;
     private MailService emailService;
     private ApplicationService applicationService;
+    private UserDetailsServiceImpl userDetailsService;
 
 
     @Autowired
@@ -52,6 +64,15 @@ public class InterviewHandler {
         return "interview/show";
     }
 
+    /**
+    @RequestMapping("/department/interview/new")
+    public String newInterview(Model model){
+        model.addAttribute("interviewForm", new InterviewForm());
+//        return "advert/advertform";
+        return "department/add-new-interview";
+    }
+
+
     @RequestMapping(value = "/interview", method = RequestMethod.POST)
     public String saveOrUpdateInterview(BindingResult bindingResult,
                                         @RequestParam("place") String place,
@@ -73,6 +94,29 @@ public class InterviewHandler {
         interview.setApplication(applicationService.getById(application_id));
 
         return "redirect:/department/interview/list";
+    }*/
+
+    @RequestMapping("/department/interview/new/{application_id}")
+    public String newInterview(@PathVariable Long application_id, Model model){
+        InterviewForm interviewForm = new InterviewForm();
+        interviewForm.setApplication(applicationService.getById(application_id));
+        model.addAttribute("interviewForm", interviewForm);
+//        System.out.println("Advert is null: " + advert == null);
+//        model.addAttribute("target_advert", advert);
+//        return "application/applicationform";
+        return "department/add-new-interview";
+    }
+
+    @RequestMapping(value = "/interview", method = RequestMethod.POST)
+    public String saveOrUpdateInterview(@Valid InterviewForm interviewForm, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return "interview/interviewform";
+        }
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetailsImpl user =  (UserDetailsImpl) userDetailsService.loadUserByUsername(auth.getName());
+        Interview savedInterview = interviewService.saveOrUpdateInterviewForm(interviewForm);
+
+        return "redirect:/grad/advert";
     }
 
     @RequestMapping("/department/interview/delete/{id}")
