@@ -8,7 +8,6 @@ import com.gawpdevelopers.gawp.converters.ApplicationToApplicationForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -220,7 +219,9 @@ public class ApplicationHandler {
 
     @RequestMapping("/grad/applicationsBeforeForwarding/declined")
     public String listDeclinedApplications(Model model){
-        //TODO List declined applications and add it as attribute to model
+        //TODO List declined applications and add it as attribute to model (DONE)
+        List<Application> declinedApplications = applicationService.listByStatus(ApplicationStatus.REJECTED);
+        model.addAttribute("declinedApplications", declinedApplications);
 
         return "/grad/declined-applications";
     }
@@ -228,7 +229,7 @@ public class ApplicationHandler {
     @RequestMapping("/grad/applicationsBeforeForwarding/verifiedAndApproved")
     public String listVerifiedAndApprovedApplications(Model model){
         //TODO List verified and approved applications and add it as attribute to model
-        return "/grad/verfied-and-approved-applications";
+        return "/grad/verified-and-approved-applications";
     }
 
     @RequestMapping("/grad/applicationsBeforeForwarding/verify")

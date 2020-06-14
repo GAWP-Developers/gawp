@@ -64,7 +64,7 @@ public class InterviewHandler {
         return "interview/show";
     }
 
-    /**
+    /*
     @RequestMapping("/department/interview/new")
     public String newInterview(Model model){
         model.addAttribute("interviewForm", new InterviewForm());

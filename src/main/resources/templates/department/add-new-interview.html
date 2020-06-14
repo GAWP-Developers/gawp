@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Add New Advert</title>
+    <title>Create New Interview</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
     <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
@@ -47,10 +47,10 @@
     <div class="container">
         <div class="container-section d-flex align-items-center justify-content-center col-4">
             <div class="add-new-advert-title" th:if="*{interviewForm.id == null}">
-                <p>Add New Advert</p>
+                <p>Create New Interview</p>
             </div>
             <div class="add-new-advert-title" th:unless="*{interviewForm.id == null}">
-                <p>Modify Advert</p>
+                <p>Modify Interview</p>
             </div>
 
             <div class="second-container">
@@ -66,7 +66,9 @@
                                 <p>Point</p>
                             </div>
                             <div class="text-area-part">
-                                <input class="text-area" th:field="*{point}" type="text"/>
+                                <label>
+                                    <input class="text-area" th:field="*{point}" type="text"/>
+                                </label>
                             </div>
 
                         </div>
@@ -75,7 +77,9 @@
                                 <p>Place</p>
                             </div>
                             <div class="text-area-part">
-                                <input class="text-area" th:field="*{place}" type="text"/>
+                                <label>
+                                    <input class="text-area" th:field="*{place}" type="text"/>
+                                </label>
                             </div>
 
                         </div>
@@ -85,12 +89,9 @@
                                 <div class="form-group" th:class="${#fields.hasErrors('date')} ? 'form-group has-error' : 'form-group'"></div>
                                 <label class="col control-label">Date</label>
                                 <div class="col">
-                                    <input type="date" class="form-control" th:field="*{date}" th:errorclass="has-error"/>
-                                    <span class="help-block">
-                                    <ul>
-                                        <li th:each="err : ${#fields.errors('type')}" th:text="${err}" />
-                                    </ul>
-                                    </span>
+                                    <label>
+                                        <input type="date" class="form-control" th:field="*{date}" th:errorclass="has-error"/>
+                                    </label>
                                 </div>
                             </div>
                         </div>
