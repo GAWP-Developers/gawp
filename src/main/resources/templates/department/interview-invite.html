@@ -15,7 +15,7 @@
 
     <link href="../../static/css/spring-core.css"
           th:href="@{css/spring-core.css}" rel="stylesheet" media="screen"/>
-    <link href="../../static/css/interview-invite.css"
+    <link href="../../interview-invite.css"
 		  th:href="@{/css/interview-invite.css}" rel="stylesheet" type="text/css"/>
 	<script src="../../static/js/interview-invite.js"
 			th:src="@{/js/interview-invite.js}"></script>
@@ -46,7 +46,9 @@
 	<div class="container" style="margin-bottom: 0px; ">
 		<div class="container-section d-flex align-items-center justify-content-center col-4" >
 			<p style="font-size: 30px;">Create Interview Invite for
-			<p style="font-size: 40px; border-bottom: solid 1px #c7c6c6aa; color:#3B3B3B ; letter-spacing: 0.2px; top :0px;"><span th:text="${name}"/></p>
+				<bold id="fname">Name</bold>
+				<bold > </bold>
+				<bold id="sname">Surname</bold>
 			</p>
 		</div>
 	</div>
@@ -56,7 +58,7 @@
             <div class="container-section-part ">
                 <div class="row cs-first">
                     <div class="row cs-first-title col-xs-6">
-                        <p id="aname">Application Name Is This.</p> <!--TODO-->
+                        <p id="aname">Advert Name Is This.</p>
                     </div>
 					
 					<div class="col-xs-4">
@@ -64,7 +66,7 @@
 							<p>Expire Date: </p>
 						</div>
 						<div class="date col-xs-2 col-sm-2 col-md-2 col-lg-2">
-							<p>02/05/2020</p> <!--TODO-->
+							<p>02/05/2020</p>
 						</div>
 					</div>
 					
@@ -78,7 +80,7 @@
         </div>
     </div>
 
-
+	
 	<div class="container" style="margin-bottom: 10px; ">
         <div class="container-section d-flex align-items-center justify-content-center col-4" style="padding-top: 10px;">
             <form class="container-section-part " th:object="${interviewForm}" th:action="@{/interview}"  method="post">
@@ -94,19 +96,22 @@
 					</div>
 					
 					<div class="row">
-						<input id="iplace" th:field="*{place}" onchange="updateInvite()" data-limit-rows="true" class="info-letter col-xs-12 col-sm-12 col-md-12 col-lg-12" placeholder="Place of Interview" rows="3" style="width:90.5%; padding: 8px 15px;" >
+						<input id="iplace" th:field="*{place}" onchange="updateInvite()" data-limit-rows="true" class="info-letter col-xs-12 col-sm-12 col-md-12 col-lg-12" placeholder="Place..." rows="3" style="width:90.5%; padding: 8px 15px;" >
 					</div>
 					
 	
              	</div>
-
+				
+				
+				
+				
 				<div class="row step" id="step2" style="display:none">	
 					<div class="row step-title">
                         <p>STEP-2</p>
 					</div>		
 					<div  class="row">
 						<div class="just-letter col-xs-12 col-sm-12 col-md-12 col-lg-12">
-							<p>In below you can see mail preview and can change it.(Please don't change day,time and place) </p>
+							<p>In below you can see mail preview and can change it.(Please dont change day,time and place) </p>
 						</div>
 						<textarea id="invite-text" onchange="addInvite();" class="info-letter big  col-xs-12 col-sm-12 col-md-12 col-lg-12" style="width: 90%" placeholder="About Invert ..." rows="10" required></textarea>
 						<input id="mail-input"  required   style=" visibility:hidden;" >	
