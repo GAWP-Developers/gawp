@@ -105,7 +105,7 @@ public class LoginHandler {
     public String check(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if(auth.getAuthorities().toString().equals("[ROLE_DEPT]")){
-            return "redirect:login";
+            return "redirect:/department";
         }
         
         if(auth.getAuthorities().toString().equals("[ROLE_GRAD]")){
