@@ -1,19 +1,16 @@
 package com.gawpdevelopers.gawp.controllers;
 
-import com.gawpdevelopers.gawp.domain.Mail;
-import com.gawpdevelopers.gawp.domain.User;
-import com.gawpdevelopers.gawp.domain.UserDetailsImpl;
-import com.gawpdevelopers.gawp.services.AdvertService;
 import com.gawpdevelopers.gawp.commands.AdvertForm;
 import com.gawpdevelopers.gawp.converters.AdvertToAdvertForm;
 import com.gawpdevelopers.gawp.domain.Advert;
+import com.gawpdevelopers.gawp.domain.Mail;
+import com.gawpdevelopers.gawp.domain.UserDetailsImpl;
+import com.gawpdevelopers.gawp.services.AdvertService;
 import com.gawpdevelopers.gawp.services.MailService;
 import com.gawpdevelopers.gawp.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -35,7 +32,9 @@ public class AdvertHandler {
     private UserDetailsServiceImpl userDetailsService;
     @Autowired
     private MailService emailService;
-
+    public void setEmailService(MailService emailService){
+        this.emailService = emailService;
+    }
     @Autowired
     public void setAdvertToAdvertForm(AdvertToAdvertForm advertToadvertForm) {
         this.advertToAdvertForm = advertToadvertForm;
@@ -44,9 +43,7 @@ public class AdvertHandler {
     public void setUserDetailsServiceImpl(UserDetailsServiceImpl userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
-    public void setEmailService(MailService emailService){
-        this.emailService = emailService;
-    }
+
 
     @Autowired
     public void setAdvertService(AdvertService advertService) {

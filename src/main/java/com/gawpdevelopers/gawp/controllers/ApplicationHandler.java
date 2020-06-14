@@ -1,14 +1,13 @@
 package com.gawpdevelopers.gawp.controllers;
 
-import com.gawpdevelopers.gawp.domain.*;
-import com.gawpdevelopers.gawp.services.*;
 import com.gawpdevelopers.gawp.commands.ApplicationForm;
 import com.gawpdevelopers.gawp.commands.DocumentForm;
 import com.gawpdevelopers.gawp.converters.ApplicationToApplicationForm;
+import com.gawpdevelopers.gawp.domain.*;
+import com.gawpdevelopers.gawp.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,10 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-
 import javax.validation.Valid;
 import java.util.List;
-
 
 
 /**
@@ -36,6 +33,12 @@ public class ApplicationHandler {
     private ApplicantService applicantService;
     private StorageService storageService;
     private DocumentService documentService;
+    private MailService emailService;
+
+    @Autowired
+    public void setEmailService(MailService emailService){
+        this.emailService = emailService;
+    }
 
     @Autowired
     public void setApplicationToApplicationForm(ApplicationToApplicationForm applicationToApplicationForm) {
@@ -217,6 +220,37 @@ public class ApplicationHandler {
         return "/grad/applications-to-pre-review";
 
     }
+    @RequestMapping("/grad/applicationsBeforeForwarding/preReview/{id}")
+    public String reviewApplication(@PathVariable String id, Model model){
+        Application application = applicationService.getById(Long.valueOf(id));
+        model.addAttribute("applicationToReview", application);
+
+        return "/grad/check-interview";
+    }
+    @RequestMapping("/setConfirm/{id}")
+    public String setStatus(@PathVariable String id){
+        Application application= applicationService.getById(Long.valueOf(id));
+        application.setStatus(ApplicationStatus.CONFIRMED);
+        Application saved = applicationService.saveOrUpdate(application);
+        return "redirect:/grad/applicationsBeforeForwarding/preReview";
+
+    }
+    @RequestMapping("/ignore/{id}")
+    public String decline(@PathVariable String id){
+        Application application= applicationService.getById(Long.valueOf(id));
+        application.setStatus(ApplicationStatus.REJECTED);
+        Application saved = applicationService.saveOrUpdate(application);
+        Applicant applicant =application.getApplicant();
+        Mail mail = new Mail();
+        mail.setFrom("noreply@gawp.com");
+        mail.setTo(applicant.getEmail());
+        mail.setSubject("Size Spring ilen Salamlar getirmişem");
+        mail.setContent("Azerbaycandan gucak dolusu salamlar");
+        emailService.sendSimpleMessage(mail);
+        return "redirect:/grad/applicationsBeforeForwarding/preReview";
+
+    }
+
 
     @RequestMapping("/grad/applicationsBeforeForwarding/declined")
     public String listDeclinedApplications(Model model){
