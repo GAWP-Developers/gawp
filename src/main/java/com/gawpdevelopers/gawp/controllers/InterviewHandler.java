@@ -3,6 +3,11 @@ package com.gawpdevelopers.gawp.controllers;
 import com.gawpdevelopers.gawp.commands.AdvertForm;
 import com.gawpdevelopers.gawp.commands.ApplicationForm;
 import com.gawpdevelopers.gawp.commands.InterviewForm;
+import com.gawpdevelopers.gawp.domain.*;
+import com.gawpdevelopers.gawp.services.ApplicationService;
+import com.gawpdevelopers.gawp.services.InterviewService;
+import com.gawpdevelopers.gawp.services.MailService;
+import com.gawpdevelopers.gawp.services.UserDetailsServiceImpl;
 import com.gawpdevelopers.gawp.domain.Advert;
 import com.gawpdevelopers.gawp.domain.Applicant;
 import com.gawpdevelopers.gawp.domain.Interview;
@@ -11,6 +16,7 @@ import com.gawpdevelopers.gawp.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -53,6 +59,26 @@ public class InterviewHandler {
     @Autowired
     public void setApplicationService(ApplicationService applicationService) {
         this.applicationService = applicationService;
+    }
+
+    @Autowired
+    public void setUserDetailsService(UserDetailsServiceImpl userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
+
+    //  DepartmentMapping
+
+    @RequestMapping("/department")
+    public String departmentMainMenu(Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetailsImpl  user =  (UserDetailsImpl) userDetailsService.loadUserByUsername(auth.getName());
+        System.out.println(String.join("  ", user.getfName(), user.getlName()));
+        model.addAttribute("name", String.join("  ", user.getfName(), user.getlName()));
+
+        //TODO Front End Integration is not completed
+        //TODO application numbers are currently hardcoded.
+
+        return "department/dept-main";
     }
 
     @RequestMapping("/department/interview/list")

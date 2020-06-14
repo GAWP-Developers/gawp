@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>All Adverts of the Department</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>
+
+    <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
+            th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+
+    <link href="../../static/css/spring-core.css"
+          th:href="@{css/spring-core.css}" rel="stylesheet" media="screen"/>
+    <link href="../../static/css/all-adverts-of-the-department.css"
+          th:href="@{/css/all-adverts-of-the-department.css}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"/>
+</head>
+<body>
+    <nav class="navbar navbar-default">
+		<div class="container">
+			<div class="navbar-header">
+
+				<a href="#" class="navbar-brand">GAWP - Department Panel</a>
+			</div>
+			
+			<ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <span class="glyphicon glyphicon-menu-hamburger"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Settings</a></li>
+                        <li><a href="#">Sign Out</a></li>
+                    </ul>
+                </li>
+            </ul>
+		</div>
+    </nav><!-- end of the navbar-->
+
+    <div class="container">
+        <div class="container-section d-flex align-items-center justify-content-center col-4">
+            <div class="container-title-part col-10 col-md-10 col-lg-10">
+                <p>All Adverts of the Department</p>
+            </div>
+            <div class="all-adverts-dept-section col-10 col-md-10 col-lg-10" style="margin-top: 20px; box-sizing: border-box; border: solid 1px #8FB5EB; padding: 20px 30px 20px 30px;border-radius: 30px;box-shadow: -2px 3px 4px #f7e4e4; ">
+
+                <div class="row">
+                    <div class="col-3 col-md-3 col-lg-3 job-attribute-part">
+                        <p>Master in Computer Engineering - Network</p>
+                    </div>
+                    <div class="col-2 col-md-2 col-lg-2 expire-date-part">
+                        <p>Expired on : <br>Mar 13,2020</p>
+                    </div>
+                    <div class="col-3 col-md-3 col-lg-3 add-interview-date-part">
+                        <a href="#">
+                            <button type="submit"  class="btn btn-default add-interview-date" style="outline: 0 !important; background: #FFFFFF;color:#B5A61F ;border-color: #B5A61F;border-radius: 15px;">Add Interview Date</button>
+                        </a>
+                    </div>
+					<div class="col-4 col-md-4 col-lg-4 button-part"> 
+                        <a href="#">
+                            <button type="submit"  class="btn btn-default manage-app" style="outline: 0 !important; background: #FFFFFF;color:#3F78B3 ;border-color: #3F78B3;border-radius: 15px;">Manage Applications</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="all-adverts-dept-section col-10 col-md-10 col-lg-10" style="margin-top: 20px; box-sizing: border-box; border: solid 1px #8FB5EB; padding: 20px 30px 20px 30px;border-radius: 30px;box-shadow: -2px 3px 4px #f7e4e4; ">
+
+                <div class="row">
+                    <div class="col-3 col-md-3 col-lg-3 job-attribute-part">
+                        <p>Master in Computer Engineering - Network</p>
+                    </div>
+                    <div class="col-2 col-md-2 col-lg-2 expire-date-part">
+                        <p>Expired : <br>Feb 28,2020</p>
+                    </div>
+                    <div class="col-3 col-md-3 col-lg-3 add-interview-results-part">
+                        <a href="#">
+                            <button type="submit"  class="btn btn-default add-interview-results" style="outline: 0 !important; background: #FFFFFF;color:#B8361D ;border-color: #B8361D;border-radius: 15px;">Add Interview Results</button>
+                        </a>
+                    </div>
+					<div class="col-4 col-md-4 col-lg-4 button-part"> 
+                        <a href="#">
+                            <button type="submit"  class="btn btn-default manage-app" style="outline: 0 !important; background: #FFFFFF;color:#3F78B3 ;border-color: #3F78B3;border-radius: 15px;">Manage Applications</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+</body>
+
+</html>

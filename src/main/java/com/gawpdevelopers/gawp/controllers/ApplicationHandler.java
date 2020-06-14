@@ -79,6 +79,8 @@ public class ApplicationHandler {
 //        return "applicant/main-page-applicant";
 //    }
 
+    //  Applicant Mapping
+
     @RequestMapping("/applicant")
     public String applicantMainMenu(Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -208,6 +210,8 @@ public class ApplicationHandler {
         return "redirect:/application/list";
     }
 
+    //  Grad Mapping
+
     @RequestMapping("/grad/applicationsBeforeForwarding")
     public String applicationsBeforeForwarding(){
         return "/grad/application-before-forwarding-to-deparment";
@@ -241,6 +245,20 @@ public class ApplicationHandler {
     public String listApplicationsToVerify(Model model){
         //TODO List approved applications and add it as attribute to model
         return "/grad/verify-approved-applications";
+    }
+
+    //  Department Mapping
+
+    @RequestMapping("/department/applicationsToInterview")
+    public String listApplicationsToReview(){
+        //TODO  Front End Integration
+        return "TO BE IMPLEMENTED";
+    }
+
+    @RequestMapping("/department/interviewedApplications")
+    public String listInterviewedApplication(){
+        //TODO Front End Integration
+        return "TO BE IMPLEMENTED";
     }
 
 
