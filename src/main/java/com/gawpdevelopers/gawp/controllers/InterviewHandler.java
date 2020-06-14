@@ -4,12 +4,10 @@ import com.gawpdevelopers.gawp.commands.AdvertForm;
 import com.gawpdevelopers.gawp.commands.ApplicationForm;
 import com.gawpdevelopers.gawp.commands.InterviewForm;
 import com.gawpdevelopers.gawp.domain.Advert;
+import com.gawpdevelopers.gawp.domain.Applicant;
 import com.gawpdevelopers.gawp.domain.Interview;
 import com.gawpdevelopers.gawp.domain.UserDetailsImpl;
-import com.gawpdevelopers.gawp.services.ApplicationService;
-import com.gawpdevelopers.gawp.services.InterviewService;
-import com.gawpdevelopers.gawp.services.MailService;
-import com.gawpdevelopers.gawp.services.UserDetailsServiceImpl;
+import com.gawpdevelopers.gawp.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -35,7 +33,12 @@ public class InterviewHandler {
     private MailService emailService;
     private ApplicationService applicationService;
     private UserDetailsServiceImpl userDetailsService;
+    private ApplicantService applicantService;
 
+    @Autowired
+    public void setApplicantService(ApplicantService applicantService) {
+        this.applicantService = applicantService;
+    }
 
     @Autowired
     public void setInterviewService(InterviewService interviewService) {
@@ -106,12 +109,19 @@ public class InterviewHandler {
         InterviewForm interviewForm = new InterviewForm();
         interviewForm.setApplication(applicationService.getById(application_id));
         model.addAttribute("interviewForm", interviewForm);
+
+        model.addAttribute("name", applicationService.getById(application_id).getApplicant().getUserName());
+
         /**System.out.println("application");
 
         System.out.println(interviewForm.getApplication().getId());
 
         System.out.println(interviewForm.getId());
         System.out.println(25);*/
+
+        System.out.println(interviewForm.getTime());
+        System.out.println(22);
+
 //        System.out.println("Advert is null: " + advert == null);
 //        model.addAttribute("target_advert", advert);
 //        return "application/applicationform";
@@ -121,12 +131,16 @@ public class InterviewHandler {
 
     @RequestMapping(value = "/interview", method = RequestMethod.POST)
     public String saveOrUpdateInterview(@Valid InterviewForm interviewForm, BindingResult bindingResult){
+        System.out.println(222);
+
         if(bindingResult.hasErrors()){
             return "interview/interviewform";
         }
-
+        System.out.println(interviewForm.getTime());
+        System.out.println(23);
         Interview savedInterview = interviewService.saveOrUpdateInterviewForm(interviewForm);
-
+        System.out.println(savedInterview.getTime());
+        System.out.println(24);
         return "redirect:/department/interview/new/success";
     }
 

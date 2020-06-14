@@ -46,9 +46,7 @@
 	<div class="container" style="margin-bottom: 0px; ">
 		<div class="container-section d-flex align-items-center justify-content-center col-4" >
 			<p style="font-size: 30px;">Create Interview Invite for
-				<bold id="fname">Name</bold> <!-- TODO-->
-				<bold > </bold>
-				<bold id="sname">Surname</bold> <!--TODO-->
+			<p style="font-size: 40px; border-bottom: solid 1px #c7c6c6aa; color:#3B3B3B ; letter-spacing: 0.2px; top :0px;"><span th:text="${name}"/></p>
 			</p>
 		</div>
 	</div>
@@ -80,10 +78,10 @@
         </div>
     </div>
 
-	
-	<div class="container" th:object="${interviewForm}" th:action="@{/interview}"  method="post" style="margin-bottom: 10px; ">
+
+	<div class="container" style="margin-bottom: 10px; ">
         <div class="container-section d-flex align-items-center justify-content-center col-4" style="padding-top: 10px;">
-            <form class="container-section-part ">
+            <form class="container-section-part " th:object="${interviewForm}" th:action="@{/interview}"  method="post">
 				<input type="hidden" th:field="*{id}"/>
 
                 <div class="row step" id="step1">
