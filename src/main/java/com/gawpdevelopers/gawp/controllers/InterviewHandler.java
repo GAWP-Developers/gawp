@@ -115,7 +115,8 @@ public class InterviewHandler {
 //        System.out.println("Advert is null: " + advert == null);
 //        model.addAttribute("target_advert", advert);
 //        return "application/applicationform";
-        return "department/add-new-interview";
+        //return "department/add-new-interview";
+        return "department/interview-invite";
     }
 
     @RequestMapping(value = "/interview", method = RequestMethod.POST)

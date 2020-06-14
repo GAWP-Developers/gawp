@@ -67,7 +67,8 @@
                             </div>
                             <div class="text-area-part">
                                 <label>
-                                    <input class="text-area" th:field="*{point}" type="text"/>
+                                    <input type="range" id="point" name="point" min="0" max="10" value="5.0" step="0.5" oninput="this.form.pointInput.value=this.value"/>
+                                    <input type="number" name="pointInput" min="0" max="20" value="5.0" step="0.5" oninput="this.form.point.value=this.value" />
                                 </label>
                             </div>
 
