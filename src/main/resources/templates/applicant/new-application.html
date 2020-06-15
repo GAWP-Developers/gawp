@@ -76,38 +76,44 @@
         <div class="container-section d-flex align-items-center justify-content-center col-4" style="padding-top: 10px;">
             <form id="applicationForm" class="container-section-part " th:object="${applicationForm}" th:action="@{/application}" method="post" enctype="multipart/form-data">
 
+				<input hidden th:field="*{id}" th:value="${applicationForm.id}"/>
+				<input hidden th:field="*{advert}" th:value="${applicationForm.advert}"/>
+				<input hidden th:field="*{applicant}" th:value="${applicationForm.applicant}" />
+
                 <div class="row step">
                     <div class="row step-title">
                         <p>STEP-1</p>
 					
 					<div class="row">
-						<textarea data-limit-rows="true" class="info-letter col-xs-6 col-sm-6 col-md-6 col-lg-6" placeholder="Name" rows="1" required>Elman</textarea>
-						<textarea data-limit-rows="true" class="info-letter col-xs-6 col-sm-6 col-md-6 col-lg-6" placeholder="Surname" rows="1" required>Hamdi</textarea>
-					</div>
-					
-					<div class="row">
-						<textarea data-limit-rows="true" class="info-letter col-xs-6 col-sm-6 col-md-6 col-lg-6" placeholder="E-mail" rows="1" required>mail@mail.com</textarea>
-						<textarea data-limit-rows="true" class="info-letter col-xs-6 col-sm-6 col-md-6 col-lg-6" placeholder="E-mail again" rows="1" required>mail@mail.com</textarea>
-					</div>
-					
-					<div  class="row">
-						<input type="date" placeholder="Birth Date" class="info-letter col-xs-6 col-sm-6 col-md-6 col-lg-6" value="1998-01-01" required/>
-						<input type="number" class="info-letter col-xs-6 col-sm-6 col-md-6 col-lg-6" value="905370000000" required/>
-							
-						
+						<input data-limit-rows="true" class="info-letter col-xs-6 col-sm-6 col-md-6 col-lg-6" placeholder="Name" rows="1"
+							   th:field="*{applicant.fName}"
+							   th:value="${applicationForm.applicant.fName}" required>
+						<input data-limit-rows="true" class="info-letter col-xs-6 col-sm-6 col-md-6 col-lg-6" placeholder="Surname" rows="1"
+							   th:field="*{applicant.lName}"
+							   th:value="${applicationForm.applicant.lName}" required>
 					</div>
 					
 					<div  class="row">
-						<select type="text" placeholder="Gender" class="info-letter col-xs-6 col-sm-6 col-md-6 col-lg-6" required>
-							
-                        	<option value=""  disabled style="color: #9C9C9C">Gender</option>
-							<option value="woman">Woman</option>
-							<option selected value="men">Male</option>
-							<option value="none">Not want to specify</option>
-                        </select>
-						<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-						</div>
+						<input type="date" placeholder="Birth Date" class="info-letter col-xs-6 col-sm-6 col-md-6 col-lg-6"
+							   th:field="*{applicant.birthDate}"
+							   th:value="${applicationForm.applicant.birthDate}" required/>
+						<input type="number" class="info-letter col-xs-6 col-sm-6 col-md-6 col-lg-6" placeholder="Phone Number"
+							   th:field="*{applicant.phone}"
+							   th:value="${applicationForm.applicant.phone}" required/>
+
 					</div>
+					
+<!--					<div  class="row">-->
+<!--						<select type="text" placeholder="Gender" class="info-letter col-xs-6 col-sm-6 col-md-6 col-lg-6" required>-->
+<!--							-->
+<!--                        	<option value=""  disabled style="color: #9C9C9C">Gender</option>-->
+<!--							<option value="woman">Woman</option>-->
+<!--							<option selected value="men">Male</option>-->
+<!--							<option value="none">Not want to specify</option>-->
+<!--                        </select>-->
+<!--						<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">-->
+<!--						</div>-->
+<!--					</div>-->
 						
 						
 					<div class="address-part">
@@ -128,11 +134,13 @@
                             </div>
 
                             <div class="text-area-last-section">
-                                <textarea id="addr-details" class="text-area" rows="5" placeholder="Address Details.." required></textarea>
+                                <textarea id="addr-details" class="text-area" rows="5" placeholder="Address Details.." required
+										  th:value="${applicationForm.applicant.address}"></textarea>
                             </div>
 							
 							<!--Can address inputu olarak aşağıdakini al-->
-							<input id="address-full"  name="address" type="text" value="" style="display:none"/>
+							<input id="address-full"  name="address" type="text" value="" style="display:none"
+								   th:field="*{applicant.address}"/>
                     </div>
 						
 				</div>
@@ -345,8 +353,10 @@
 						</div>
 					</div>
 				</div>
-				
-				
+
+				<div id="advert_type" th:value="${applicationForm.advert.type.toString()}"/>
+<!--				<input hidden id="dummy" name="masterTranscript" type="file" />-->
+				<div th:if="${applicationForm.advert.type.toString().equals('PHD')}" >
 				<div class="row step">
                     <div class="row step-title">
                         <p>PhD Application</p>
@@ -373,6 +383,7 @@
 
 					</div>
 				</div>
+				</div>
 				
 				
 				<div class="bottom-buttons">
@@ -385,7 +396,7 @@
 
 					<div class="cs-first-description col-xs-2">
 							<a href="#" style="display: flex; justify-content: flex-end;">
-								<button  type="submit" onclick="checkRequiredInputs()" class="btn btn-default update" style="width: 100%;background: #3F78B3;color:#fff ;border-color: #3F78B3;border-radius: 15px;">Apply</button>
+								<button  type="submit" onclick="createAddress();checkRequiredInputs();" class="btn btn-default update" style="width: 100%;background: #3F78B3;color:#fff ;border-color: #3F78B3;border-radius: 15px;">Apply</button>
 							</a>
 					</div>
 
