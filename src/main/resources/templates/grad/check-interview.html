@@ -20,7 +20,7 @@
 			th:src="@{/js/check-interview.js}"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"/>
 </head>
-<body>
+<body onload="initialLoad();">
     <nav class="navbar navbar-default">
 		<div class="container">
 			<div class="navbar-header">
@@ -279,6 +279,7 @@
                     </div>
 									
 					<div  class="row select-part need-space">
+						<input hidden id="isForeign" th:value="${isForeign}"/>
 						<div class="just-letter col-xs-12 col-sm-12 col-md-12 col-lg-12">
 							<div  class="col-xs-4 col-sm-4 col-md-4 col-lg-4">Is applicant have Turkish identity card?: </div>
 							<div id="no1"  style= "display: none">No </div>
@@ -291,10 +292,10 @@
 								<p>Foreign passport:</p>
 							</div>
 
-
-							<div class="row upload col-xs-2 col-sm-2 col-md-2 col-lg-2">
-								<a  style="display: flex; justify-content: flex-end;">
-									<button type="button"  class="btn btn-default Open File-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px; ">Open File</button>
+							<div th:each="doc : ${applicationToReview.getDocuments()}"
+								 th:if="${doc.getDocType().toString().equals('PASSPORT')}"class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
+								<a th:href="${'/docs/' + doc.getId()}" style="display: flex; justify-content: flex-end;">
+									<button type="submit" class="btn btn-default Open File-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
 								</a>
 							</div>
 							<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1" >
@@ -304,9 +305,11 @@
 					</div>
 						
 			
-					
+
 					<div  class="row select-part need-space">
 						<div class="just-letter col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+							<input hidden id="isWorking" th:value="${isWorking}"/>
 							<div  class="col-xs-4 col-sm-4 col-md-4 col-lg-4">Is the applicant working?: </div>
 							<div id="no2"  style= "display: none">No </div>
 							<div id="yes2" style= "display: none">Yes</div>
@@ -317,11 +320,10 @@
 							<div class="disc-letter col-xs-2 col-sm-2 col-md-2 col-lg-2">
 								<p>Permission letter:</p>
 							</div>
-
-
-							<div class="row upload col-xs-2 col-sm-2 col-md-2 col-lg-2">
-								<a  style="display: flex; justify-content: flex-end;">
-									<button type="button"  class="btn btn-default Open File-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px; ">Open File</button>
+							<div th:each="doc : ${applicationToReview.getDocuments()}"
+								 th:if="${doc.getDocType().toString().equals('PERMISSIONLETTER')}"class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
+								<a th:href="${'/docs/' + doc.getId()}" style="display: flex; justify-content: flex-end;">
+									<button type="submit" class="btn btn-default Open File-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
 								</a>
 							</div>
 							<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1" >
@@ -331,10 +333,9 @@
 					</div>
 
 				</div>
-				
-						-
 
-				<div class="row step">
+				<input hidden id="is-phd" th:value="${applicationToReview.getAdvert().getType().toString().equals('PHD')}"/>
+				<div id="phd-application" class="row step">
                     <div class="row step-title">
                         <p>PhD Application</p>
 					</div>
@@ -353,7 +354,6 @@
 							<button onclick="whenClick(this.id);" class="btn btn-default" type="button"  id="PhD" style="width: 100%; background: #fff;color:#C41414 ;border-color: #C41414;border-radius: 15px; font-size: 10px">Add</button>
 						</div>
 					</div>
-
 
 				</div>
 
@@ -441,11 +441,6 @@ In your application some informations which you give when appling are not correc
         
         </div> 
     </div>
-	
-	
-	
-	<script>enablePassport();</script>
-	<script>enableWork();</script>
 
 </body>
 </html>
