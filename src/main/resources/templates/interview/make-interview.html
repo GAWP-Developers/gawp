@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Make Interview</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>
+
+    <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
+            th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+
+    <link href="../../static/css/spring-core.css"
+          th:href="@{css/spring-core.css}" rel="stylesheet" media="screen"/>
+
+    <link href="../../static/css/make-interview.css"
+		th:href="@{/css/make-interview.css}" rel="stylesheet" type="text/css"/>
+
+	<script src="../../static/js/make-interview.js"
+			th:src="@{/js/make-interview.js}">
+	</script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"/>
+</head>
+<body>
+    <nav class="navbar navbar-default">
+		<div class="container">
+			<div class="navbar-header">
+
+				<a href="#" class="navbar-brand">GAWP - Department Panel</a>
+			</div>
+			
+			<ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <span class="glyphicon glyphicon-menu-hamburger"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Settings</a></li>
+                        <li><a href="#">Sign Out</a></li>
+                    </ul>
+                </li>
+            </ul>
+		</div>
+	</nav><!-- end of the navbar-->
+			
+	
+	
+	
+    <div class="container" style="margin-bottom: 0px; ">
+        <div class="container-section d-flex align-items-center justify-content-center col-4">
+            <div class="container-section-part ">
+                <div class="row cs-first">
+                    <div class="row cs-first-title col-xs-6">
+						<p><span th:utext="${applicationToReview.advert.name}"/></p>
+                    </div>
+					
+					<div class="col-xs-4">
+						<div class="date-title col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<p>Expire Date: </p>
+						</div>
+						<div class="date col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<p><span th:utext="${applicationToReview.advert.deadlineDate}"/></p>
+						</div>
+					</div>
+					
+                    <div class="cs-first-description col-xs-2">
+						<a th:href= "${'/grad/advert/show/' + applicationToReview.advert.id }" >
+                            <button type="submit" class="btn btn-default see-details" style="width: 100%;background: #fff;color:#3F78B3 ;border-color: #3F78B3;border-radius: 15px;">See Details</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+	
+	<div class="container" style="margin-bottom: 10px; ">
+        <div class="container-section d-flex align-items-center justify-content-center col-4" style="padding-top: 10px;">
+            <div class="container-section-part ">
+				
+                <div class="row step">
+                    <div class="row step-title">
+                        <p>STEP-1</p>
+                    </div>
+					
+					<div class="row">
+
+						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+							<p>Name: </p>
+						</div>
+						<div class="info-letter col-xs-5 col-sm-5 col-md-5 col-lg-5">
+
+							<p>
+								<span th:utext="${applicationToReview.applicant.fName}"></span>
+							</p>
+
+						</div>
+						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+						</div>
+						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+							<p>Surname: </p>
+						</div>
+						<div class="info-letter col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+							<p>
+								<span th:utext="${applicationToReview.applicant.lName}"></span>
+							</p>
+
+						</div>
+					</div>
+					
+
+					
+					
+					<div  class="row">
+						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+							<p>Mail: </p>
+						</div>
+						<div class="info-letter col-xs-6 col-sm-6 col-md-6 col-lg-6">
+							<p><span th:utext="${applicationToReview.applicant.email}"/> </p>
+						</div>
+						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
+						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+							<p>Phone Number: </p>
+						</div>
+						<div class="info-letter col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+							<p>
+								<span th:utext="${applicationToReview.applicant.phone}"/>
+							</p>
+
+						</div>
+					</div>  
+					
+
+					
+					<div  class="row">
+						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+							<p>Birth Date: </p>
+						</div>
+						<div class="info-letter col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+							<p>
+								<span th:utext="${applicationToReview.applicant.birthDate}"/>
+							</p>
+
+						</div>
+						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
+
+					</div>  
+
+					<div class="address-part">
+						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+							<p>Address: </p>
+						</div>
+						
+						<div class="text-area-last-section">
+							<textarea id="addr-details" class="" rows="5">Adres Mahallesi. Adres Sokak. No Adres Izmir</textarea>
+						</div>
+						
+					</div>
+					
+                </div>
+				
+				
+				
+				<div class="row step">
+                    <div class="row step-title">
+                        <p>STEP-2</p>
+                    </div>
+					
+					<div class= "row step-question-part">
+						<div class="just-letter col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<p>Photo: </p>
+						</div>
+						<div th:each="doc : ${applicationToReview.getDocuments()}"
+							 th:if="${doc.getDocType().toString().equals('PHOTO')}"class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<a th:href="${'/docs/' + doc.getId()}" style="display: flex; justify-content: flex-end;">
+								<button type="submit" class="btn btn-default Open File-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
+							</a>
+						</div>
+						
+					</div>
+					
+					<div  class="row step-question-part">
+						<div class="just-letter col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<p>Transcript/s :</p>
+						</div>
+						<div th:each="doc : ${applicationToReview.getDocuments()}"
+							 th:if="${doc.getDocType().toString().equals('TRANSCRIPT')}"class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<a th:href="${'/docs/' + doc.getId()}" style="display: flex; justify-content: flex-end;">
+								<button type="submit" class="btn btn-default Open File-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
+							</a>
+						</div>
+					</div>
+					
+					<div  class="row step-question-part">
+						<div class="just-letter col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<p>ALES Result?*</p>
+						</div>
+						<div th:each="doc : ${applicationToReview.getDocuments()}"
+							 th:if="${doc.getDocType().toString().equals('ALES')}"class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<a th:href="${'/docs/' + doc.getId()}" style="display: flex; justify-content: flex-end;">
+								<button type="submit" class="btn btn-default Open File-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
+							</a>
+						</div>
+					</div>
+					
+					<div  class="row step-question-part">
+						<div class="just-letter col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<p>English Exam Result?</p>
+						</div>
+						<div th:each="doc : ${applicationToReview.getDocuments()}"
+							 th:if="${doc.getDocType().toString().equals('ENGLISHEXAM')}"class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<a th:href="${'/docs/' + doc.getId()}" style="display: flex; justify-content: flex-end;">
+								<button type="submit" class="btn btn-default Open File-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
+							</a>
+						</div>
+					</div>
+					 
+                </div>
+				
+				
+				<div class="row step">
+                    <div class="row step-title">
+                        <p>About Applicant's Application</p>
+                    </div>
+									
+					<div  class="row">
+						<div class="just-letter col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<p>Purpose Letter </p>
+						</div>
+						<p class="info-letter big  col-xs-12 col-sm-12 col-md-12 col-lg-12" style="width: 90%" rows="10">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia voluptatem distinctio veritatis modi incidunt animi, totam nihil molestiae molestias, dolor quod neque numquam tempora odio fugiat magnam? Eos, alias reprehenderit!</p>
+						
+						<div class="just-letter col-xs-2 col-sm-2 col-md-2 col-lg-2" style="margin-top: 15px">
+							<p>Reference Letter/s :</p>
+						</div>
+
+						<div th:each="doc : ${applicationToReview.getDocuments()}" th:if="${doc.getDocType().toString().equals('REFERENCELETTER')}"class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<a th:href="${'/docs/' + doc.getId()}" style="display: flex; justify-content: flex-end;">
+								<button type="submit" class="btn btn-default Open File-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
+							</a>
+						</div>
+					</div>
+					
+				</div>
+
+
+
+
+
+
+
+				<div class="row step">
+                    <div class="row step-title">
+                        <p>Other Information About The Applicant</p>
+                    </div>
+									
+					<div  class="row select-part need-space">
+						<input hidden id="isForeign" th:value="${isForeign}"/>
+						<div class="just-letter col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<div  class="col-xs-4 col-sm-4 col-md-4 col-lg-4">Is applicant have Turkish identity card?: </div>
+							<div id="no1"  style= "display: none">No </div>
+							<div id="yes1" style= "display: none">Yes</div>
+						</div>
+
+						<div id="extra-1" style="visibility: hidden;">
+							<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"></div>
+							<div class="disc-letter col-xs-2 col-sm-2 col-md-2 col-lg-2">
+								<p>Foreign passport:</p>
+							</div>
+
+							<div th:each="doc : ${applicationToReview.getDocuments()}"
+								 th:if="${doc.getDocType().toString().equals('PASSPORT')}"class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
+								<a th:href="${'/docs/' + doc.getId()}" style="display: flex; justify-content: flex-end;">
+									<button type="submit" class="btn btn-default Open File-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
+								</a>
+							</div>
+						</div>
+					</div>
+						
+			
+					
+					<div  class="row select-part need-space">
+						<div class="just-letter col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<input hidden id="isWorking" th:value="${isWorking}"/>
+							<div  class="col-xs-4 col-sm-4 col-md-4 col-lg-4">Is the applicant working?: </div>
+							<div id="no2"  style= "display: none">No </div>
+							<div id="yes2" style= "display: none">Yes</div>
+						</div>
+						
+						<div id="extra-2" style="visibility: hidden;">
+							<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"></div>
+							<div class="disc-letter col-xs-2 col-sm-2 col-md-2 col-lg-2">
+								<p>Permission letter:</p>
+							</div>
+
+
+							<div th:each="doc : ${applicationToReview.getDocuments()}"
+								 th:if="${doc.getDocType().toString().equals('PERMISSIONLETTER')}"class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
+								<a th:href="${'/docs/' + doc.getId()}" style="display: flex; justify-content: flex-end;">
+									<button type="submit" class="btn btn-default Open File-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
+								</a>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				
+						
+						
+				
+				
+				<div class="row step">
+                    <div class="row step-title">
+                        <p>PhD Application</p>
+                    </div>
+									
+					<div  class="row">
+						<div class="just-letter col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<p>You are in last step. You are trying  to apply to an PhD advert. Please Open File your Master Transcript to complete application.* </p>
+						</div>
+
+
+						<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" ></div>
+						<div class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<button type="submit" class="btn btn-default Open File-button" style="width: 100%;background: #ffffff;color:#b29b25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
+						</div>
+					</div>
+						
+					
+				</div>
+
+
+
+				<form th:object="${interviewToReview}" th:action="@{/department/interview/afterreview}"  method="post">
+					<input type="hidden" th:field="*{id}" th:value="${interviewToReview.id}"/>
+					<div class="row step">
+						<div class="row step-title" style="color: #35609F">
+							<p>Notes about the interview</p>
+						</div>
+
+						<div  class="row">
+							<textarea onchange="toNote()" id="noteText" class="info-letter big  col-xs-12 col-sm-12 col-md-12 col-lg-12" style="width: 90%" placeholder="Your Notes..." rows="10" required></textarea>
+						</div>
+
+						<input type="text" id="note" th:field="*{comment}" th:value="${interviewToReview.comment}" style="display: none;">
+
+					</div>
+
+
+
+
+
+
+					<div class="rate" >
+						<input type="radio" id="star10" name="rate" th:field="*{point}" th:value="${interviewToReview.point}" value="10"/>
+						<label for="star10" title="10">10 stars</label>
+						<input type="radio" id="star9" name="rate" th:field="*{point}" th:value="${interviewToReview.point}" value="9" />
+						<label for="star9" title="9">9 stars</label>
+						<input type="radio" id="star8" name="rate" th:field="*{point}" th:value="${interviewToReview.point}" value="8" />
+						<label for="star8" title="8">8 stars</label>
+						<input type="radio" id="star7" name="rate" th:field="*{point}" th:value="${interviewToReview.point}" value="7" />
+						<label for="star7" title="7">7 stars</label>
+						<input type="radio" id="star6" name="rate" th:field="*{point}" th:value="${interviewToReview.point}" value="6" />
+						<label for="star6" title="6">6 star</label>
+						<input type="radio" id="star5" name="rate" th:field="*{point}" th:value="${interviewToReview.point}" value="5" />
+						<label for="star5" title="5">5 stars</label>
+						<input type="radio" id="star4" name="rate" th:field="*{point}" th:value="${interviewToReview.point}" value="4" />
+						<label for="star4" title="4">4 stars</label>
+						<input type="radio" id="star3" name="rate" th:field="*{point}" th:value="${interviewToReview.point}" value="3" />
+						<label for="star3" title="3">3 stars</label>
+						<input type="radio" id="star2" name="rate" th:field="*{point}" th:value="${interviewToReview.point}" value="2" />
+						<label for="star2" title="2">2 stars</label>
+						<input type="radio" id="star1" name="rate" th:field="*{point}" th:value="${interviewToReview.point}" value="1" />
+						<label for="star1" title="1">1 star</label>
+					</div>
+
+					<div class="bottom-buttons">
+						<div class="col-xs-10"></div>
+
+						<div class="cs-first-description col-xs-2">
+							<a href="#" style="display: flex; justify-content: flex-end;">
+								<button type="submit" class="btn btn-default update" style="width: 100%;background: #3F78B3;color:#fff ;border-color: #3F78B3;border-radius: 15px;">Ok</button>
+							</a>
+						</div>
+
+					</div>
+
+
+				</form>
+
+
+
+
+
+
+
+
+
+
+			</div>
+		</div>
+	</div>
+
+
+	
+	<!--Buraya dikkat anlamazsanız sorun, function içindeki strigleri doğru doldurun. -->
+	<!--İkinci string herzaman functionun döndürdüğü. Birinci ise o durumda normalde ne döneceğini elle gireceksiniz-->
+	<!--Mesale foreign ise normalde "abc" dönüyor ise, birinci string "abc", ikincisi ise function'un returnlediği değer olacak-->
+	<!--Olmaz ise bana salın-->
+	<script>checkPassport("yabancı ise", "asıl dönen");</script>
+	<script>checkWork("çalışıyorsa","asıl dönen");</script>
+
+</body>
+</html>

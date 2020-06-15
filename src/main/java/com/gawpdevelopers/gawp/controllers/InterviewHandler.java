@@ -3,6 +3,7 @@ package com.gawpdevelopers.gawp.controllers;
 import com.gawpdevelopers.gawp.commands.AdvertForm;
 import com.gawpdevelopers.gawp.commands.ApplicationForm;
 import com.gawpdevelopers.gawp.commands.InterviewForm;
+import com.gawpdevelopers.gawp.converters.InterviewToInterviewForm;
 import com.gawpdevelopers.gawp.domain.*;
 import com.gawpdevelopers.gawp.services.ApplicationService;
 import com.gawpdevelopers.gawp.services.InterviewService;
@@ -27,6 +28,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Controller class that responds to the /interview/* requests.
@@ -40,6 +43,7 @@ public class InterviewHandler {
     private ApplicationService applicationService;
     private UserDetailsServiceImpl userDetailsService;
     private ApplicantService applicantService;
+    private InterviewToInterviewForm interviewToInterviewForm;
 
     @Autowired
     public void setApplicantService(ApplicantService applicantService) {
@@ -64,6 +68,10 @@ public class InterviewHandler {
     @Autowired
     public void setUserDetailsService(UserDetailsServiceImpl userDetailsService) {
         this.userDetailsService = userDetailsService;
+    }
+
+    public  void setInterviewToInterviewForm(InterviewToInterviewForm interviewToInterviewForm){
+        this.interviewToInterviewForm = interviewToInterviewForm;
     }
 
     //  DepartmentMapping
@@ -157,7 +165,7 @@ public class InterviewHandler {
         return "department/interview-invite";
     }
 
-    @RequestMapping(value = "/interview", method = RequestMethod.POST)
+    @RequestMapping(value = "/department/interview", method = RequestMethod.POST)
     public String saveOrUpdateInterview(@Valid InterviewForm interviewForm, BindingResult bindingResult,
                                         @RequestParam("sending-mail") String mailContent){
 
@@ -190,6 +198,61 @@ public class InterviewHandler {
         interviewService.delete(Long.valueOf(id));
         return "redirect:/department/interview/list";
     }
+
+    @RequestMapping("/department/interview/do/{id}")
+    public String doInterview(@PathVariable String id, Model model){
+
+        Interview interview = interviewService.getById(Long.valueOf(id));
+        model.addAttribute("interviewToReview",interview);
+
+        Application application = applicationService.getById(interview.getApplication().getId());
+        model.addAttribute("applicationToReview", application);
+
+        System.out.println(interview.getId());
+
+        System.out.println(application.getId());
+
+        List passport = application.getDocuments().stream()
+                .filter(d -> d.getDocType().toString().equals("PASSPORT"))
+                .collect(Collectors.toList());
+        boolean isForeign = !passport.isEmpty();
+        model.addAttribute("isForeign", isForeign);
+
+        //  Same logic as passport
+        List permissionLetter = application.getDocuments().stream()
+                .filter(d -> d.getDocType().toString().equals("PERMISSIONLETTER"))
+                .collect(Collectors.toList());
+        boolean isWorking = !permissionLetter.isEmpty();
+        model.addAttribute("isWorking", isWorking);
+
+        //  Same logic as passport
+        List englishexam = application.getDocuments().stream()
+                .filter(d -> d.getDocType().toString().equals("ENGLISHEXAM"))
+                .collect(Collectors.toList());
+        boolean hasEnglishExam = !englishexam.isEmpty();
+        model.addAttribute("hasEnglishExam", hasEnglishExam);
+
+
+
+        return "interview/make-interview";
+
+    }
+
+    @RequestMapping(value = "/department/interview/afterreview", method = RequestMethod.POST)
+    public String UpdateInterviewAfter(@Valid InterviewForm interviewForm, BindingResult bindingResult){
+
+        if(bindingResult.hasErrors()){
+            return "interview/interviewform";
+        }
+
+
+        Interview savedInterview = interviewService.saveOrUpdateInterviewForm(interviewForm);
+
+        System.out.println(savedInterview.getTime());
+
+        return "redirect:/department/interview/new/success";
+    }
+
     /*
 
                 INTERVIEWINFO PART
