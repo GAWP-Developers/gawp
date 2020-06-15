@@ -1,3 +1,5 @@
+var number = 0;
+
 function enablePassport() {
 				document.getElementById("extra-1").style = "visibility: visable";
 	 			document.getElementById("no1").style = "display: block";
@@ -91,16 +93,21 @@ function reverseSituation(){
 
 
 function increase(){
-	$("#number").html(parseInt($('#number').html(), 10)+1);
+	// $("number").html(parseInt($('#number').html(), 10)+1);
+	number = number + 1;
+	document.getElementById("number").innerHTML = number;
 };
 	
 	
 function decrease(){
-	$("#number").html(parseInt($('#number').html(), 10)-1);
+	// $("number").html(parseInt($('#number').html(), 10)-1);
+	number = number - 1;
+	document.getElementById("number").innerHTML = number;
 };
 
 function checkStatus(){
-	if (parseInt($('#number').html(), 10) == 0){
+	// parseInt($('number').html(), 10) == 0
+	if (number == 0){
 		document.getElementById("continue").style = "width: 100%;background: #3F78B3;color:#fff ;border-color: #3F78B3;border-radius: 15px; display: none;"; 
 		document.getElementById("confirm").style = "width: 100%;background: #3F78B3;color:#fff ;border-color: #3F78B3;border-radius: 15px; display: block;"; 
 	}
