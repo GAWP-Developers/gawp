@@ -7,5 +7,6 @@ public enum DocumentType {
     PERMISSIONLETTER,
     PASSPORT,
     MASTERTRANSCRIPT,
-    PHOTO
+    PHOTO,
+    ENGLISHEXAM
 }

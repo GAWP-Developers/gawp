@@ -86,14 +86,28 @@
 					<div class="row">
 
 						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
-							<p>Full Name: </p>
+							<p>Name: </p>
 						</div>
 						<div class="info-letter col-xs-5 col-sm-5 col-md-5 col-lg-5">
-							<p><span th:utext="${applicationToReview.applicant.userName}"/> </p>
+							<p>
+								<span th:utext="${applicationToReview.applicant.fName}"></span>
+							</p>
 						</div>
 						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
 							<button onclick="whenClick(this.id);" class="btn btn-default" type="button" value="" id="Name" style="width: 100%; background: #fff;color:#C41414 ;border-color: #C41414;border-radius: 15px; font-size: 10px">Add</button>
-                		</div>
+						</div>
+
+						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+							<p>Surname: </p>
+						</div>
+						<div class="info-letter col-xs-5 col-sm-5 col-md-5 col-lg-5">
+							<p>
+								<span th:utext="${applicationToReview.applicant.lName}"></span>
+							</p>
+						</div>
+						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+							<button onclick="whenClick(this.id);" class="btn btn-default" type="button"  id="Surname" style="width: 100%; background: #fff;color:#C41414 ;border-color: #C41414;border-radius: 15px; font-size: 10px">Add</button>
+						</div>
 
 					</div>
 					
@@ -102,60 +116,43 @@
 					
 					<div  class="row">
 						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
-							<p>Mail: </p>
-						</div>
-						<div class="info-letter col-xs-6 col-sm-6 col-md-6 col-lg-6">
-							<p><span th:utext="${applicationToReview.applicant.email}"/> </p>
-						</div>
-						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
-							<button onclick="whenClick(this.id);" class="btn btn-default" type="button"  id="Mail" style="width: 100%; background: #fff;color:#C41414 ;border-color: #C41414;border-radius: 15px; font-size: 10px">Add</button>
-                		</div>
-						
-						
-						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
 							<p>Phone Number: </p>
 						</div>
 						<div class="info-letter col-xs-6 col-sm-6 col-md-6 col-lg-6">
-							<p>+905370000000 </p>
+							<p>
+								<span th:utext="${applicationToReview.applicant.phone}"/>
+							</p>
 						</div>
 						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
 							<button onclick="whenClick(this.id);" class="btn btn-default" type="button"  id="Phone-Number" style="width: 100%; background: #fff;color:#C41414 ;border-color: #C41414;border-radius: 15px; font-size: 10px">Add</button>
                 		</div>
-					</div>  
-					
 
-					
-					<div  class="row">
+
 						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
 							<p>Birth Date: </p>
 						</div>
 						<div class="info-letter col-xs-6 col-sm-6 col-md-6 col-lg-6">
-							<p>01/01/1998</p>
+							<p>
+								<span th:utext="${applicationToReview.applicant.birthDate}"/>
+							</p>
 						</div>
 						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
 							<button onclick="whenClick(this.id);" class="btn btn-default" type="button" id="Birth-Date" style="width: 100%; background: #fff;color:#C41414 ;border-color: #C41414;border-radius: 15px; font-size: 10px">Add</button>
-                		</div>
-						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
-							<p>Gender: </p>
-						</div>
-						<div class="info-letter col-xs-6 col-sm-6 col-md-6 col-lg-6">
-							<p>Male </p>
-						</div>
-						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
-							<button onclick="whenClick(this.id);" class="btn btn-default" type="button" id="Address" style="width: 100%; background: #fff;color:#C41414 ;border-color: #C41414;border-radius: 15px; font-size: 10px">Add</button>
 						</div>
 					</div>  
+					
+
 
 					<div class="address-part">
 						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
 							<p>Address: </p>
 						</div>
 						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
-							<button onclick="whenClick(this.id);" class="btn btn-default" type="button" id="Gender" style="width: 100%; background: #fff;color:#C41414 ;border-color: #C41414;border-radius: 15px; font-size: 10px">Add</button>
+							<button onclick="whenClick(this.id);" class="btn btn-default" type="button" id="Address" style="width: 100%; background: #fff;color:#C41414 ;border-color: #C41414;border-radius: 15px; font-size: 10px">Add</button>
 						</div>
 
 						<div class="text-area-last-section">
-							<textarea id="addr-details" class="" rows="5">Adres Mahallesi. Adres Sokak. No Adres Izmir</textarea>
+							<textarea readonly id="addr-details" class="" rows="5">Adres Mahallesi. Adres Sokak. No Adres Izmir</textarea>
 						</div>
 						
 				</div>
@@ -212,13 +209,15 @@
 							<button onclick="whenClick(this.id);" class="btn btn-default" type="button" id="ALES-Result" style="width: 100%; background: #fff;color:#C41414 ;border-color: #C41414;border-radius: 15px; font-size: 10px">Add</button>
                 		</div>
 					</div>
-					
-					<div  class="row step-question-part">
+
+					<input hidden id="hasEnglishExam" th:value="${hasEnglishExam}"/>
+					<div id="englishExamPart" class="row step-question-part">
 						<div class="just-letter col-xs-2 col-sm-2 col-md-2 col-lg-2">
 							<p>English Exam Result?</p>
 						</div>
-						<div class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
-							<a href="#" style="display: flex; justify-content: flex-end;">
+						<div th:each="doc : ${applicationToReview.getDocuments()}"
+							 th:if="${doc.getDocType().toString().equals('ENGLISHEXAM')}"class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<a th:href="${'/docs/' + doc.getId()}" style="display: flex; justify-content: flex-end;">
 								<button type="submit" class="btn btn-default Open File-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
 							</a>
 						</div>

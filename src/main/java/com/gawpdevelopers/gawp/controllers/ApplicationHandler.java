@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.mail.Multipart;
 import javax.print.Doc;
 import javax.validation.Valid;
 import java.util.Date;
@@ -149,6 +150,7 @@ public class ApplicationHandler {
                                           @RequestParam("photo") MultipartFile photo,
                                           @RequestParam("transcript") MultipartFile transcript,
                                           @RequestParam("ales") MultipartFile ales,
+                                          @RequestParam(value = "englishExam", required = false) MultipartFile englishExam,
                                           @RequestParam("referenceLetter") MultipartFile referenceLetter,
                                           @RequestParam(value = "permissionLetter", required = false) MultipartFile permissionLetter,
                                           @RequestParam(value = "passport", required = false) MultipartFile passport,
@@ -190,6 +192,14 @@ public class ApplicationHandler {
         referenceLetterForm.setApplication(savedApplication);
         referenceLetterForm.setPath(storageService.store(referenceLetter, applicationId).toString());
         documentService.saveOrUpdateDocumentForm(referenceLetterForm);
+
+        if (englishExam != null && !englishExam.isEmpty()) {
+            DocumentForm englishExamForm = new DocumentForm();
+            englishExamForm.setDocType(DocumentType.ENGLISHEXAM);
+            englishExamForm.setApplication(savedApplication);
+            englishExamForm.setPath(storageService.store(englishExam, applicationId).toString());
+            documentService.saveOrUpdateDocumentForm(englishExamForm);
+        }
 
         if (permissionLetter != null && !permissionLetter.isEmpty()) {
             DocumentForm permissionLetterForm = new DocumentForm();
@@ -263,6 +273,13 @@ public class ApplicationHandler {
                 .collect(Collectors.toList());
         boolean isWorking = !permissionLetter.isEmpty();
         model.addAttribute("isWorking", isWorking);
+
+        //  Same logic as passport
+        List englishexam = application.getDocuments().stream()
+                .filter(d -> d.getDocType().toString().equals("ENGLISHEXAM"))
+                .collect(Collectors.toList());
+        boolean hasEnglishExam = !englishexam.isEmpty();
+        model.addAttribute("hasEnglishExam", hasEnglishExam);
 
         return "/grad/check-interview";
     }

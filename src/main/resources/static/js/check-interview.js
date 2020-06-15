@@ -3,17 +3,20 @@ var number = 0;
 
 function initialLoad(){
 	console.log(document.getElementById("is-phd"))
-	if (document.getElementById("is-phd").value == "false"){
+	if (document.getElementById("is-phd").value === "false"){
 		console.log("GİRDİM")
 		makeUnvisiable("phd-application");
 	}
 
-	if(document.getElementById("isForeign").value == "true")
+	if(document.getElementById("hasEnglishExam").value === "false")
+		makeUnvisiable("englishExamPart");
+
+	if(document.getElementById("isForeign").value === "true")
 		enablePassport();
 	else
 		disablePassport();
 
-	if(document.getElementById("isWorking").value == "true")
+	if(document.getElementById("isWorking").value === "true")
 		enableWork();
 	else
 		disableWork();
@@ -66,12 +69,11 @@ function copyToInput(){
 }
 
 
-function insertText(buttonID)
-      {
+function insertText(buttonID) {
 		var elem = document.getElementById('missing-info');
         var elem1 = document.getElementById('sum-missing-info');  
 		var elem2 = document.getElementById(buttonID);
-		if(elem2.textContent =="Added")
+		if(elem2.textContent ==="Added")
 			{
 				elem.innerHTML += buttonID;
 				elem.innerHTML += ', ';
@@ -79,30 +81,28 @@ function insertText(buttonID)
 				elem1.innerHTML += buttonID;
 			}
         
-      };
+}
 
 
-	  function insertTexts()
-      {
-		insertText('Name'); 
-		insertText('Surname'); 
-		insertText('Mail'); 
-		insertText('Phone-Number'); 
-		insertText('Birth-Date'); 
-		insertText('Gender'); 
-		insertText('Address');
-		insertText('Photo'); 
-		insertText('Transcript'); 
-		insertText('ALES-Result'); 
-		insertText('English-Exam-Result'); 
-		insertText('Purpose-Letter'); 
-		insertText('Reference-Letter');
-		insertText('Foreign-Passport'); 
-		insertText('Permission-Letter');
-		insertText('PhD');
-		copyToInput();
-		
-      };
+function insertTexts()
+{
+	insertText('Name');
+	insertText('Surname');
+	insertText('Phone-Number');
+	insertText('Birth-Date');
+	insertText('Address');
+	insertText('Photo');
+	insertText('Transcript');
+	insertText('ALES-Result');
+	insertText('English-Exam-Result');
+	insertText('Purpose-Letter');
+	insertText('Reference-Letter');
+	insertText('Foreign-Passport');
+	insertText('Permission-Letter');
+	insertText('PhD');
+	copyToInput();
+
+}
 
 function reverseSituation(){
 	var elem = document.getElementById("sum-missing-info");
@@ -117,14 +117,14 @@ function increase(){
 	// $("number").html(parseInt($('#number').html(), 10)+1);
 	number = number + 1;
 	document.getElementById("number").innerHTML = number;
-};
+}
 	
 	
 function decrease(){
 	// $("number").html(parseInt($('#number').html(), 10)-1);
 	number = number - 1;
 	document.getElementById("number").innerHTML = number;
-};
+}
 
 function checkStatus(){
 	// parseInt($('number').html(), 10) == 0
@@ -137,13 +137,13 @@ function checkStatus(){
 		document.getElementById("confirm").style ="width: 100%;background: #3F78B3;color:#fff ;border-color: #3F78B3;border-radius: 15px; display: none;";
 		document.getElementById("continue").style = "width: 100%;background: #3F78B3;color:#fff ;border-color: #3F78B3;border-radius: 15px; display: block;"; 
 	}
-};
+}
 
 
 function whenClick(elemID) 
 {
     var elem = document.getElementById(elemID);
-    if (elem.textContent=="Add") {
+    if (elem.textContent==="Add") {
 		elem.style="width: 100%; background: #F2F2F2;color:#F68888 ;border-color: #F68888;border-radius: 15px; font-size: 10px";
 		elem.textContent = "Added";
 		increase();
@@ -155,7 +155,7 @@ function whenClick(elemID)
 	}
 	checkStatus();
 	
-};
+}
 
 function makeVisiable(elemID)
 {
@@ -167,6 +167,6 @@ function makeUnvisiable(elemID)
 {
 	var elem = document.getElementById(elemID);
 	elem.style = "display: none";
-};
+}
 
 
