@@ -170,8 +170,9 @@
 						<div class="just-letter col-xs-2 col-sm-2 col-md-2 col-lg-2">
 							<p>Photo: </p>
 						</div>
-						<div class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
-							<a href="#" style="display: flex; justify-content: flex-end;">
+						<div th:each="doc : ${applicationToReview.getDocuments()}"
+							 th:if="${doc.getDocType().toString().equals('PHOTO')}"class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<a th:href="${'/docs/' + doc.getId()}" style="display: flex; justify-content: flex-end;">
 								<button type="submit" class="btn btn-default Open File-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
 							</a>
 						</div>
@@ -185,8 +186,9 @@
 						<div class="just-letter col-xs-2 col-sm-2 col-md-2 col-lg-2">
 							<p>Transcript/s :</p>
 						</div>
-						<div class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
-							<a href="#" style="display: flex; justify-content: flex-end;">
+						<div th:each="doc : ${applicationToReview.getDocuments()}"
+							 th:if="${doc.getDocType().toString().equals('TRANSCRIPT')}"class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<a th:href="${'/docs/' + doc.getId()}" style="display: flex; justify-content: flex-end;">
 								<button type="submit" class="btn btn-default Open File-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
 							</a>
 						</div>
@@ -248,7 +250,8 @@
 							<p>Reference Letter/s :</p>
 						</div>
 
-						<div th:each="doc : ${applicationToReview.getDocuments()}" th:if="${doc.getDocType().toString().equals('REFERENCELETTER')}"class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
+						<div th:each="doc : ${applicationToReview.getDocuments()}"
+							 th:if="${doc.getDocType().toString().equals('REFERENCELETTER')}"class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
 							<a th:href="${'/docs/' + doc.getId()}" style="display: flex; justify-content: flex-end;">
 								<button type="submit" class="btn btn-default Open File-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
 							</a>

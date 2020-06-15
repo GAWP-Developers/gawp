@@ -145,6 +145,29 @@ public class ApplicationHandler {
         return "applicant/succesful-application";
     }
 
+    @RequestMapping(value = "/notify/{id}", method = RequestMethod.POST)
+    public String notifyApplicant(@Valid ApplicationForm applicationForm, BindingResult bindingResult,
+                                  @PathVariable String id,
+                                  @RequestParam("sending-mail") String mailContent){
+
+        if(bindingResult.hasErrors()){
+            return "/grad/applications-to-pre-review";
+        }
+        //Application saved = applicationService.saveOrUpdate(application);
+        //Applicant applicant = application.getApplicant();
+
+        applicationForm.setStatus(ApplicationStatus.MISSINGDOCUMENT);
+        Application savedApplication = applicationService.saveOrUpdateApplicationForm(applicationForm);
+
+        Mail mail = new Mail();
+        mail.setFrom("noreply@gawp.com");
+        mail.setTo(applicationForm.getApplicant().getEmail());
+        mail.setSubject("Information About Missing Documents");
+        mail.setContent(mailContent);
+        emailService.sendSimpleMessage(mail);
+        return "redirect:/grad/applicationsBeforeForwarding/preReview";
+    }
+
     @RequestMapping(value = "/application", method = RequestMethod.POST)
     public String saveOrUpdateApplication(@Valid ApplicationForm applicationForm, BindingResult bindingResult,
                                           @RequestParam("photo") MultipartFile photo,
@@ -314,7 +337,7 @@ public class ApplicationHandler {
     }
 
 
-
+/*
     @RequestMapping(path="/notify/{id}")
     public String notify(@PathVariable String id){
         //TODO notify için mail-message i fronttan alınması lazım
@@ -332,7 +355,7 @@ public class ApplicationHandler {
 
     }
 
-
+*/
     @RequestMapping("/grad/applicationsBeforeForwarding/declined")
     public String listDeclinedApplications(Model model){
         //TODO List declined applications and add it as attribute to model
