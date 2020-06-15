@@ -42,12 +42,16 @@
             </ul>
 		</div>
 	</nav><!-- end of the navbar-->
+
+	<input hidden id="fname" th:value="${fname}"/>
+	<input hidden id="sname" th:value="${lname}"/>
+	<input hidden id="aname" th:value="${advertName}"/>
 			
 	<div class="container" style="margin-bottom: 0px; ">
 		<div class="container-section d-flex align-items-center justify-content-center col-4" >
 			<p style="font-size: 30px;">Create Interview Invite for
 				<span th:text="${fname}"></span>
-				<span th:text="${lname}"></span>
+				<span th:text="${lname}"></span> </p>
 <!--				<bold id="fname">Name</bold>-->
 <!--				<bold > </bold>-->
 <!--				<bold id="sname">Surname</bold>-->
@@ -60,15 +64,15 @@
             <div class="container-section-part ">
                 <div class="row cs-first">
                     <div class="row cs-first-title col-xs-6">
-                        <p id="aname">Advert Name Is This.</p>
+                        <p> Advert:
+							<span th:text="${advertName}"></span>
+						</p>
                     </div>
 					
 					<div class="col-xs-4">
 						<div class="date-title col-xs-2 col-sm-2 col-md-2 col-lg-2">
-							<p>Expire Date: </p>
-						</div>
-						<div class="date col-xs-2 col-sm-2 col-md-2 col-lg-2">
-							<p>02/05/2020</p>
+							<p>Expire Date:
+								<span th:text="${#dates.format(advertDeadline, 'dd-MM-yyyy')}"></span> </p>
 						</div>
 					</div>
 					
@@ -119,10 +123,10 @@
 					</div>		
 					<div  class="row">
 						<div class="just-letter col-xs-12 col-sm-12 col-md-12 col-lg-12">
-							<p>In below you can see mail preview and can change it.(Please dont change day,time and place) </p>
+							<p>In below you can see mail preview and can change it.(For new line enter %$) (Please do not change day,time and place) </p>
 						</div>
 						<textarea id="invite-text" onchange="addInvite();" class="info-letter big  col-xs-12 col-sm-12 col-md-12 col-lg-12" style="width: 90%" placeholder="About Invert ..." rows="10" required></textarea>
-						<input id="mail-input"  required   style=" visibility:hidden;" >	
+						<input type="text" id="mail-input" name="sending-mail" required   style=" visibility:hidden;" >
 					</div>
 					
 				</div>
@@ -144,9 +148,7 @@
 					</div>
 
 					<div id="apply" style="display:none;" class="cs-first-description col-xs-3">
-							<a href="#"  style="display:flex; justify-content: flex-end; ">
-								<button  type="submit" class="btn btn-default update" style="width: 120%;background: #3F78B3;color:#fff ;border-color: #3F78B3;border-radius: 15px;">Apply and Send Mail</button>
-							</a>		
+							<button  type="submit" class="btn btn-default update" style="width: 120%;background: #3F78B3;color:#fff ;border-color: #3F78B3;border-radius: 15px;">Apply and Send Mail</button>
 					</div>
 
 					<div id="next" class="cs-first-description col-xs-3">

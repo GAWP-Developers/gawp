@@ -137,6 +137,8 @@ public class InterviewHandler {
         model.addAttribute("interviewForm", interviewForm);
         model.addAttribute("fname", applicationService.getById(application_id).getApplicant().getfName());
         model.addAttribute("lname", applicationService.getById(application_id).getApplicant().getlName());
+        model.addAttribute("advertName", applicationService.getById(application_id).getAdvert().getName());
+        model.addAttribute("advertDeadline", applicationService.getById(application_id).getAdvert().getDeadlineDate());
 
         /**System.out.println("application");
 
@@ -156,17 +158,26 @@ public class InterviewHandler {
     }
 
     @RequestMapping(value = "/interview", method = RequestMethod.POST)
-    public String saveOrUpdateInterview(@Valid InterviewForm interviewForm, BindingResult bindingResult){
-        System.out.println(222);
+    public String saveOrUpdateInterview(@Valid InterviewForm interviewForm, BindingResult bindingResult,
+                                        @RequestParam("sending-mail") String mailContent){
 
         if(bindingResult.hasErrors()){
             return "interview/interviewform";
         }
-        System.out.println(interviewForm.getTime());
-        System.out.println(23);
+
+        mailContent = mailContent.replaceAll("newLineBreak", "\n");
+        //System.out.println(mailContent);
+
+        Mail mail = new Mail();
+        mail.setFrom("noreply@gawp.com");
+        mail.setTo(interviewForm.getApplication().getApplicant().getEmail());
+        mail.setSubject("Interview Date/Time");
+        mail.setContent(mailContent);
+        emailService.sendSimpleMessage(mail);
+
         Interview savedInterview = interviewService.saveOrUpdateInterviewForm(interviewForm);
         System.out.println(savedInterview.getTime());
-        System.out.println(24);
+
         return "redirect:/department/interview/new/success";
     }
 

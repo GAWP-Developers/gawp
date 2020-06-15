@@ -14,7 +14,12 @@ $(document).ready(function () {
 });
 
 function addInvite(){
-	document.getElementById('mail-input').value = document.getElementById('invite-text').value;
+	// document.getElementById('mail-input').value = document.getElementById('invite-text').value;
+	let text = document.getElementById('invite-text').value;
+	text = text.replace(/\r\n/g, "\n");
+	text = text.replace(/\n/g, "newLineBreak\n");
+	console.log(text);
+	document.getElementById('mail-input').value = text;
 	return document.getElementById('invite-text').innerHTML;
 };
 
@@ -27,28 +32,37 @@ function updateInvite(){
 	var idate = document.getElementById('idate');
 	var itime = document.getElementById('itime');
 	var iplace = document.getElementById('iplace');
-	elem.innerHTML = "Dear ";
-	elem.innerHTML += fname.textContent;
-	elem.innerHTML += " ";
-	elem.innerHTML += sname.textContent;
-	elem.innerHTML += ",\nCongratulations, you have made a successful application. We have reviewed your application and would like to call you for an interview. You can find the interview date below:";
-	elem.innerHTML += "\n	Advert Name: ";
-	elem.innerHTML += aname.textContent;
-	elem.innerHTML += "\n	Date of the interview: ";
-	elem.innerHTML += idate.value;
-	elem.innerHTML += "\n	Time of the  interview: ";
-	elem.innerHTML += itime.value;
-	elem.innerHTML += "\n	Place of the interview: ";
-	elem.innerHTML += iplace.value;
-	elem.innerHTML += "\n\nBest Regards";
-	document.getElementById('mail-input').value = document.getElementById('invite-text').textContent;
+	let text = "Dear ";
+	text += fname.value;
+	text += " ";
+	text += sname.value;
+	text += ",\nCongratulations, you have made a successful application. We have reviewed your application and would like to call you for an interview. You can find the interview date below:";
+	text += "\n	Advert Name: ";
+	text += aname.value;
+	text += "\n	Date of the interview: ";
+	text += idate.value;
+	text += "\n	Time of the interview: ";
+	text += itime.value;
+	text += "\n	Place of the interview: ";
+	text += iplace.value;
+	text += "\n\nBest Regards";
+
+	elem.innerHTML = text;
+	text = text.replace(/\r\n/g, "\n");
+	text = text.replace(/\n/g, "newLineBreak\n");
+	console.log(text);
+	document.getElementById('mail-input').value = text;
+
+	// document.getElementById('mail-input').value = document.getElementById('invite-text').textContent;
+	addInvite();
+
+}
 
 
-
-};
-
-
-
+function replaceLineBreaks(){
+	document.getElementById('invite-text').value.replace(/\r\n/g, "\n");
+	document.getElementById('invite-text').value.replace(/\n/g, "%$\n");
+}
 
 function go2(){
 	if (checkReq()){
@@ -87,3 +101,7 @@ function checkReq(){
 	}
 	
 };
+
+function submitTheForm(){
+	console.log(document.getElementById(''))
+}
