@@ -215,6 +215,7 @@ public class ApplicationHandler {
     @RequestMapping("/grad/applicationsBeforeForwarding/preReview")
     public String listPreReviewApplications(Model model){
         List<Application> applicationList= applicationService.listByStatus(ApplicationStatus.WAITINGFORCONTROL);
+        applicationService.listByStatus(ApplicationStatus.MISSINGDOCUMENT).forEach(applicationList::add);
         model.addAttribute("applications",applicationList);
 
         return "/grad/applications-to-pre-review";
@@ -224,7 +225,7 @@ public class ApplicationHandler {
     public String reviewApplication(@PathVariable String id, Model model){
         Application application = applicationService.getById(Long.valueOf(id));
         model.addAttribute("applicationToReview", application);
-
+        model.addAttribute("mail",new Mail());
         return "/grad/check-interview";
     }
     @RequestMapping("/setConfirm/{id}")
@@ -235,17 +236,42 @@ public class ApplicationHandler {
         return "redirect:/grad/applicationsBeforeForwarding/preReview";
 
     }
-    @RequestMapping("/ignore/{id}")
+
+
+    @RequestMapping(path="/ignore/{id}")
     public String decline(@PathVariable String id){
+
+        System.out.println("Geliyorum");
+        System.out.println("Rejected");
         Application application= applicationService.getById(Long.valueOf(id));
         application.setStatus(ApplicationStatus.REJECTED);
+        Application saved = applicationService.saveOrUpdate(application);
+        Applicant applicant =application.getApplicant();
+        Mail mail = new Mail();
+        System.out.println(mail.getContent());
+        mail.setFrom("noreply@gawp.com");
+        mail.setTo(applicant.getEmail());
+        mail.setSubject("Size Spring ilen Salamlar getirmişem");
+        mail.setContent("rejected");
+        emailService.sendSimpleMessage(mail);
+        return "redirect:/grad/applicationsBeforeForwarding/preReview";
+
+    }
+
+
+
+    @RequestMapping(path="/notify/{id}")
+    public String notify(@PathVariable String id){
+        //TODO notify için mail-message i fronttan alınması lazım
+        Application application= applicationService.getById(Long.valueOf(id));
+        application.setStatus(ApplicationStatus.MISSINGDOCUMENT);
         Application saved = applicationService.saveOrUpdate(application);
         Applicant applicant =application.getApplicant();
         Mail mail = new Mail();
         mail.setFrom("noreply@gawp.com");
         mail.setTo(applicant.getEmail());
         mail.setSubject("Size Spring ilen Salamlar getirmişem");
-        mail.setContent("Azerbaycandan gucak dolusu salamlar");
+        mail.setContent("You have notified");
         emailService.sendSimpleMessage(mail);
         return "redirect:/grad/applicationsBeforeForwarding/preReview";
 

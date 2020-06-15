@@ -41,10 +41,10 @@
             </ul>
 		</div>
 	</nav><!-- end of the navbar-->
-			
-	
-	
-	
+
+
+
+
     <div class="container" id="first-part" style="margin-bottom: 0px; ">
         <div class="container-section d-flex align-items-center justify-content-center col-4">
             <div class="container-section-part ">
@@ -82,7 +82,7 @@
                     <div class="row step-title">
                         <p>STEP-1</p>
                     </div>
-					
+
 					<div class="row">
 
 						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
@@ -355,16 +355,16 @@
 						
 					
 				</div>
-				
-				
+
+				<form >
 				<!--Hey Can, Please don't change form's tag alligment, this is important, for shape of mail.-->
-				<form>
-					<textarea  id="missing-info" style="display:none">Dear Applicant, 
+				<form >
+					<textarea  id="missing-info" name = "mailtext" style="display:none">Dear Applicant,
 In your application some informations which you give when appling are not correct or has some mistakes. Please check your information/s which is in below:
 					</textarea>
-					<input id="mail-message" value="" style="display: none;"/>
+					<input id="mail-message"  value="" style="display: none;"/>
 				</form>
-				
+				</form>
 		
 				
 				
@@ -415,7 +415,7 @@ In your application some informations which you give when appling are not correc
                                 <button  class="btn btn-default back" onclick="reverseSituation();makeUnvisiable('last-part'); makeVisiable('first-part'); makeVisiable('first-part2');" style="color: #F25A73; border-color: #F25A73; width: 80px; border-radius: 15px;">Back</button>
                         </div>
                         <div class="col-2 col-md-2 col-lg-2 notify-button">
-                            <a href="#">
+                            <a th:href="${'/notify/'+applicationToReview.id}">
                                 <button type="submit" class="btn btn-default notify" style=" width: 80px; border-radius: 15px;">Notify</button>
                             </a>
                         </div>
