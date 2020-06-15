@@ -1,5 +1,26 @@
 var number = 0;
 
+
+function initialLoad(){
+	console.log(document.getElementById("is-phd"))
+	if (document.getElementById("is-phd").value == "false"){
+		console.log("GİRDİM")
+		makeUnvisiable("phd-application");
+	}
+
+	if(document.getElementById("isForeign").value == "true")
+		enablePassport();
+	else
+		disablePassport();
+
+	if(document.getElementById("isWorking").value == "true")
+		enableWork();
+	else
+		disableWork();
+
+
+}
+
 function enablePassport() {
 				document.getElementById("extra-1").style = "visibility: visable";
 	 			document.getElementById("no1").style = "display: block";
