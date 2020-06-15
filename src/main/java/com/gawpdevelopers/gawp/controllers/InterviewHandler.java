@@ -168,17 +168,21 @@ public class InterviewHandler {
         mailContent = mailContent.replaceAll("newLineBreak", "\n");
         //System.out.println(mailContent);
 
+        sendMail(interviewForm, mailContent);
+
+        Interview savedInterview = interviewService.saveOrUpdateInterviewForm(interviewForm);
+        System.out.println(savedInterview.getTime());
+
+        return "redirect:/department/interview/new/success";
+    }
+
+    private void sendMail(InterviewForm interviewForm, String mailContent) {
         Mail mail = new Mail();
         mail.setFrom("noreply@gawp.com");
         mail.setTo(interviewForm.getApplication().getApplicant().getEmail());
         mail.setSubject("Interview Date/Time");
         mail.setContent(mailContent);
         emailService.sendSimpleMessage(mail);
-
-        Interview savedInterview = interviewService.saveOrUpdateInterviewForm(interviewForm);
-        System.out.println(savedInterview.getTime());
-
-        return "redirect:/department/interview/new/success";
     }
 
     @RequestMapping("/department/interview/delete/{id}")
