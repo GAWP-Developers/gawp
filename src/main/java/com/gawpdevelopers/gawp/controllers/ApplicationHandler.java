@@ -6,6 +6,9 @@ import com.gawpdevelopers.gawp.converters.ApplicationToApplicationForm;
 import com.gawpdevelopers.gawp.domain.*;
 import com.gawpdevelopers.gawp.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.print.Doc;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -269,6 +273,22 @@ public class ApplicationHandler {
     public String listApplicationsToVerify(Model model){
         //TODO List approved applications and add it as attribute to model
         return "/grad/verify-approved-applications";
+    }
+
+    //  File Mapping
+
+    @RequestMapping("/docs/{id}")
+    public ResponseEntity<Resource> serveDocument(@PathVariable long id){
+        Document doc = documentService.getById(id);
+
+        // TODO Check whether the user should be able to access document
+        // TODO For example, an applicant shouldn't see someone elses document
+
+        Resource document = storageService.loadAsResource(doc);
+
+        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
+        "attachment; filename=\"" + document.getFilename() + "\"").body(document);
+
     }
 
 
