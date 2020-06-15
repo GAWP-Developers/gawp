@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.print.Doc;
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 
 
@@ -122,9 +123,14 @@ public class ApplicationHandler {
 
     @RequestMapping("/applicant/application/new/{advert_id}")
     public String newApplication(@PathVariable Long advert_id, Model model){
-        System.out.println("GELDİM ÇOK YAKINIM");
+
         ApplicationForm appForm = new ApplicationForm();
         appForm.setAdvert(advertService.getById(advert_id));
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Applicant applicant = applicantService.getByApiId(auth.getName());
+        appForm.setApplicant(applicant);
+
         model.addAttribute("applicationForm", appForm);
 //        System.out.println("Advert is null: " + advert == null);
 //        model.addAttribute("target_advert", advert);
@@ -143,63 +149,69 @@ public class ApplicationHandler {
                                           @RequestParam("transcript") MultipartFile transcript,
                                           @RequestParam("ales") MultipartFile ales,
                                           @RequestParam("referenceLetter") MultipartFile referenceLetter,
-                                          @RequestParam("permissionLetter") MultipartFile permissionLetter,
-                                          @RequestParam("passport") MultipartFile passport,
-                                          @RequestParam("masterTranscript") MultipartFile masterTranscript) {
+                                          @RequestParam(value = "permissionLetter", required = false) MultipartFile permissionLetter,
+                                          @RequestParam(value = "passport", required = false) MultipartFile passport,
+                                          @RequestParam(value = "masterTranscript", required = false) MultipartFile masterTranscript) {
         System.out.println("UPLOAD ZAMANI");
-        if(bindingResult.hasErrors()){
-            return "/applicant";
-        }
+//        if(bindingResult.hasErrors()){
+//            return "/applicant";
+//        }
 
         applicationForm.setStatus(ApplicationStatus.WAITINGFORCONTROL);
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Applicant applicant = applicantService.getByApiId(auth.getName());
-        applicationForm.setApplicant(applicant);
+        applicationForm.setLastUpdateDate(new Date());
+        applicantService.saveOrUpdate(applicationForm.getApplicant());
         Application savedApplication = applicationService.saveOrUpdateApplicationForm(applicationForm);
         System.out.println(savedApplication.getStatus());
+
+        Integer applicationId = Math.toIntExact(savedApplication.getId());
 
         //  For each file, create corresponding Document entry in the db.
         DocumentForm photoForm = new DocumentForm();
         photoForm.setDocType(DocumentType.PHOTO);
         photoForm.setApplication(savedApplication);
-        photoForm.setPath(storageService.store(photo).toString());
+        photoForm.setPath(storageService.store(photo, applicationId).toString());
         documentService.saveOrUpdateDocumentForm(photoForm);
 
         DocumentForm transcriptForm = new DocumentForm();
-        photoForm.setDocType(DocumentType.TRANSCRIPT);
-        photoForm.setApplication(savedApplication);
-        photoForm.setPath(storageService.store(transcript).toString());
+        transcriptForm.setDocType(DocumentType.TRANSCRIPT);
+        transcriptForm.setApplication(savedApplication);
+        transcriptForm.setPath(storageService.store(transcript, applicationId).toString());
         documentService.saveOrUpdateDocumentForm(transcriptForm);
 
         DocumentForm alesForm = new DocumentForm();
-        photoForm.setDocType(DocumentType.ALES);
-        photoForm.setApplication(savedApplication);
-        photoForm.setPath(storageService.store(ales).toString());
+        alesForm.setDocType(DocumentType.ALES);
+        alesForm.setApplication(savedApplication);
+        alesForm.setPath(storageService.store(ales, applicationId).toString());
         documentService.saveOrUpdateDocumentForm(alesForm);
 
         DocumentForm referenceLetterForm = new DocumentForm();
-        photoForm.setDocType(DocumentType.REFERENCELETTER);
-        photoForm.setApplication(savedApplication);
-        photoForm.setPath(storageService.store(referenceLetter).toString());
+        referenceLetterForm.setDocType(DocumentType.REFERENCELETTER);
+        referenceLetterForm.setApplication(savedApplication);
+        referenceLetterForm.setPath(storageService.store(referenceLetter, applicationId).toString());
         documentService.saveOrUpdateDocumentForm(referenceLetterForm);
-        //TODO what if applicant is not working, no need to upload this file
-        DocumentForm permissionLetterForm = new DocumentForm();
-        photoForm.setDocType(DocumentType.PERMISSIONLETTER);
-        photoForm.setApplication(savedApplication);
-        photoForm.setPath(storageService.store(permissionLetter).toString());
-        documentService.saveOrUpdateDocumentForm(permissionLetterForm);
-        //TODO what if applicant has turkish id card, no need to upload this file
-        DocumentForm passportForm = new DocumentForm();
-        photoForm.setDocType(DocumentType.PASSPORT);
-        photoForm.setApplication(savedApplication);
-        photoForm.setPath(storageService.store(passport).toString());
-        documentService.saveOrUpdateDocumentForm(passportForm);
 
-        DocumentForm masterTranscriptForm = new DocumentForm();
-        photoForm.setDocType(DocumentType.MASTERTRANSCRIPT);
-        photoForm.setApplication(savedApplication);
-        photoForm.setPath(storageService.store(masterTranscript).toString());
-        documentService.saveOrUpdateDocumentForm(masterTranscriptForm);
+        if (permissionLetter != null && !permissionLetter.isEmpty()) {
+            DocumentForm permissionLetterForm = new DocumentForm();
+            permissionLetterForm.setDocType(DocumentType.PERMISSIONLETTER);
+            permissionLetterForm.setApplication(savedApplication);
+            permissionLetterForm.setPath(storageService.store(permissionLetter, applicationId).toString());
+            documentService.saveOrUpdateDocumentForm(permissionLetterForm);
+        }
+        if (passport != null && !passport.isEmpty()) {
+            DocumentForm passportForm = new DocumentForm();
+            passportForm.setDocType(DocumentType.PASSPORT);
+            passportForm.setApplication(savedApplication);
+            passportForm.setPath(storageService.store(passport, applicationId).toString());
+            documentService.saveOrUpdateDocumentForm(passportForm);
+        }
+
+        if (masterTranscript != null && !masterTranscript.isEmpty()) {
+            DocumentForm masterTranscriptForm = new DocumentForm();
+            masterTranscriptForm.setDocType(DocumentType.MASTERTRANSCRIPT);
+            masterTranscriptForm.setApplication(savedApplication);
+            masterTranscriptForm.setPath(storageService.store(masterTranscript, applicationId).toString());
+            documentService.saveOrUpdateDocumentForm(masterTranscriptForm);
+        }
 
 //        return "redirect:/application/show/" + savedApplication.getId();
         return "redirect:/applicant/application/new/success";
