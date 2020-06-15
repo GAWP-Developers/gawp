@@ -1,7 +1,5 @@
 package com.gawpdevelopers.gawp.controllers;
 
-import com.gawpdevelopers.gawp.commands.AdvertForm;
-import com.gawpdevelopers.gawp.commands.ApplicationForm;
 import com.gawpdevelopers.gawp.commands.InterviewForm;
 import com.gawpdevelopers.gawp.converters.InterviewToInterviewForm;
 import com.gawpdevelopers.gawp.domain.*;
@@ -9,15 +7,12 @@ import com.gawpdevelopers.gawp.services.ApplicationService;
 import com.gawpdevelopers.gawp.services.InterviewService;
 import com.gawpdevelopers.gawp.services.MailService;
 import com.gawpdevelopers.gawp.services.UserDetailsServiceImpl;
-import com.gawpdevelopers.gawp.domain.Advert;
-import com.gawpdevelopers.gawp.domain.Applicant;
 import com.gawpdevelopers.gawp.domain.Interview;
 import com.gawpdevelopers.gawp.domain.UserDetailsImpl;
 import com.gawpdevelopers.gawp.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -170,7 +164,7 @@ public class InterviewHandler {
                                         @RequestParam("sending-mail") String mailContent){
 
         if(bindingResult.hasErrors()){
-            return "interview/interviewform";
+            return "department/interviewform";
         }
 
         mailContent = mailContent.replaceAll("newLineBreak", "\n");
@@ -234,7 +228,7 @@ public class InterviewHandler {
 
 
 
-        return "interview/make-interview";
+        return "department/make-interview";
 
     }
 
@@ -242,7 +236,7 @@ public class InterviewHandler {
     public String UpdateInterviewAfter(@Valid InterviewForm interviewForm, BindingResult bindingResult){
 
         if(bindingResult.hasErrors()){
-            return "interview/interviewform";
+            return "department/interviewform";
         }
 
 
