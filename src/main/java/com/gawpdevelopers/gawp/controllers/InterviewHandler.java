@@ -135,8 +135,8 @@ public class InterviewHandler {
         InterviewForm interviewForm = new InterviewForm();
         interviewForm.setApplication(applicationService.getById(application_id));
         model.addAttribute("interviewForm", interviewForm);
-
-        model.addAttribute("name", applicationService.getById(application_id).getApplicant().getUserName());
+        model.addAttribute("fname", applicationService.getById(application_id).getApplicant().getfName());
+        model.addAttribute("lname", applicationService.getById(application_id).getApplicant().getlName());
 
         /**System.out.println("application");
 
