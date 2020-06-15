@@ -49,7 +49,7 @@
 				<bold id="fname">Name</bold>
 				<bold > </bold>
 				<bold id="sname">Surname</bold>
-			</p>
+<!--			<p style="font-size: 40px; border-bottom: solid 1px #c7c6c6aa; color:#3B3B3B ; letter-spacing: 0.2px; top :0px;"><span th:text="${name}"></span></p>-->
 		</div>
 	</div>
 
@@ -83,20 +83,26 @@
 	
 	<div class="container" style="margin-bottom: 10px; ">
         <div class="container-section d-flex align-items-center justify-content-center col-4" style="padding-top: 10px;">
-            <form class="container-section-part " th:object="${interviewForm}" th:action="@{/interview}"  method="post">
-				<input type="hidden" th:field="*{id}"/>
+            <form id="interviewForm" class="container-section-part " th:object="${interviewForm}" th:action="@{/interview}"  method="post">
+				<input type="hidden" th:field="*{id}" th:value="${interviewForm.id}"/>
+				<input type="hidden" th:field="*{application}" th:value="${interviewForm.application}"/>
 
                 <div class="row step" id="step1">
                     <div class="row step-title">
                         <p>STEP-1</p>
 					</div>
 					<div class="row">
-						<input id="idate" th:field="*{date}" onchange="updateInvite()" type="date" placeholder="Interview Date:" class="info-letter col-xs-6 col-sm-6 col-md-6 col-lg-6" value="2020-01-01"/>
-						<input id="itime" th:field="*{time}" onchange="updateInvite()" data-limit-rows="true" class="info-letter col-xs-6 col-sm-6 col-md-6 col-lg-6" placeholder="Interview Time " rows="1" style="padding: 8px 15px;">
+						<input id="idate"
+							   th:field="*{date}"
+							   th:value="${interviewForm.date}" onchange="updateInvite()" type="date" placeholder="Interview Date:" class="info-letter col-xs-6 col-sm-6 col-md-6 col-lg-6" value="2020-01-01"/>
+						<input id="itime"
+							   th:field="*{time}"
+							   th:value="${interviewForm.time}" onchange="updateInvite()" data-limit-rows="true" class="info-letter col-xs-6 col-sm-6 col-md-6 col-lg-6" placeholder="Interview Time " rows="1" style="padding: 8px 15px;">
 					</div>
 					
 					<div class="row">
-						<input id="iplace" th:field="*{place}" onchange="updateInvite()" data-limit-rows="true" class="info-letter col-xs-12 col-sm-12 col-md-12 col-lg-12" placeholder="Place..." rows="3" style="width:90.5%; padding: 8px 15px;" >
+						<input id="iplace"
+							   th:field="*{place}" th:value="${interviewForm.place}" onchange="updateInvite()" data-limit-rows="true" class="info-letter col-xs-12 col-sm-12 col-md-12 col-lg-12" placeholder="Place..." rows="3" style="width:90.5%; padding: 8px 15px;" >
 					</div>
 					
 	

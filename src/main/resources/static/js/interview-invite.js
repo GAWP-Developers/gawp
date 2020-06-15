@@ -38,7 +38,7 @@ function updateInvite(){
 	elem.innerHTML += idate.value;
 	elem.innerHTML += "\n	Time of the  interview: ";
 	elem.innerHTML += itime.value;
-	elem.innerHTML += "\n	Duration of the interview: ";
+	elem.innerHTML += "\n	Place of the interview: ";
 	elem.innerHTML += iplace.value;
 	elem.innerHTML += "\n\nBest Regards";
 	document.getElementById('mail-input').value = document.getElementById('invite-text').textContent;
