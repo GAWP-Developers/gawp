@@ -50,7 +50,7 @@
             <div class="container-section-part ">
                 <div class="row cs-first">
                     <div class="row cs-first-title col-xs-6">
-                        <p>Advert Name Is This.</p>
+                        <p><span th:utext="${applicationToReview.advert.name}"/></p>
                     </div>
 					
 					<div class="col-xs-4">
@@ -58,7 +58,7 @@
 							<p>Expire Date: </p>
 						</div>
 						<div class="date col-xs-2 col-sm-2 col-md-2 col-lg-2">
-							<p>02/05/2020</p>
+							<p><span th:utext="${applicationToReview.advert.deadlineDate}"/></p>
 						</div>
 					</div>
 					
@@ -86,24 +86,15 @@
 					<div class="row">
 
 						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
-							<p>Name: </p>
+							<p>Full Name: </p>
 						</div>
 						<div class="info-letter col-xs-5 col-sm-5 col-md-5 col-lg-5">
-							<p>Elman </p>
+							<p><span th:utext="${applicationToReview.applicant.userName}"/> </p>
 						</div>
 						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
 							<button onclick="whenClick(this.id);" class="btn btn-default" type="button" value="" id="Name" style="width: 100%; background: #fff;color:#C41414 ;border-color: #C41414;border-radius: 15px; font-size: 10px">Add</button>
                 		</div>
-						
-						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
-							<p>Surname: </p>
-						</div>
-						<div class="info-letter col-xs-5 col-sm-5 col-md-5 col-lg-5">
-							<p>Hamdi</p>
-						</div>
-						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
-							<button onclick="whenClick(this.id);" class="btn btn-default" type="button"  id="Surname" style="width: 100%; background: #fff;color:#C41414 ;border-color: #C41414;border-radius: 15px; font-size: 10px">Add</button>
-                		</div>
+
 					</div>
 					
 
@@ -114,7 +105,7 @@
 							<p>Mail: </p>
 						</div>
 						<div class="info-letter col-xs-6 col-sm-6 col-md-6 col-lg-6">
-							<p>mail@mail.com </p>
+							<p><span th:utext="${applicationToReview.applicant.email}"/> </p>
 						</div>
 						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
 							<button onclick="whenClick(this.id);" class="btn btn-default" type="button"  id="Mail" style="width: 100%; background: #fff;color:#C41414 ;border-color: #C41414;border-radius: 15px; font-size: 10px">Add</button>
@@ -183,7 +174,7 @@
 							<p>Photo: </p>
 						</div>
 						<div class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
-							<a href="#" style="display: flex; justify-content: flex-end;">
+							<a src="/upload-dir/cloudOrSmoke.png" style="display: flex; justify-content: flex-end;">
 								<button type="submit" class="btn btn-default Open File-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
 							</a>
 						</div>
@@ -198,6 +189,7 @@
 							<p>Transcript/s :</p>
 						</div>
 						<div class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
+
 							<a href="#" style="display: flex; justify-content: flex-end;">
 								<button type="submit" class="btn btn-default Open File-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
 							</a>
