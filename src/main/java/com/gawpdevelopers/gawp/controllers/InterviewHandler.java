@@ -27,6 +27,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Controller class that responds to the /interview/* requests.
@@ -75,11 +77,23 @@ public class InterviewHandler {
         System.out.println(String.join("  ", user.getfName(), user.getlName()));
         model.addAttribute("name", String.join("  ", user.getfName(), user.getlName()));
 
-        //TODO Front End Integration is not completed
-        //TODO application numbers are currently hardcoded.
+        int applicationsToInterviewCount =
+                applicationService.listAll().stream()
+                        .filter(application -> application.getInterview() == null && application.getStatus() == ApplicationStatus.VERIFIED)
+                        .collect(Collectors.toList())
+                        .size();
+        model.addAttribute("applicationsToInterviewCount", applicationsToInterviewCount);
+
+        int interviewedApplicationCount =
+                applicationService.listAll().stream()
+                        .filter(application -> application.getInterview() != null && application.getStatus() == ApplicationStatus.VERIFIED)
+                        .collect(Collectors.toList())
+                        .size();
+        model.addAttribute("interviewedApplicationCount", interviewedApplicationCount);
 
         return "department/dept-main";
     }
+
 
     @RequestMapping("/department/interview/list")
     public String getInterviews(Model model) {

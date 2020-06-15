@@ -21,7 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
-
+import java.util.stream.Collectors;
 
 
 /**
@@ -262,15 +262,35 @@ public class ApplicationHandler {
     //  Department Mapping
 
     @RequestMapping("/department/applicationsToInterview")
-    public String listApplicationsToReview(){
-        //TODO  Front End Integration
-        return "TO BE IMPLEMENTED";
+    public String listApplicationsToInterview(Model model){
+        //  TODO Applications that belongs to this department should be shown.
+        //      Or are they?
+
+        List<Application> applications = applicationService.listAll();
+        List<Application> applicationsToInterview =
+                applications.stream()
+                        .filter(application -> application.getInterview() == null && application.getStatus() == ApplicationStatus.VERIFIED)
+                        .collect(Collectors.toList());
+
+        model.addAttribute("applicationsToInterview", applicationsToInterview);
+
+        return "department/applications-to-interview";
     }
 
     @RequestMapping("/department/interviewedApplications")
-    public String listInterviewedApplication(){
-        //TODO Front End Integration
-        return "TO BE IMPLEMENTED";
+    public String listInterviewedApplications(Model model){
+        //  TODO Applications that belongs to this department should be shown.
+        //      Or are they?
+        List<Application> applications = applicationService.listAll();
+        List<Application> interviewedApplications =
+                applications.stream()
+                        .filter(application -> application.getInterview() != null && application.getStatus() == ApplicationStatus.VERIFIED)
+                        .collect(Collectors.toList());
+
+        model.addAttribute("interviewedApplications", interviewedApplications);
+
+        return "department/interviewed-applications";
+
     }
 
 
