@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:t="http://www.w3.org/1999/html">
 <head>
     <title>Update The Advert</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -73,7 +73,7 @@
     </div>
 
 	
-	
+
 	<div class="container" id="first-part2" style="margin-bottom: 10px; ">
         <div class="container-section d-flex align-items-center justify-content-center col-4" style="padding-top: 10px;">
             <div class="container-section-part ">
@@ -182,8 +182,8 @@
 						<div class="just-letter col-xs-2 col-sm-2 col-md-2 col-lg-2">
 							<p>Photo: </p>
 						</div>
-						<div class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
-							<a href="#" style="display: flex; justify-content: flex-end;">
+						<div th:each="doc : ${applicationToReview.getDocuments()}" th:if="${doc.getDocType().toString().equals('PHOTO')}"class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<a th:href="${'/docs/' + doc.getId()}" style="display: flex; justify-content: flex-end;">
 								<button type="submit" class="btn btn-default Open File-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
 							</a>
 						</div>
@@ -197,8 +197,8 @@
 						<div class="just-letter col-xs-2 col-sm-2 col-md-2 col-lg-2">
 							<p>Transcript/s :</p>
 						</div>
-						<div class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
-							<a href="#" style="display: flex; justify-content: flex-end;">
+						<div th:each="doc : ${applicationToReview.getDocuments()}" th:if="${doc.getDocType().toString().equals('TRANSCRIPT')}"class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<a th:href="${'/docs/' + doc.getId()}" style="display: flex; justify-content: flex-end;">
 								<button type="submit" class="btn btn-default Open File-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
 							</a>
 						</div>
@@ -211,8 +211,9 @@
 						<div class="just-letter col-xs-2 col-sm-2 col-md-2 col-lg-2">
 							<p>ALES Result?*</p>
 						</div>
-						<div class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
-							<a href="#" style="display: flex; justify-content: flex-end;">
+						<div th:each="doc : ${applicationToReview.getDocuments()}"
+							 th:if="${doc.getDocType().toString().equals('ALES')}"class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<a th:href="${'/docs/' + doc.getId()}" style="display: flex; justify-content: flex-end;">
 								<button type="submit" class="btn btn-default Open File-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
 							</a>
 						</div>
@@ -256,11 +257,11 @@
 						<div class="just-letter col-xs-2 col-sm-2 col-md-2 col-lg-2" style="margin-top: 15px">
 							<p>Reference Letter/s :</p>
 						</div>
-						
-						<div class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2" style="padding-top:5px">
-								<a  style="display: flex; justify-content: flex-start;">
-									<button type="submit" class="btn btn-default Open File-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px; ">Open File</button>
-								</a>
+
+						<div th:each="doc : ${applicationToReview.getDocuments()}" th:if="${doc.getDocType().toString().equals('REFERENCELETTER')}"class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<a th:href="${'/docs/' + doc.getId()}" style="display: flex; justify-content: flex-end;">
+								<button type="submit" class="btn btn-default Open File-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
+							</a>
 						</div>
 						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1" style="padding-top:5px">
 							<button onclick="whenClick(this.id);" class="btn btn-default" type="button"  id="Reference-Letter" style="width: 100%; background: #fff;color:#C41414 ;border-color: #C41414;border-radius: 15px; font-size: 10px">Add</button>
@@ -324,7 +325,7 @@
 								</a>
 							</div>
 							<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1" >
-								<button onclick="whenClick(this.id);" class="btn btn-default" type="button"  id="Permission-Letter" style="width: 100%; background: #fff;color:#C41414 ;border-color: #C41414;border-radius: 15px; font-size: 10px">Add</button>
+								<button onclick="whenClick(this.id);" class="btn btn-default" type="button"  id="Permission-Letter" style="width: 100%; background: #ffffff;color:#C41414 ;border-color: #C41414;border-radius: 15px; font-size: 10px">Add</button>
 							</div>
 						</div>
 					</div>
@@ -332,7 +333,7 @@
 				</div>
 				
 						-
-				
+
 				<div class="row step">
                     <div class="row step-title">
                         <p>PhD Application</p>
@@ -346,14 +347,14 @@
 						
 						<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" ></div>
 						<div class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
-							<button type="submit" class="btn btn-default Open File-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
+							<button type="submit" class="btn btn-default Open File-button" style="width: 100%;background: #ffffff;color:#b29b25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
 						</div>
 						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
 							<button onclick="whenClick(this.id);" class="btn btn-default" type="button"  id="PhD" style="width: 100%; background: #fff;color:#C41414 ;border-color: #C41414;border-radius: 15px; font-size: 10px">Add</button>
 						</div>
 					</div>
-						
-					
+
+
 				</div>
 
 				<form >
