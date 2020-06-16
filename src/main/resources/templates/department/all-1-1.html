@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Interview Info</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>
+
+    <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
+            th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+
+    <link href="../../static/css/spring-core.css"
+          th:href="@{css/spring-core.css}" rel="stylesheet" media="screen"/>
+    <link href="../../static/css/all-1-1.css"
+          th:href="@{/css/all-1-1.css}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"/>
+</head>
+<body>
+    <nav class="navbar navbar-default">
+		<div class="container">
+			<div class="navbar-header">
+
+				<a href="#" class="navbar-brand">GAWP - Department Panel</a>
+			</div>
+			
+			<ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <span class="glyphicon glyphicon-menu-hamburger"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Settings</a></li>
+                        <li><a href="#">Sign Out</a></li>
+                    </ul>
+                </li>
+            </ul>
+		</div>
+	</nav><!-- end of the navbar-->
+
+    <div class="container" style="margin-bottom: 10px; ">
+        <div class="container-section d-flex align-items-center justify-content-center ">
+            <div class="container-section-part">
+                <div class="container-title">
+                    <p style="font-size: 28px; color: #474747; border-bottom: solid 1px #c7c6c6aa; padding-left: 50px; padding-bottom:10px; letter-spacing: 0.3px;">Adding Interview Info</p>
+                </div>
+            </div>
+            <th:block th:each="anApplication : ${applications}">
+            <div class="container-second-section" style="margin-left: 70px;">
+                <div class="row attribute-part col-9 col-md-9 col-lg-9">
+                    <div class="col-5 col-md-5 col-lg-5 id-part">
+                        <p style="margin-top:10px;">Application with id <span th:text="${anApplication.id}"/></p>
+                    </div>
+                    <div class="col-2 col-md-2 col-lg-2 from-part">
+                        <p style="margin-top:10px;">by</p>
+                    </div>
+                    <div class="col-3 col-md-3 col-lg-3 name-part">
+                        <p style="margin-top: 10px;"><span th:text="${anApplication.applicant.fName + ' '+ anApplication.applicant.lName}"/></p>
+                    </div>
+                    <div class="col-2 col-md-2 col-lg-2 star-part" style="padding-top: 5px;">
+                        <a th:href="@{/department/interview/new/{id}(id=${anApplication.id})}">
+                            <button class="btn btn-default manage-app" style="padding: 6px 10px; outline: 0 !important; background: #FFFFFF;color:#3F78B3 ;border-color: #3F78B3;border-radius: 15px;">Set Interview</button>
+                        </a>
+                    </div>
+
+
+                </div>
+
+            </div>
+            </th:block>
+        </div>
+    </div>
+</body>
+</html>

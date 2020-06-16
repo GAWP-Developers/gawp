@@ -88,6 +88,8 @@ public class ApplicationHandler {
 //        return "applicant/main-page-applicant";
 //    }
 
+    //  Applicant Mapping
+
     @RequestMapping("/applicant")
     public String applicantMainMenu(Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -132,6 +134,8 @@ public class ApplicationHandler {
         appForm.setApplicant(applicant);
 
         model.addAttribute("applicationForm", appForm);
+        /**System.out.println("232 app new");
+        System.out.println(appForm.getId());*/
 //        System.out.println("Advert is null: " + advert == null);
 //        model.addAttribute("target_advert", advert);
 //        return "application/applicationform";
@@ -250,6 +254,9 @@ public class ApplicationHandler {
             documentService.saveOrUpdateDocumentForm(masterTranscriptForm);
         }
 
+        /**System.out.println("232 app update");
+        System.out.println(applicationForm.getId());*/
+
 //        return "redirect:/application/show/" + savedApplication.getId();
         return "redirect:/applicant/application/new/success";
     }
@@ -259,6 +266,8 @@ public class ApplicationHandler {
         applicationService.delete(Long.valueOf(id));
         return "redirect:/application/list";
     }
+
+    //  Grad Mapping
 
     @RequestMapping("/grad/applicationsBeforeForwarding")
     public String applicationsBeforeForwarding(Model model){
@@ -454,6 +463,55 @@ public class ApplicationHandler {
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
         "attachment; filename=\"" + document.getFilename() + "\"").body(document);
 
+    }
+
+    //  Department Mapping
+
+    @RequestMapping("/department/applicationsToInterview")
+    public String listApplicationsToInterview(Model model){
+        //  TODO Applications that belongs to this department should be shown.
+        //      Or are they?
+
+        List<Application> applications = applicationService.listAll();
+        List<Application> applicationsToInterview =
+                applications.stream()
+                        .filter(application ->  application.getStatus() == ApplicationStatus.WAITINGFORINTERVIEW)
+                        .collect(Collectors.toList());
+
+        model.addAttribute("applicationsToInterview", applicationsToInterview);
+
+        return "department/applications-to-interview";
+    }
+
+    @RequestMapping("/department/interviewedApplications")
+    public String listInterviewedApplications(Model model){
+        //  TODO Applications that belongs to this department should be shown.
+        //      Or are they?
+        List<Application> applications = applicationService.listAll();
+        List<Application> interviewedApplications =
+                applications.stream()
+                        .filter(application ->  application.getStatus() == ApplicationStatus.INTERVIEWED)
+                        .collect(Collectors.toList());
+
+        model.addAttribute("interviewedApplications", interviewedApplications);
+
+        return "department/interviewed-applications";
+
+    }
+
+    @RequestMapping("/department/adverts/interviewNotSet/applications")
+    public String listInterviewNotSetApplications(Model model){
+
+        //  TODO CANA ÖZEL NOT: STATUSÜ UNUTMA!
+        List<Application> allApplications = applicationService.listAll();
+        List<Application> applications =
+                allApplications.stream()
+                        .filter(application -> application.getInterview() == null)
+                        .collect(Collectors.toList());
+
+        model.addAttribute("applications", applications);
+
+        return "department/all-1-1";
     }
 
 

@@ -51,7 +51,7 @@ public class LoginHandler {
   public String login(@RegisteredOAuth2AuthorizedClient OAuth2AuthorizedClient authorizedClient,
                       @AuthenticationPrincipal OAuth2User oauth2User, Model model) {
 
-
+    // TODO fname lname
       Map<String, Object> attributes = oauth2User.getAttributes();
       if(applicantService.getByApiId(oauth2User.getName())==null){
           Applicant newApplicant = new Applicant();
@@ -105,7 +105,7 @@ public class LoginHandler {
     public String check(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if(auth.getAuthorities().toString().equals("[ROLE_DEPT]")){
-            return "redirect:login";
+            return "redirect:/department";
         }
         
         if(auth.getAuthorities().toString().equals("[ROLE_GRAD]")){

@@ -6,5 +6,7 @@ public enum ApplicationStatus {
     ACCEPTED,
     REJECTED,
     VERIFIED,
-    CONFIRMED
+    CONFIRMED,
+    WAITINGFORINTERVIEW,
+    INTERVIEWED
 }

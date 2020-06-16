@@ -10,19 +10,18 @@ public class Application {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "APPLICATION_ID")
     private Long id;
-    private Long intID;     //  Interview ID - Will be Set Later
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ADVERT_ID")
+    @OneToOne(mappedBy = "application")
+    private Interview interview;
+    @ManyToOne(fetch = FetchType.LAZY)
     private Advert advert;  // Advert ID - Will be Set Later
     //TODO @NotNull
     @ManyToOne
     @JoinColumn(name = "APPLICANT_ID", nullable = false)
     private Applicant applicant;
     private ApplicationStatus status;
-    private String applicationDegree; //TODO Keep it or lose it.
     private Date lastUpdateDate;
     @OneToMany(mappedBy = "application")
-    private List<Document> documents;   //TODO Plan is to keep documents in different folders for all applications.
+    private List<Document> documents;
 
     public Long getId() {
         return id;
@@ -40,12 +39,12 @@ public class Application {
         this.advert = advert;
     }
 
-    public Long getIntID() {
-        return intID;
+    public Interview getInterview() {
+        return interview;
     }
 
-    public void setIntID(Long intID) {
-        this.intID = intID;
+    public void setInterview(Interview interview) {
+        this.interview = interview;
     }
 
     public Applicant getApplicant() {
@@ -62,14 +61,6 @@ public class Application {
 
     public void setStatus(ApplicationStatus status) {
         this.status = status;
-    }
-
-    public String getApplicationDegree() {
-        return applicationDegree;
-    }
-
-    public void setApplicationDegree(String applicationDegree) {
-        this.applicationDegree = applicationDegree;
     }
 
     public Date getLastUpdateDate() {

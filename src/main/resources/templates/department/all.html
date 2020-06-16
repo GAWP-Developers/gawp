@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Department Panel Main Page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>
+
+    <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
+            th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+
+    <link href="../../static/css/spring-core.css"
+          th:href="@{css/spring-core.css}" rel="stylesheet" media="screen"/>
+    <link href="../../static/css/all.css"
+          th:href="@{/css/all.css}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"/>
+</head>
+<body>
+    <nav class="navbar navbar-default">
+		<div class="container">
+			<div class="navbar-header">
+
+				<a href="#" class="navbar-brand">GAWP - Department Panel</a>
+			</div>
+			
+			<ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <span class="glyphicon glyphicon-menu-hamburger"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Settings</a></li>
+                        <li><a href="#">Sign Out</a></li>
+                    </ul>
+                </li>
+            </ul>
+		</div>
+    </nav><!-- end of the navbar-->
+    
+    <div class="container" style="margin-bottom: 10px; ">
+        <div class="container-section d-flex align-items-center justify-content-center col-4">
+            <div class="container-section-part">
+
+                <div class=" container-third-part">
+                    <div class="row first-button-part">
+                        <div class="col-10 col-md-10 col-lg-10 button-description">
+                            <p style="margin-top: 10px;">Adverts For Adding Interview Info</p>
+                        </div>
+                        <div class="col-2 col-md-2 col-lg-2 button">
+                            <a href="/department/adverts/interviewNotSet">
+                                <button class="btn btn-next"><i class="fas fa-chevron-right"></i></button>
+                            </a>
+                        </div>
+                    </div>
+                    <div class=" row second-button-part">
+                        <div class="col-10 col-md-10 col-lg-10 button-description">
+                            <p style="margin-top: 10px;">Adverts in Interview Status</p>
+                        </div>
+                        <div class="col-2 col-md-2 col-lg-2 button">
+                            <a href="../../../../../../../Downloads/All/all-2.html">
+                                <button class="btn btn-next"><i class="fas fa-chevron-right"></i></button>
+                            </a>
+                        </div>
+                    </div>
+                    <div class=" row second-button-part">
+                        <div class="col-10 col-md-10 col-lg-10 button-description">
+                            <p style="margin-top: 10px;">Completed Adverts</p>
+                        </div>
+                        <div class="col-2 col-md-2 col-lg-2 button">
+                            <a href="../../../../../../../Downloads/All/all-3.html">
+                                <button class="btn btn-next"><i class="fas fa-chevron-right"></i></button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+</body>
+</html>
