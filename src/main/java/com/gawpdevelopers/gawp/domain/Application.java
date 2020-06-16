@@ -20,6 +20,8 @@ public class Application {
     private Applicant applicant;
     private ApplicationStatus status;
     private Date lastUpdateDate;
+    @Column(columnDefinition = "varchar(max)")
+    private String statementOfPurpose;
     @OneToMany(mappedBy = "application")
     private List<Document> documents;
 
@@ -73,6 +75,14 @@ public class Application {
 
     public List<Document> getDocuments() {
         return documents;
+    }
+
+    public String getStatementOfPurpose() {
+        return statementOfPurpose;
+    }
+
+    public void setStatementOfPurpose(String statementOfPurpose) {
+        this.statementOfPurpose = statementOfPurpose;
     }
 
     public void setDocuments(List<Document> documents) {

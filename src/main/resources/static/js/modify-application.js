@@ -1,103 +1,129 @@
- function enableButton2() {
-			if(document.getElementById("extra-1").style == "visibility: hidden;"){
-				document.getElementById("button1").style ="width: 95%;background: #fff;color:#A0A0A0 ;border-color: #A0A0A0;border-radius: 15px;";
-				document.getElementById("extra-1").style = "";
-				document.getElementById("id-input").required = "";
-				document.getElementById("extra-1").title = "e1-0";
+function initialLoad(){
+	if(document.getElementById("isForeign").value === "true")
+		document.getElementById("button1").click();
+	else
+		document.getElementById("button3").click();
 
-				
-			}
-            else{
-				document.getElementById("button1").style = "width: 95%;background: #7AAEE4; color:#fff ;border-color: #3F78B3; border-radius: 15px;";
-				document.getElementById("button3").style ="width: 95%;background: #fff;color:#A0A0A0 ;border-color: #A0A0A0;border-radius: 15px;";
-				document.getElementById("extra-1").style = "";
-				document.getElementById("id-input").required = "true";
-				document.getElementById("extra-1").title = "e1-1";
-			}
-        };
-	
+	if(document.getElementById("isWorking").value === "true")
+		document.getElementById("button4").click()
+	else
+		document.getElementById("button6").click()
+
+
+}
+
+function makeVisiable(elemID)
+{
+	var elem = document.getElementById(elemID);
+	elem.style = "display: block";
+};
+
+function makeUnvisiable(elemID)
+{
+	var elem = document.getElementById(elemID);
+	elem.style = "display: none";
+}
+
+function enableButton2() {
+	if(document.getElementById("extra-1").style == "visibility: hidden;"){
+		document.getElementById("button1").style ="width: 95%;background: #fff;color:#A0A0A0 ;border-color: #A0A0A0;border-radius: 15px;";
+		document.getElementById("extra-1").style = "";
+		document.getElementById("id-input").required = "";
+		document.getElementById("extra-1").title = "e1-0";
+
+
+	}
+	else{
+		document.getElementById("button1").style = "width: 95%;background: #7AAEE4; color:#fff ;border-color: #3F78B3; border-radius: 15px;";
+		document.getElementById("button3").style ="width: 95%;background: #fff;color:#A0A0A0 ;border-color: #A0A0A0;border-radius: 15px;";
+		document.getElementById("extra-1").style = "";
+		document.getElementById("id-input").required = "true";
+		document.getElementById("extra-1").title = "e1-1";
+	}
+};
+
 function disableButton2() {
-						
-			if(document.getElementById("extra-1").style == "visibility: hidden;"){
-				document.getElementById("button3").style ="width: 95%;background: #fff;color:#A0A0A0 ;border-color: #A0A0A0;border-radius: 15px;";
-				document.getElementById("button1").style ="width: 95%;background: #fff;color:#A0A0A0 ;border-color: #A0A0A0;border-radius: 15px;";
-				document.getElementById("extra-1").style = "";
-				document.getElementById("id-input").required = "";
-				document.getElementById("extra-1").title = "e1-0";
-				
-			}
-            else{	
-				document.getElementById("button3").style = "width: 95%;background: #7AAEE4; color:#fff ;border-color: #3F78B3; border-radius: 15px;";
-				document.getElementById("button1").style ="width: 95%;background: #fff;color:#A0A0A0 ;border-color: #A0A0A0;border-radius: 15px;";
-				document.getElementById("extra-1").style = "visibility: hidden";
-				document.getElementById("id-input").required = "";
-				document.getElementById("extra-1").title = "e1-0";
-				back_6();
-			}
-		};
-		
+
+	if(document.getElementById("extra-1").style == "visibility: hidden;"){
+		document.getElementById("button3").style ="width: 95%;background: #fff;color:#A0A0A0 ;border-color: #A0A0A0;border-radius: 15px;";
+		document.getElementById("button1").style ="width: 95%;background: #fff;color:#A0A0A0 ;border-color: #A0A0A0;border-radius: 15px;";
+		document.getElementById("extra-1").style = "";
+		document.getElementById("id-input").required = "";
+		document.getElementById("extra-1").title = "e1-0";
+
+	}
+	else{
+		document.getElementById("button3").style = "width: 95%;background: #7AAEE4; color:#fff ;border-color: #3F78B3; border-radius: 15px;";
+		document.getElementById("button1").style ="width: 95%;background: #fff;color:#A0A0A0 ;border-color: #A0A0A0;border-radius: 15px;";
+		document.getElementById("extra-1").style = "visibility: hidden";
+		document.getElementById("id-input").required = "";
+		document.getElementById("extra-1").title = "e1-0";
+		back_6();
+	}
+};
+
 
 function enableButton5() {
-			if(document.getElementById("extra-2").style == "visibility: hidden;"){
-				document.getElementById("button4").style ="width: 95%;background: #fff;color:#A0A0A0 ;border-color: #A0A0A0;border-radius: 15px;";
-				document.getElementById("extra-2").style = "";
-				document.getElementById("work-input").required = "";
-				document.getElementById("extra-2").title = "e2-0";
-				
-			}
-            else{
-				document.getElementById("button4").style = "width: 95%;background: #7AAEE4; color:#fff ;border-color: #3F78B3; border-radius: 15px;";
-				document.getElementById("button6").style ="width: 95%;background: #fff;color:#A0A0A0 ;border-color: #A0A0A0;border-radius: 15px;";
-				document.getElementById("extra-2").style = "";
-				document.getElementById("work-input").required = "true";
-				document.getElementById("extra-2").title = "e2-1";
-			}
-        };
-	
+	if(document.getElementById("extra-2").style == "visibility: hidden;"){
+		document.getElementById("button4").style ="width: 95%;background: #fff;color:#A0A0A0 ;border-color: #A0A0A0;border-radius: 15px;";
+		document.getElementById("extra-2").style = "";
+		document.getElementById("work-input").required = "";
+		document.getElementById("extra-2").title = "e2-0";
+
+	}
+	else{
+		document.getElementById("button4").style = "width: 95%;background: #7AAEE4; color:#fff ;border-color: #3F78B3; border-radius: 15px;";
+		document.getElementById("button6").style ="width: 95%;background: #fff;color:#A0A0A0 ;border-color: #A0A0A0;border-radius: 15px;";
+		document.getElementById("extra-2").style = "";
+		document.getElementById("work-input").required = "true";
+		document.getElementById("extra-2").title = "e2-1";
+	}
+};
+
 function disableButton5() {
-						
-			if(document.getElementById("extra-2").style == "visibility: hidden;"){
-				document.getElementById("button6").style ="width: 95%;background: #fff;color:#A0A0A0 ;border-color: #A0A0A0;border-radius: 15px;";
-				document.getElementById("button4").style ="width: 95%;background: #fff;color:#A0A0A0 ;border-color: #A0A0A0;border-radius: 15px;";
-				document.getElementById("extra-2").style = "";
-				document.getElementById("work-input").required = "";
-				document.getElementById("extra-2").title = "e2-0";
-				
-			}
-            else{	
-				document.getElementById("button6").style = "width: 95%;background: #7AAEE4; color:#fff ;border-color: #3F78B3; border-radius: 15px;";
-				document.getElementById("button4").style ="width: 95%;background: #fff;color:#A0A0A0 ;border-color: #A0A0A0;border-radius: 15px;";
-				document.getElementById("extra-2").style = "visibility: hidden";
-				document.getElementById("work-input").required = "";
-				document.getElementById("extra-2").title = "e2-0";
-				back_7();
-			}
-        };
-		
+
+	if(document.getElementById("extra-2").style == "visibility: hidden;"){
+		document.getElementById("button6").style ="width: 95%;background: #fff;color:#A0A0A0 ;border-color: #A0A0A0;border-radius: 15px;";
+		document.getElementById("button4").style ="width: 95%;background: #fff;color:#A0A0A0 ;border-color: #A0A0A0;border-radius: 15px;";
+		document.getElementById("extra-2").style = "";
+		document.getElementById("work-input").required = "";
+		document.getElementById("extra-2").title = "e2-0";
+
+	}
+	else{
+		document.getElementById("button6").style = "width: 95%;background: #7AAEE4; color:#fff ;border-color: #3F78B3; border-radius: 15px;";
+		document.getElementById("button4").style ="width: 95%;background: #fff;color:#A0A0A0 ;border-color: #A0A0A0;border-radius: 15px;";
+		document.getElementById("extra-2").style = "visibility: hidden";
+		document.getElementById("work-input").required = "";
+		document.getElementById("extra-2").title = "e2-0";
+		back_7();
+	}
+};
+
 
 
 $(document).ready(function () {
-  $('textarea[data-limit-rows=true]')
-    .on('keypress', function (event) {
-        var textarea = $(this),
-            text = textarea.val(),
-            numberOfLines = (text.match(/\n/g) || []).length + 1,
-            maxRows = parseInt(textarea.attr('rows'));
+	$('textarea[data-limit-rows=true]')
+		.on('keypress', function (event) {
+			var textarea = $(this),
+				text = textarea.val(),
+				numberOfLines = (text.match(/\n/g) || []).length + 1,
+				maxRows = parseInt(textarea.attr('rows'));
 
-        if (event.which === 13 && numberOfLines === maxRows ) {
-          return false;
-        }
-    });
+			if (event.which === 13 && numberOfLines === maxRows ) {
+				return false;
+			}
+		});
 });
 
 
 
 function createAddress()
-      {
-      	document.getElementById('address-full').value = document.getElementById('addr-details').value;
-        
-	  };
-	  
+{
+	document.getElementById('address-full').value = document.getElementById('addr-details').value;
+
+};
+
 
 function show_1(){
 	var elem = document.getElementById('info1');
@@ -120,7 +146,7 @@ function back_1(){
 	var elem = document.getElementById('info1');
 	elem.innerHTML = "";
 	document.getElementById('upload1').style  =  "";
-	
+
 
 };
 
@@ -145,7 +171,7 @@ function back_2(){
 	var elem = document.getElementById('info2');
 	elem.innerHTML = "";
 	document.getElementById('upload2').style  =  "";
-	
+
 
 };
 
@@ -171,7 +197,7 @@ function back_3(){
 	var elem = document.getElementById('info3');
 	elem.innerHTML = "";
 	document.getElementById('upload3').style  =  "";
-	
+
 
 };
 
@@ -197,7 +223,7 @@ function back_4(){
 	var elem = document.getElementById('info4');
 	elem.innerHTML = "";
 	document.getElementById('upload4').style  =  "";
-	
+
 
 };
 
@@ -222,7 +248,7 @@ function back_5(){
 	var elem = document.getElementById('info5');
 	elem.innerHTML = "";
 	document.getElementById('upload5').style  =  "padding-top:5px;";
-	
+
 
 };
 
@@ -306,81 +332,81 @@ function back_8(){
 function checkRequiredInputs(){
 	var count = 0;
 
-	 if(document.getElementById("photo-input").value == ""){
+	if(document.getElementById("photo-input").value == ""){
 		var elem = document.getElementById('info1');
 		elem.style = "color: red"
 		elem.innerHTML = "Please upload a photo.";
 		count ++;
-	 }
+	}
 
-	 if(document.getElementById("trans-input").value == ""){
+	if(document.getElementById("trans-input").value == ""){
 		var elem = document.getElementById('info2');
 		elem.style = "color: red"
 		elem.innerHTML = "Please upload a file.";
 		count ++;
-	 }
+	}
 
-	 if(document.getElementById("ales-input").value == ""){
+	if(document.getElementById("ales-input").value == ""){
 		var elem = document.getElementById('info3');
 		elem.style = "color: red"
 		elem.innerHTML = "Please upload a file.";
 		count ++;
-	 }
+	}
 
-	 if(document.getElementById("ref-input").value == ""){
+	if(document.getElementById("ref-input").value == ""){
 		var elem = document.getElementById('info5');
 		elem.style = "color: red"
 		elem.innerHTML = "Please upload a file.";
 		count ++;
-	 }
+	}
 
-	 if(document.getElementById("id-input").value == ""){
+	if(document.getElementById("id-input").value == ""){
 		if(document.getElementById("extra-1").title == "e1-1"){
 			var elem = document.getElementById('info6');
 			elem.style = "color: red"
 			elem.innerHTML = "Please upload a file.";
 			count ++;
 		}
-		
-	 }
 
-	 if(document.getElementById("work-input").value == ""){
+	}
+
+	if(document.getElementById("work-input").value == ""){
 		if(document.getElementById("extra-2").title == "e2-1"){
 			var elem = document.getElementById('info7');
 			elem.style = "color: red"
 			elem.innerHTML = "Please upload a file.";
 			count ++;
 		}
-		
-	 }
 
-	 if(document.getElementById("advert_type").value == "PHD" && document.getElementById("phd-input").value == ""){
+	}
+
+	if(document.getElementById("advert_type").value == "PHD" && document.getElementById("phd-input").value == ""){
 		var elem = document.getElementById('info8');
 		elem.style = "color: red"
 		elem.innerHTML = "Please upload a file.";
 		count ++;
-	 }
+	}
 
-	 if(count > 0){
-		 document.getElementById("apply-error").style = "color: red; text-align: center;";
-	 }
-	 else{
+	if(count > 0){
+		document.getElementById("apply-error").style = "color: red; text-align: center;";
+	}
+	else{
 		document.getElementById("apply-error").style = "color: red; text-align: center;  display:none";
-	 }
+	}
 
-	 if(count == 0){
-	 	document.getElementById("applicationForm").submit();
-	 }
+	if(count == 0){
+		document.getElementById("applicationForm").submit();
+	}
 
-		
+
 };
 
- function addPropopose(){
-	 var elem = document.getElementById('propose-input');
-	 var elem1 = document.getElementById('propose');
-	 elem.value = elem1.value;
- };
+function addPropopose(){
+	var elem = document.getElementById('propose-input');
+	var elem1 = document.getElementById('propose');
+	elem.value = elem1.value;
+};
 
- function submitForm(){
-	 document.getElementById("applicationForm").submit();
- }
+function submitForm(){
+	document.getElementById("applicationForm").submit();
+}
