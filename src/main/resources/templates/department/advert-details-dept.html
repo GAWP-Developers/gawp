@@ -59,7 +59,7 @@
 
 
 
-            <div class="row cs-second-part">
+            <!--<div class="row cs-second-part">
                 <div class="row cs-second">
                     <div class="date-title col-xs-2 col-sm-2 col-md-2 col-lg-2" >
                         <p>Expire Date :</p>
@@ -67,6 +67,11 @@
                     <div class="date col-xs-2 col-sm-2 col-md-2 col-lg-2" >
                         <p><span th:text="${#dates.format(advert.deadlineDate, 'dd/MM/yyyy')}"/></p>
                     </div>
+                </div>
+            </div>-->
+            <div class="col-xs-4">
+                <div class="date-title col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    <p>Deadline: <br><span th:utext="${#dates.format(advert.deadlineDate,'dd/MM/yyyy')}"/> </p>
                 </div>
             </div>
 

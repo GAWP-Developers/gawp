@@ -57,12 +57,17 @@
 						<p><span th:utext="${applicationToReview.advert.name}"/></p>
                     </div>
 					
-					<div class="col-xs-4">
+					<!--<div class="col-xs-4">
 						<div class="date-title col-xs-2 col-sm-2 col-md-2 col-lg-2">
 							<p>Expire Date: </p>
 						</div>
 						<div class="date col-xs-2 col-sm-2 col-md-2 col-lg-2">
 							<p><span th:utext="${applicationToReview.advert.deadlineDate}"/></p>
+						</div>
+					</div>-->
+					<div class="col-xs-4">
+						<div class="date-title col-xs-4 col-sm-4 col-md-4 col-lg-4">
+							<p>Deadline: <br><span th:utext="${#dates.format(applicationToReview.advert.deadlineDate,'dd/MM/yyyy')}"/> </p>
 						</div>
 					</div>
 					
