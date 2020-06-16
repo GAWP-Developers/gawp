@@ -30,6 +30,13 @@ public class AdvertServiceImpl implements AdvertService {
     }
 
     @Override
+    public List<Advert> listByGradID(Long id) {
+        List<Advert> adverts = new ArrayList<>();
+        advertRepository.findAdvertsByGradID(id).forEach(adverts::add);
+        return adverts;
+    }
+
+    @Override
     public Advert getById(Long id) {
         if (advertRepository.findById(id).isPresent()) {
             return advertRepository.findById(id).get();

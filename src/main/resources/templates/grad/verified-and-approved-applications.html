@@ -48,6 +48,9 @@
                     <p style="font-size: 28px; color: #474747; border-bottom: solid 1px #c7c6c6aa; padding-left: 50px; padding-bottom:10px; letter-spacing: 0.3px;">Verified and Approved Applications</p>
                 </div>
             </div>
+            <div th:if="${#lists.isEmpty(verified)}">
+                <p style="margin-top:10px;">There is no verified application</p>
+            </div>
             <div class="container-second-section"th:each= "vApplication : ${verified}">
                 <div class="row attribute-part col-9 col-md-9 col-lg-9">
                     <div class="col-4 col-md-4 col-lg-4 id-part">

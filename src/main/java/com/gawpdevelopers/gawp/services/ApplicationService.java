@@ -13,7 +13,7 @@ public interface ApplicationService {
     List<Application> listAllByApplicant(Applicant applicant);
     List<Application> listByStatus(ApplicationStatus status);
     Application getById(Long id);
-
+    List<Application> listAllInterviewedByAdvert(Advert advert);
     Application saveOrUpdate(Application application);
 
     void delete(Long id);
