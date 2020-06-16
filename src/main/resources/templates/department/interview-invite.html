@@ -26,7 +26,7 @@
 		<div class="container">
 			<div class="navbar-header">
 
-				<a href="#" class="navbar-brand">Graduate Application Program</a>
+				<a href="/department" class="navbar-brand">Graduate Application Program</a>
 			</div>
 			
 			<ul class="nav navbar-nav navbar-right">
@@ -46,6 +46,7 @@
 	<input hidden id="fname" th:value="${fname}"/>
 	<input hidden id="sname" th:value="${lname}"/>
 	<input hidden id="aname" th:value="${advertName}"/>
+
 			
 	<div class="container" style="margin-bottom: 0px; ">
 		<div class="container-section d-flex align-items-center justify-content-center col-4" >
@@ -77,7 +78,7 @@
 					</div>
 					
                     <div class="cs-first-description col-xs-2">
-                        <a href="#" style="display: flex; justify-content: flex-end;">
+                        <a th:href= "${'/department/advert/show/' + advertID}" style="display: flex; justify-content: flex-end;">
                             <button type="button" class="btn btn-default see-details" style="width: 100%;background: #fff;color:#3F78B3 ;border-color: #3F78B3;border-radius: 15px;">See Details</button>
                         </a>
                     </div>

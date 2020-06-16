@@ -24,7 +24,7 @@
 		<div class="container">
 			<div class="navbar-header">
 
-				<a href="#" class="navbar-brand">GAWP - Department Panel</a>
+				<a href="/department" class="navbar-brand">GAWP - Department Panel</a>
 			</div>
 			
 			<ul class="nav navbar-nav navbar-right">
@@ -62,7 +62,7 @@
                         </a>
                     </div>
 					<div class="col-2 col-md-2 col-lg-2 button-part"> 
-                        <a href="#">
+                        <a th:href= "${'/department/advert/show/' + advert.id}">
                             <button class="btn btn-default manage-app" style="padding: 6px 10px; outline: 0 !important; background: #FFFFFF;color:#3F78B3 ;border-color: #3F78B3;border-radius: 15px;">See Details</button>
                         </a>
                     </div>

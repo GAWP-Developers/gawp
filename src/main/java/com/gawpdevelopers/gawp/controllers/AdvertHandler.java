@@ -176,7 +176,11 @@ public class AdvertHandler {
         return "grad/advert-details";
     }
 
-
+    @RequestMapping( "/department/advert/show/{id}")
+    public String getAdverttoDept(@PathVariable String id, Model model){
+        model.addAttribute("advert", advertService.getById(Long.valueOf(id)));
+        return "department/advert-details-dept";
+    }
 
     //
 

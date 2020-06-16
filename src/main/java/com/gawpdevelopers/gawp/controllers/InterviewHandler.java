@@ -3,12 +3,6 @@ package com.gawpdevelopers.gawp.controllers;
 import com.gawpdevelopers.gawp.commands.InterviewForm;
 import com.gawpdevelopers.gawp.converters.InterviewToInterviewForm;
 import com.gawpdevelopers.gawp.domain.*;
-import com.gawpdevelopers.gawp.services.ApplicationService;
-import com.gawpdevelopers.gawp.services.InterviewService;
-import com.gawpdevelopers.gawp.services.MailService;
-import com.gawpdevelopers.gawp.services.UserDetailsServiceImpl;
-import com.gawpdevelopers.gawp.domain.Interview;
-import com.gawpdevelopers.gawp.domain.UserDetailsImpl;
 import com.gawpdevelopers.gawp.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -22,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -154,6 +147,7 @@ public class InterviewHandler {
         model.addAttribute("lname", applicationService.getById(application_id).getApplicant().getlName());
         model.addAttribute("advertName", applicationService.getById(application_id).getAdvert().getName());
         model.addAttribute("advertDeadline", applicationService.getById(application_id).getAdvert().getDeadlineDate());
+        model.addAttribute("advertID", applicationService.getById(application_id).getAdvert().getId());
 
         System.out.println("BURDAYIM");
 
