@@ -14,6 +14,8 @@ public class User {
     private UserRoles role;
     private String fName;
     private String lName;
+    private DepartmentType departmentType;
+
 
     public long getId() {
         return id;
@@ -65,5 +67,13 @@ public class User {
 
     public void setlName(String lName) {
         this.lName = lName;
+    }
+
+    public DepartmentType getDepartmentType() {
+        return departmentType;
+    }
+
+    public void setDepartmentType(DepartmentType departmentType) {
+        this.departmentType = departmentType;
     }
 }
