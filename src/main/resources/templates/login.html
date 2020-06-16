@@ -1,59 +1,59 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="utf-8"/>
-<title>GAWP - Login Page</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
-<link href="../static/css/style.css"
-	  th:href="@{/css/style.css}" rel="stylesheet" type="text/css"/>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"/>
+	<meta charset="utf-8"/>
+	<title>GAWP - Login Page</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+	<link href="../static/css/style.css"
+		  th:href="@{/css/style.css}" rel="stylesheet" type="text/css"/>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"/>
 </head>
 
 <body>
-	
-	<div class="row no-gutters">
-		<div class="col-md-7 no-gutters">
-			<div class="left d-flex justify-content-center align-items-center">
-				<div class="title">
-					<div class="title-part col-md-4">
-						<div class="first-header-title">
-							<p style="margin:0">Welcome to</p>
-						</div>
-						
-						<div class="second-header-title" >
-							<p style="margin: 0;">Graduate Application Program</p>
-						</div>
+
+<div class="row no-gutters">
+	<div class="col-md-7 no-gutters">
+		<div class="left d-flex justify-content-center align-items-center">
+			<div class="title">
+				<div class="title-part col-md-4">
+					<div class="first-header-title">
+						<p style="margin:0">Welcome to</p>
+					</div>
+
+					<div class="second-header-title" >
+						<p style="margin: 0;">Graduate Application Program</p>
 					</div>
 				</div>
 			</div>
 		</div>
-		
-		<div class="col-md-5 no-gutters">
-		  <div class="right d-flex justify-content-center align-items-center">
-            <section id="login">
-				  <div class="login-button-part">
-					  <div class="button-part-description">
-						  <p style="margin: 0;">Login</p>
-					  </div>
-
-					  <div class="button-part">
-						  <a href="/login/oauth2/authorization/facebook">
-						  	<div class="facebook-button">
-								<button class="btn btn-facebook"><i class="facebook-icon fab fa-facebook-f" style="padding-right:20px;"></i> Sign in/up with Facebook</button>
-						  	</div>
-						  </a>
-						  <a href="/login/oauth2/authorization/google">
-							<div class="google-button">
-									<button class="btn btn-google"><i class="google-icon fab fa-google" style="padding-right:20px;"></i> Sign in/up with Google</button>
-							</div>
-						  </a>
-
-					  </div>
-				  </div>
-			  </section>
-          </div>
-			
-        </div>
 	</div>
+
+	<div class="col-md-5 no-gutters">
+		<div class="right d-flex justify-content-center align-items-center">
+			<section id="login">
+				<div class="login-button-part">
+					<div class="button-part-description">
+						<p style="margin: 0;">Login</p>
+					</div>
+
+					<div class="button-part">
+						<a href="/login/oauth2/authorization/facebook">
+							<div class="facebook-button">
+								<button class="btn btn-facebook"><i class="facebook-icon fab fa-facebook-f" style="padding-right:20px;"></i> Sign in/up with Facebook</button>
+							</div>
+						</a>
+						<a href="/login/oauth2/authorization/google">
+							<div class="google-button">
+								<button class="btn btn-google"><i class="google-icon fab fa-google" style="padding-right:20px;"></i> Sign in/up with Google</button>
+							</div>
+						</a>
+
+					</div>
+				</div>
+			</section>
+		</div>
+
+	</div>
+</div>
 </body>
 </html>
