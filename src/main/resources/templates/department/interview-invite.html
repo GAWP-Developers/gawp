@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create Interview Invite</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>
+
+    <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
+            th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+
+    <link href="../../static/css/spring-core.css"
+          th:href="@{css/spring-core.css}" rel="stylesheet" media="screen"/>
+    <link href="../../interview-invite.css"
+		  th:href="@{/css/interview-invite.css}" rel="stylesheet" type="text/css"/>
+	<script src="../../static/js/interview-invite.js"
+			th:src="@{/js/interview-invite.js}"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"/>
+</head>
+<body>
+    <nav class="navbar navbar-default">
+		<div class="container">
+			<div class="navbar-header">
+
+				<a href="#" class="navbar-brand">Graduate Application Program</a>
+			</div>
+			
+			<ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <span class="glyphicon glyphicon-menu-hamburger"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Settings</a></li>
+                        <li><a href="#">Sign Out</a></li>
+                    </ul>
+                </li>
+            </ul>
+		</div>
+	</nav><!-- end of the navbar-->
+
+	<input hidden id="fname" th:value="${fname}"/>
+	<input hidden id="sname" th:value="${lname}"/>
+	<input hidden id="aname" th:value="${advertName}"/>
+			
+	<div class="container" style="margin-bottom: 0px; ">
+		<div class="container-section d-flex align-items-center justify-content-center col-4" >
+			<p style="font-size: 30px;">Create Interview Invite for
+				<span th:text="${fname}"></span>
+				<span th:text="${lname}"></span> </p>
+<!--				<bold id="fname">Name</bold>-->
+<!--				<bold > </bold>-->
+<!--				<bold id="sname">Surname</bold>-->
+
+		</div>
+	</div>
+
+    <div class="container" style="margin-bottom: 0px; ">
+        <div class="container-section d-flex align-items-center justify-content-center col-4" style="padding-top: 0;">
+            <div class="container-section-part ">
+                <div class="row cs-first">
+                    <div class="row cs-first-title col-xs-6">
+                        <p> Advert:
+							<span th:text="${advertName}"></span>
+						</p>
+                    </div>
+					
+					<div class="col-xs-4">
+						<div class="date-title col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<p>Expire Date:
+								<span th:text="${#dates.format(advertDeadline, 'dd-MM-yyyy')}"></span> </p>
+						</div>
+					</div>
+					
+                    <div class="cs-first-description col-xs-2">
+                        <a href="#" style="display: flex; justify-content: flex-end;">
+                            <button type="button" class="btn btn-default see-details" style="width: 100%;background: #fff;color:#3F78B3 ;border-color: #3F78B3;border-radius: 15px;">See Details</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+	
+	<div class="container" style="margin-bottom: 10px; ">
+        <div class="container-section d-flex align-items-center justify-content-center col-4" style="padding-top: 10px;">
+            <form id="interviewForm" class="container-section-part " th:object="${interviewForm}" th:action="@{/department/interview}"  method="post">
+				<input type="hidden" th:field="*{id}" th:value="${interviewForm.id}"/>
+				<input type="hidden" th:field="*{application}" th:value="${interviewForm.application}"/>
+
+                <div class="row step" id="step1">
+                    <div class="row step-title">
+                        <p>STEP-1</p>
+					</div>
+					<div class="row">
+						<input id="idate"
+							   th:field="*{date}"
+							   th:value="${interviewForm.date}" onchange="updateInvite()" type="date" placeholder="Interview Date:" class="info-letter col-xs-6 col-sm-6 col-md-6 col-lg-6" value="2020-01-01"/>
+						<input id="itime"
+							   th:field="*{time}"
+							   th:value="${interviewForm.time}" onchange="updateInvite()" data-limit-rows="true" class="info-letter col-xs-6 col-sm-6 col-md-6 col-lg-6" placeholder="Interview Time " rows="1" style="padding: 8px 15px;">
+					</div>
+					
+					<div class="row">
+						<input id="iplace"
+							   th:field="*{place}" th:value="${interviewForm.place}" onchange="updateInvite()" data-limit-rows="true" class="info-letter col-xs-12 col-sm-12 col-md-12 col-lg-12" placeholder="Place..." rows="3" style="width:90.5%; padding: 8px 15px;" >
+					</div>
+					
+	
+             	</div>
+				
+				
+				
+				
+				<div class="row step" id="step2" style="display:none">	
+					<div class="row step-title">
+                        <p>STEP-2</p>
+					</div>		
+					<div  class="row">
+						<div class="just-letter col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<p>In below you can see mail preview and can change it.(For new line enter %$) (Please do not change day,time and place) </p>
+						</div>
+						<textarea id="invite-text" onchange="addInvite();" class="info-letter big  col-xs-12 col-sm-12 col-md-12 col-lg-12" style="width: 90%" placeholder="About Invert ..." rows="10" required></textarea>
+						<input type="text" id="mail-input" name="sending-mail" required   style=" visibility:hidden;" >
+					</div>
+					
+				</div>
+
+
+				
+				
+				
+				
+				
+				
+				<div class="bottom-buttons">
+					<div class="col-xs-7"></div>
+					<div class="cs-first-description col-xs-2">
+							<a  style="display: flex; justify-content: flex-end;">
+								<button  id="cancel" type="button" class="btn btn-default cancel" style="width: 100%;background: #fff;color:#3F78B3 ;border-color: #3F78B3;border-radius: 15px;">Cancel</button>
+							</a>
+							<button id="back" onclick="go1();" type="button" class="btn btn-default cancel" style="width: 100%;background: #fff;color:#3F78B3 ;border-color: #3F78B3;border-radius: 15px; display:none">Back</button>
+					</div>
+
+					<div id="apply" style="display:none;" class="cs-first-description col-xs-3">
+							<button  type="submit" class="btn btn-default update" style="width: 120%;background: #3F78B3;color:#fff ;border-color: #3F78B3;border-radius: 15px;">Apply and Send Mail</button>
+					</div>
+
+					<div id="next" class="cs-first-description col-xs-3">
+							<p  onclick="go2();" class="btn btn-default update" style="width: 66%;background: #3F78B3;color:#fff ;border-color: #3F78B3;border-radius: 15px;">Next</p>
+					</div>
+
+					<div class="col-xs-8"></div>
+					<div id="apply-error" class="col-xs-4" style="display:none"> Please complete required places.</div>
+				</div>
+
+				
+			</form>
+		</div>
+	</div>
+
+</body>
+</html>

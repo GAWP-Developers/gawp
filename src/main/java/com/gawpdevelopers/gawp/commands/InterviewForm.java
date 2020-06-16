@@ -1,23 +1,22 @@
-package com.gawpdevelopers.gawp.domain;
+package com.gawpdevelopers.gawp.commands;
 
-import javax.persistence.*;
+import com.gawpdevelopers.gawp.domain.Application;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
-@Entity
-public class Interview {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+/**
+ * Used to send to the html file for the user to form.
+ * It is get from the post request sent by the user to html form.
+ */
+public class InterviewForm {
     private Long id;
-    private String place;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;
+    private Application application;
     private String comment;
     private Integer point;
-    @ManyToOne
-    @JoinColumn(name = "INTINFO_ID")
-    private InterviewInfo info;
-    @OneToOne
-    @JoinColumn(name = "APPLICATION_ID")
-    private Application application;
+    private String place;
     private String time;
 
     public String getTime() {
@@ -36,20 +35,20 @@ public class Interview {
         this.id = id;
     }
 
-    public String getPlace() {
-        return place;
-    }
-
-    public void setPlace(String place) {
-        this.place = place;
-    }
-
     public Date getDate() {
         return date;
     }
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public Application getApplication() {
+        return application;
+    }
+
+    public void setApplication(Application application) {
+        this.application = application;
     }
 
     public String getComment() {
@@ -68,19 +67,11 @@ public class Interview {
         this.point = point;
     }
 
-    public InterviewInfo getInfo() {
-        return info;
+    public String getPlace() {
+        return place;
     }
 
-    public void setInfo(InterviewInfo info) {
-        this.info = info;
-    }
-
-    public Application getApplication() {
-        return application;
-    }
-
-    public void setApplication(Application application) {
-        this.application = application;
+    public void setPlace(String place) {
+        this.place = place;
     }
 }
