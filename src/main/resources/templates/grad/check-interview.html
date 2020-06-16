@@ -44,7 +44,7 @@
 
 
 
-	<form th:action="@{/notify/(id)(id=${applicationToReview})}"  method="post">
+
     <div class="container" id="first-part" style="margin-bottom: 0px; ">
         <div class="container-section d-flex align-items-center justify-content-center col-4">
             <div class="container-section-part ">
@@ -173,7 +173,7 @@
 						<div th:each="doc : ${applicationToReview.getDocuments()}"
 							 th:if="${doc.getDocType().toString().equals('PHOTO')}"class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
 							<a th:href="${'/docs/' + doc.getId()}" style="display: flex; justify-content: flex-end;">
-								<button type="submit" class="btn btn-default Open File-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
+								<button type="button" class="btn btn-default Open File-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
 							</a>
 						</div>
 						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
@@ -189,7 +189,7 @@
 						<div th:each="doc : ${applicationToReview.getDocuments()}"
 							 th:if="${doc.getDocType().toString().equals('TRANSCRIPT')}"class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
 							<a th:href="${'/docs/' + doc.getId()}" style="display: flex; justify-content: flex-end;">
-								<button type="submit" class="btn btn-default Open File-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
+								<button type="button" class="btn btn-default Open File-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
 							</a>
 						</div>
 						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
@@ -204,7 +204,7 @@
 						<div th:each="doc : ${applicationToReview.getDocuments()}"
 							 th:if="${doc.getDocType().toString().equals('ALES')}"class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
 							<a th:href="${'/docs/' + doc.getId()}" style="display: flex; justify-content: flex-end;">
-								<button type="submit" class="btn btn-default Open File-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
+								<button type="button" class="btn btn-default Open File-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
 							</a>
 						</div>
 						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
@@ -220,7 +220,7 @@
 						<div th:each="doc : ${applicationToReview.getDocuments()}"
 							 th:if="${doc.getDocType().toString().equals('ENGLISHEXAM')}"class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
 							<a th:href="${'/docs/' + doc.getId()}" style="display: flex; justify-content: flex-end;">
-								<button type="submit" class="btn btn-default Open File-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
+								<button type="button" class="btn btn-default Open File-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
 							</a>
 						</div>
 						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
@@ -253,7 +253,7 @@
 						<div th:each="doc : ${applicationToReview.getDocuments()}"
 							 th:if="${doc.getDocType().toString().equals('REFERENCELETTER')}"class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
 							<a th:href="${'/docs/' + doc.getId()}" style="display: flex; justify-content: flex-end;">
-								<button type="submit" class="btn btn-default Open File-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
+								<button type="button" class="btn btn-default Open File-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
 							</a>
 						</div>
 						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1" style="padding-top:5px">
@@ -288,7 +288,7 @@
 							<div th:each="doc : ${applicationToReview.getDocuments()}"
 								 th:if="${doc.getDocType().toString().equals('PASSPORT')}"class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
 								<a th:href="${'/docs/' + doc.getId()}" style="display: flex; justify-content: flex-end;">
-									<button type="submit" class="btn btn-default Open File-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
+									<button type="button" class="btn btn-default Open File-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
 								</a>
 							</div>
 							<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1" >
@@ -316,7 +316,7 @@
 							<div th:each="doc : ${applicationToReview.getDocuments()}"
 								 th:if="${doc.getDocType().toString().equals('PERMISSIONLETTER')}"class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
 								<a th:href="${'/docs/' + doc.getId()}" style="display: flex; justify-content: flex-end;">
-									<button type="submit" class="btn btn-default Open File-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
+									<button type="button" class="btn btn-default Open File-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
 								</a>
 							</div>
 							<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1" >
@@ -341,7 +341,7 @@
 						
 						<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" ></div>
 						<div class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
-							<button type="submit" class="btn btn-default Open File-button" style="width: 100%;background: #ffffff;color:#b29b25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
+							<button type="button" class="btn btn-default Open File-button" style="width: 100%;background: #ffffff;color:#b29b25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
 						</div>
 						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
 							<button onclick="whenClick(this.id);" class="btn btn-default" type="button"  id="PhD" style="width: 100%; background: #fff;color:#C41414 ;border-color: #C41414;border-radius: 15px; font-size: 10px">Add</button>
@@ -356,7 +356,7 @@
 					<textarea  id="missing-info" name = "mailtext" style="display:none">Dear Applicant,
 In your application some information which you give when appling are not correct or has some mistakes. Please check your information/s which is in below:
 					</textarea>
-					<input id="mail-message" name="send-mail" value="" style="display: none;"/>
+					<input id="mail-message" name="sending-mail" value="" style="display: none;"/>
 				</form>
 				</form>
 		
@@ -371,7 +371,7 @@ In your application some information which you give when appling are not correct
 							<button id ="continue" type="button" onClick="insertTexts(); makeVisiable('last-part'); makeUnvisiable('first-part'); makeUnvisiable('first-part2'); " class="btn btn-default update" style="width: 100%;background: #3F78B3;color:#fff ;border-color: #3F78B3;border-radius: 15px; display: none;" >Continue</button>
 
 
-							<a th:href="${'/setConfirm/'+applicationToReview.id}">
+							<a th:href="${'/grad/setConfirm/'+applicationToReview.id}">
 								<button id="confirm"   class="btn btn-default update" style="width: 100%;background: #3F78B3;color:#fff ;border-color: #3F78B3;border-radius: 15px; display:block;">Confirm</button>
 							</a>
 					</div>
@@ -422,8 +422,8 @@ In your application some information which you give when appling are not correct
 
                     <div class="row second-button-part">
                         <div class="applicant-button">
-                            <a th:href="${'/ignore/'+applicationToReview.id}">
-                                <button type="submit" class="btn btn-default applicant-button" style=" width: 200px; border-radius: 15px;">Ignore and Inform Applicant</button>
+                            <a th:href="${'/grad/ignore/'+applicationToReview.id}">
+                                <button type="button" class="btn btn-default applicant-button" style=" width: 200px; border-radius: 15px;">Ignore and Inform Applicant</button>
                             </a>
                         </div>
                     </div>
@@ -435,6 +435,5 @@ In your application some information which you give when appling are not correct
         
         </div> 
     </div>
-</form>
 </body>
 </html>
