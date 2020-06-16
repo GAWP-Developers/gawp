@@ -97,6 +97,7 @@ function makeUnvisiable(elemID)
 };
 
 function addChecked(){
-    var star = document.getElementById("star-number").textContent;
-    document.getElementById(star).checked = "true";
+    var star = document.getElementById("star-number");
+    console.log(star);
+    document.getElementById(star.value).checked = "true";
 };

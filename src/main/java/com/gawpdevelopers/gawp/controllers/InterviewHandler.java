@@ -256,6 +256,44 @@ public class InterviewHandler {
 
     }
 
+    @RequestMapping("/department/interview/see/{id}")
+    public String seeInterview(@PathVariable String id, Model model){
+        Interview interview = interviewService.getById(Long.valueOf(id));
+        System.out.println(interview == null);
+        model.addAttribute("interviewToReview",interview);
+
+        Application application = applicationService.getById(interview.getApplication().getId());
+        model.addAttribute("applicationToReview", application);
+
+        //  These are needed for applicant's foreign passport and permission letter parts
+        //  in the html
+
+        //  This is filtering with java streams.
+        //  it basically searches for documents with passport and returns them in a list.
+        //  If list is empty, isForeign = false.
+        List passport = application.getDocuments().stream()
+                .filter(d -> d.getDocType().toString().equals("PASSPORT"))
+                .collect(Collectors.toList());
+        boolean isForeign = !passport.isEmpty();
+        model.addAttribute("isForeign", isForeign);
+
+        //  Same logic as passport
+        List permissionLetter = application.getDocuments().stream()
+                .filter(d -> d.getDocType().toString().equals("PERMISSIONLETTER"))
+                .collect(Collectors.toList());
+        boolean isWorking = !permissionLetter.isEmpty();
+        model.addAttribute("isWorking", isWorking);
+
+        //  Same logic as passport
+        List englishexam = application.getDocuments().stream()
+                .filter(d -> d.getDocType().toString().equals("ENGLISHEXAM"))
+                .collect(Collectors.toList());
+        boolean hasEnglishExam = !englishexam.isEmpty();
+        model.addAttribute("hasEnglishExam", hasEnglishExam);
+
+        return "department/see-interview";
+    }
+
     @RequestMapping(value = "/department/interview/afterreview", method = RequestMethod.POST)
     public String updateInterviewAfter(@Valid InterviewForm interviewForm, BindingResult bindingResult){
 
