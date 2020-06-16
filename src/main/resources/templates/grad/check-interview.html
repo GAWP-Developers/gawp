@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:t="http://www.w3.org/1999/html">
 <head>
-    <title>Update The Advert</title>
+    <title>Application Document Check</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
           th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}"
@@ -25,7 +25,7 @@
 		<div class="container">
 			<div class="navbar-header">
 
-				<a href="#" class="navbar-brand">GAWP - Grad School</a>
+				<a href="/grad" class="navbar-brand">GAWP - Grad School</a>
 			</div>
 			
 			<ul class="nav navbar-nav navbar-right">
@@ -44,7 +44,7 @@
 
 
 
-
+	<form th:action="@{/notify/(id)(id=${applicationToReview})}"  method="post">
     <div class="container" id="first-part" style="margin-bottom: 0px; ">
         <div class="container-section d-flex align-items-center justify-content-center col-4">
             <div class="container-section-part ">
@@ -354,9 +354,9 @@
 				<!--Hey Can, Please don't change form's tag alligment, this is important, for shape of mail.-->
 				<form >
 					<textarea  id="missing-info" name = "mailtext" style="display:none">Dear Applicant,
-In your application some informations which you give when appling are not correct or has some mistakes. Please check your information/s which is in below:
+In your application some information which you give when appling are not correct or has some mistakes. Please check your information/s which is in below:
 					</textarea>
-					<input id="mail-message"  value="" style="display: none;"/>
+					<input id="mail-message" name="send-mail" value="" style="display: none;"/>
 				</form>
 				</form>
 		
@@ -368,7 +368,7 @@ In your application some informations which you give when appling are not correc
 
 					<div class="cs-first-description col-xs-2">
 
-							<button id ="continue" onClick="insertTexts(); makeVisiable('last-part'); makeUnvisiable('first-part'); makeUnvisiable('first-part2'); " class="btn btn-default update" style="width: 100%;background: #3F78B3;color:#fff ;border-color: #3F78B3;border-radius: 15px; display: none;" >Continue</button>
+							<button id ="continue" type="button" onClick="insertTexts(); makeVisiable('last-part'); makeUnvisiable('first-part'); makeUnvisiable('first-part2'); " class="btn btn-default update" style="width: 100%;background: #3F78B3;color:#fff ;border-color: #3F78B3;border-radius: 15px; display: none;" >Continue</button>
 
 
 							<a th:href="${'/setConfirm/'+applicationToReview.id}">
@@ -393,7 +393,7 @@ In your application some informations which you give when appling are not correc
                         <p>Number of missing/corrupted info: <span id ="number" style="color:#F25A73;">0</span></p>
                     </div>
                     <div class="second-part-description-part">
-                        <p id="sum-missing-info">Summary of missing/corrupted info </p>
+                        <p id="sum-missing-info">Summary of missing/corrupted info</p>
                     </div>
                     <div class="second-part-second-description-part">
                         <p>Click to notify to 'Notify' to send mail to applicant to edit his/her form about the missing.</p>
@@ -401,7 +401,8 @@ In your application some informations which you give when appling are not correc
 
                     <div class="row button-part-section">
                         <div class="col-3 col-md-3 col-lg-3 cancel-button">
-                            <a href="#">
+                            <a th:href="${'/grad/applicationsBeforeForwarding/preReview'}">
+
                                 <button  class="btn btn-default cancel" style=" width: 80px; border-radius: 15px;">Cancel</button>
                             </a>
                         </div>
@@ -409,7 +410,7 @@ In your application some informations which you give when appling are not correc
                                 <button  class="btn btn-default back" onclick="reverseSituation();makeUnvisiable('last-part'); makeVisiable('first-part'); makeVisiable('first-part2');" style="color: #F25A73; border-color: #F25A73; width: 80px; border-radius: 15px;">Back</button>
                         </div>
                         <div class="col-2 col-md-2 col-lg-2 notify-button">
-                            <a th:href="${'/notify/'+applicationToReview.id}">
+                            <a >
                                 <button type="submit" class="btn btn-default notify" style=" width: 80px; border-radius: 15px;">Notify</button>
                             </a>
                         </div>
@@ -434,6 +435,6 @@ In your application some informations which you give when appling are not correc
         
         </div> 
     </div>
-
+</form>
 </body>
 </html>
