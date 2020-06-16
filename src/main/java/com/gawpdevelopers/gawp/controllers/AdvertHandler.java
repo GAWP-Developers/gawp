@@ -124,7 +124,7 @@ public class AdvertHandler {
         AdvertForm advertForm = advertToAdvertForm.convert(advert);
 
         model.addAttribute("advertForm", advertForm);
-        return "grad/add-new-advert";
+        return "interview/make-interview.html";
     }
 
     //  Department Mapping

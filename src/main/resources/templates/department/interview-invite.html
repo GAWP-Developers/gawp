@@ -89,7 +89,7 @@
 	
 	<div class="container" style="margin-bottom: 10px; ">
         <div class="container-section d-flex align-items-center justify-content-center col-4" style="padding-top: 10px;">
-            <form id="interviewForm" class="container-section-part " th:object="${interviewForm}" th:action="@{/interview}"  method="post">
+            <form id="interviewForm" class="container-section-part " th:object="${interviewForm}" th:action="@{/department/interview}"  method="post">
 				<input type="hidden" th:field="*{id}" th:value="${interviewForm.id}"/>
 				<input type="hidden" th:field="*{application}" th:value="${interviewForm.application}"/>
 
