@@ -94,9 +94,26 @@ public class ApplicationHandler {
     public String applicantMainMenu(Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Applicant applicant = applicantService.getByApiId(auth.getName());
-        model.addAttribute("name", applicant.getUserName());
+        model.addAttribute("name", String.join(" ", applicant.getfName(), applicant.getlName()));
 
         return "applicant/main-page-applicant";
+    }
+
+    @RequestMapping("/applicant/edit")
+    public String editProfile(Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Applicant applicant = applicantService.getByApiId(auth.getName());
+        model.addAttribute("applicant", applicant);
+
+        return "applicant/edit-profile";
+    }
+
+    @RequestMapping(value = "/applicant/edit", method = RequestMethod.POST)
+    public String postEditProfile(@Valid Applicant applicant, BindingResult bindingResult){
+
+        applicantService.saveOrUpdate(applicant);
+
+        return "redirect:/applicant";
     }
 
     @RequestMapping("/applicant/myApplications")

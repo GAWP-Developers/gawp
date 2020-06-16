@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>New Application</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+	<script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
+			th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>
+
+
+    <link href="../../static/css/spring-core.css"
+          th:href="@{css/spring-core.css}" rel="stylesheet" media="screen"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"/>
+	<script src="../../static/js/edit-profile.js"
+			th:src="@{/js/edit-profile.js}"></script>
+	<link href="../../static/css/edit-profile.css"
+		  th:href="@{/css/edit-profile.css}" rel="stylesheet"  type="text/css"/>
+</head>
+<body>
+    <nav class="navbar navbar-default">
+		<div class="container">
+			<div class="navbar-header">
+
+				<a href="#" class="navbar-brand">Graduate Application Program</a>
+			</div>
+			
+			<ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <span class="glyphicon glyphicon-menu-hamburger"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Settings</a></li>
+                        <li><a href="#">Sign Out</a></li>
+                    </ul>
+                </li>
+            </ul>
+		</div>
+	</nav><!-- end of the navbar-->
+			
+
+	<div class="container" style="margin-bottom: 10px; ">
+        <div id="onlyForm" class="container-section d-flex align-items-center justify-content-center col-4" style="padding-top: 10px;">
+            <form th:object="${applicant}" th:action="@{/applicant/edit}" method="post" class="container-section-part ">
+				<input th:field="*{id}" th:value="${applicant.id}" type="hidden">
+				<input th:field="*{apiID}" th:value="${applicant.apiID}" type="hidden">
+				<input th:field="*{active}" th:value="${applicant.active}" type="hidden">
+				<input th:field="*{email}" th:value="${applicant.email}" type="hidden">
+				<input th:field="*{pictureUrl}" th:value="${applicant.pictureUrl}" type="hidden">
+				<input th:field="*{provider}" th:value="${applicant.provider}" type="hidden">
+				<input th:field="*{roles}" th:value="${applicant.roles}" type="hidden">
+				<input th:field="*{userName}" th:value="${applicant.userName}" type="hidden">
+
+				
+                <div class="row step">
+                    <div class="row step-title" style="font-size: 25px;">
+                        <p>Edit Profile</p>
+					</div>
+					<div class="row">
+						<input data-limit-rows="true" class="info-letter col-xs-6 col-sm-6 col-md-6 col-lg-6" placeholder="Name" rows="1" th:field="*{fName}" th:value="${applicant.fName}" required />
+						<input data-limit-rows="true" class="info-letter col-xs-6 col-sm-6 col-md-6 col-lg-6" placeholder="Surname" rows="1" th:field="*{lName}" th:value="${applicant.lName}" required />
+					</div>
+					
+					<div  class="row">
+						<input type="date" placeholder="Birth Date" class="info-letter col-xs-6 col-sm-6 col-md-6 col-lg-6" th:field="*{birthDate}" th:value="${applicant.birthDate}" required />
+						<input type="number" class="info-letter col-xs-6 col-sm-6 col-md-6 col-lg-6" th:field="*{phone}" th:value="${applicant.phone}" required/>
+
+					</div>
+						
+					<div class="address-part">
+                            <div class="title-part">
+                                <p>Address</p>
+                            </div>
+
+                            <div class="text-area-last-section">
+                                <textarea id="addr-details" onload="createAddress()" onchange="createAddress()" class="text-area" rows="5"  placeholder="Address Details.." required><th:block th:text="${applicant.address}" /></textarea>
+                            </div>
+							
+							<!--Can address inputu olarak aşağıdakini al-->
+							<input id="address-full" th:field="*{address}"  type="text" value="" style="display:none" required/>
+                    </div>
+						
+				</div>
+             
+				
+
+				
+				<div class="bottom-buttons">
+					<div class="col-xs-8"></div>
+					<div class="cs-first-description col-xs-2">
+							<a th:href="@{/applicant}" style="display: flex; justify-content: flex-end;">
+								<button  type="button" class="btn btn-default cancel" style="width: 100%;background: #fff;color:#3F78B3 ;border-color: #3F78B3;border-radius: 15px;">Cancel</button>
+							</a>
+					</div>
+
+					<div class="cs-first-description col-xs-2">
+							<div style="display: flex; justify-content: flex-end;">
+								<button  type="submit" class="btn btn-default update" style="width: 100%;background: #3F78B3;color:#fff ;border-color: #3F78B3;border-radius: 15px;">Save</button>
+							</div>
+					</div>
+
+					<div class="col-xs-8"></div>
+					<div id="apply-error" class="col-xs-4" style="color: red; text-align: center; display:none"> Please complete required places.</div>
+				</div>
+
+				
+			</form>
+		</div>
+	</div>
+
+
+</body>
+</html>
