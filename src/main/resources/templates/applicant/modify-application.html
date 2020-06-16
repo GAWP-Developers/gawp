@@ -53,11 +53,11 @@
                     </div>
 					
 					<div class="col-xs-4">
-						<div class="date-title col-xs-2 col-sm-2 col-md-2 col-lg-2">
+						<div class="date-title col-xs-2 col-sm-2 col-md-2 col-lg-2" >
 							<p>Expire Date:</p>
 						</div>
-						<div class="date col-xs-2 col-sm-2 col-md-2 col-lg-2">
-							<p><span th:text="${#dates.format(applicationForm.advert.deadlineDate, 'dd-MM-yyyy')}"/> </p>
+						<div class="date col-xs-2 col-sm-2 col-md-2 col-lg-2" style="margin-top:9px">
+							<p><span th:text="${#dates.format(applicationForm.advert.deadlineDate, 'dd/MM/yyyy')}"/> </p>
 						</div>
 					</div>
 					
