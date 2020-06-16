@@ -1,6 +1,5 @@
 package com.gawpdevelopers.gawp.controllers;
 
-import com.gawpdevelopers.gawp.commands.ApplicationForm;
 import com.gawpdevelopers.gawp.commands.DocumentForm;
 import com.gawpdevelopers.gawp.converters.ApplicationToApplicationForm;
 import com.gawpdevelopers.gawp.domain.*;
@@ -732,6 +731,7 @@ public class ApplicationHandler {
         return "grad/see-applications";
 
     }
+    /*
     //TODO html is waiting elman
     @RequestMapping(path="/grad/applicationsFromDepartment/see-application/{id}")
     public String applicationFromDept(@PathVariable String id, Model model){
@@ -741,7 +741,7 @@ public class ApplicationHandler {
 
         return "grad/see-application";
 
-    }
+    }*/
 
 
 
