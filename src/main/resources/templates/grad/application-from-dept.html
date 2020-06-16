@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Applications From Department</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>
+
+    <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
+            th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+
+    <link href="../../static/css/spring-core.css"
+          th:href="@{css/spring-core.css}" rel="stylesheet" media="screen"/>
+    <link href="../../static/css/application-from-dept.css"
+          th:href="@{/css/application-from-dept.css}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"/>
+</head>
+<body>
+    <nav class="navbar navbar-default">
+		<div class="container">
+			<div class="navbar-header">
+
+				<a href="/grad" class="navbar-brand">GAWP - Grad School</a>
+			</div>
+			
+			<ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <span class="glyphicon glyphicon-menu-hamburger"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Settings</a></li>
+                        <li><a href="#">Sign Out</a></li>
+                    </ul>
+                </li>
+            </ul>
+		</div>
+    </nav><!-- end of the navbar-->
+
+    <div class="container">
+        <div class="container-section d-flex align-items-center justify-content-center col-4">
+            <div class="container-title-part col-10 col-md-10 col-lg-10">
+                <p>Adverts Added Interview Info</p>
+            </div>
+            <div class="all-adverts-dept-section col-10 col-md-10 col-lg-10" style="margin-top: 20px; box-sizing: border-box; border: solid 1px #e77d8d; padding: 20px 30px 20px 30px;border-radius: 30px;box-shadow: -2px 3px 4px #f7e4e4; " th:each= "advert : ${adverts}">
+
+                <div class="row">
+                    <div class="col-5 col-md-5 col-lg-5 job-attribute-part">
+                        <p><span th:text="${advert.type + ' in ' + advert.name}"/></p>
+                    </div>
+                    <div class="col-3 col-md-3 col-lg-3 expire-date-part">
+                        <p>Expired on : <br><span th:text="${#dates.format(advert.deadlineDate, 'dd-MM-yyyy')}"/></p>
+                    </div>
+                    <div class="col-2 col-md-2 col-lg-2 add-interview-date-part">
+                        <a th:href="${'/grad/applicationsFromDepartment/see-applications/'+ advert.id}">
+                            <button class="btn btn-default add-interview-date" style=" padding: 6px 10px; outline: 0 !important; background: #FFFFFF;color:#B5A61F ;border-color: #B5A61F;border-radius: 15px;">See Applications</button>
+                        </a>
+                    </div>
+					<div class="col-2 col-md-2 col-lg-2 button-part"> 
+                        <a th:href="${'/grad/advert/show/'+advert.id}">
+                            <button class="btn btn-default manage-app" style="padding: 6px 10px; outline: 0 !important; background: #FFFFFF;color:#5F262F ;border-color: #5F262F;border-radius: 15px;">See Details</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+</body>
+
+</html>

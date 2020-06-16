@@ -123,7 +123,7 @@ public class AdvertHandler {
         AdvertForm advertForm = advertToAdvertForm.convert(advert);
 
         model.addAttribute("advertForm", advertForm);
-        return "interview/make-interview.html";
+        return "grad/add-new-advert";
     }
 
     //  Department Mapping
@@ -165,10 +165,15 @@ public class AdvertHandler {
     }
 
 
-    @RequestMapping({"/applicant/advert/show/{id}", "/grad/advert/show/{id}"})
-    public String getAdvert(@PathVariable String id, Model model){
+    @RequestMapping("/applicant/advert/show/{id}")
+    public String getAdverttoApplicant(@PathVariable String id, Model model){
         model.addAttribute("advert", advertService.getById(Long.valueOf(id)));
         return "applicant/advert-detail-applicant";
+    }
+    @RequestMapping( "/grad/advert/show/{id}")
+    public String getAdverttoGrad(@PathVariable String id, Model model){
+        model.addAttribute("advert", advertService.getById(Long.valueOf(id)));
+        return "grad/advert-details";
     }
 
 
