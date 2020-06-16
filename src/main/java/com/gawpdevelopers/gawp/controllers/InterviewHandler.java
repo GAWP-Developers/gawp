@@ -154,6 +154,7 @@ public class InterviewHandler {
         model.addAttribute("lname", applicationService.getById(application_id).getApplicant().getlName());
         model.addAttribute("advertName", applicationService.getById(application_id).getAdvert().getName());
         model.addAttribute("advertDeadline", applicationService.getById(application_id).getAdvert().getDeadlineDate());
+        model.addAttribute("advertId", applicationService.getById(application_id).getAdvert().getId());
 
         System.out.println("BURDAYIM");
 

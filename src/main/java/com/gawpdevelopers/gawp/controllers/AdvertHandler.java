@@ -57,7 +57,7 @@ public class AdvertHandler {
 //        return "/index";
 //    }
 
-    //Mail yollamaca brom
+    /*//Mail yollamaca brom
     @RequestMapping({"/sendmail"})
     public String sendmail(){
         Mail mail = new Mail();
@@ -67,7 +67,7 @@ public class AdvertHandler {
         mail.setContent("Azerbaycandan gucak dolusu salamlar");
         emailService.sendSimpleMessage(mail);
         return "index";
-    }
+    }*/
 
     //  GRAD Mappings
 
@@ -165,7 +165,7 @@ public class AdvertHandler {
     }
 
 
-    @RequestMapping({"/applicant/advert/show/{id}", "/grad/advert/show/{id}"})
+    @RequestMapping({"/applicant/advert/show/{id}", "/grad/advert/show/{id}", "department/advert/show/{id}"})
     public String getAdvert(@PathVariable String id, Model model){
         model.addAttribute("advert", advertService.getById(Long.valueOf(id)));
         return "applicant/advert-detail-applicant";

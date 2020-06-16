@@ -77,7 +77,7 @@
 					</div>
 					
                     <div class="cs-first-description col-xs-2">
-                        <a href="#" style="display: flex; justify-content: flex-end;">
+                        <a th:href="${'/department/advert/show/' + advertId}">
                             <button type="button" class="btn btn-default see-details" style="width: 100%;background: #fff;color:#3F78B3 ;border-color: #3F78B3;border-radius: 15px;">See Details</button>
                         </a>
                     </div>
@@ -141,7 +141,7 @@
 				<div class="bottom-buttons">
 					<div class="col-xs-7"></div>
 					<div class="cs-first-description col-xs-2">
-							<a  style="display: flex; justify-content: flex-end;">
+							<a th:href="@{/department/adverts/interviewNotSet/applications}" style="display: flex; justify-content: flex-end;">
 								<button  id="cancel" type="button" class="btn btn-default cancel" style="width: 100%;background: #fff;color:#3F78B3 ;border-color: #3F78B3;border-radius: 15px;">Cancel</button>
 							</a>
 							<button id="back" onclick="go1();" type="button" class="btn btn-default cancel" style="width: 100%;background: #fff;color:#3F78B3 ;border-color: #3F78B3;border-radius: 15px; display:none">Back</button>
