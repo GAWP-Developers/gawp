@@ -17,10 +17,10 @@
           th:href="@{css/spring-core.css}" rel="stylesheet" media="screen"/>
 
     <link href="../../static/css/make-interview.css"
-		  th:href="@{/static/css/make-interview.css}" rel="stylesheet" type="text/css"/>
+		  th:href="@{/css/make-interview.css}" rel="stylesheet" type="text/css"/>
 
 	<script src="../../static/js/make-interview.js"
-			th:src="@{/static/js/make-interview.js}">
+			th:src="@{/js/make-interview.js}">
 	</script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"/>
 </head>
@@ -338,6 +338,11 @@
 
 				<form th:object="${interviewToReview}" th:action="@{/department/interview/afterreview}"  method="post">
 					<input type="hidden" th:field="*{id}" th:value="${interviewToReview.id}"/>
+					<input type="hidden" th:field="*{application}" th:value="${interviewToReview.application}"/>
+					<input type="hidden" th:field="*{date}" th:value="${interviewToReview.date}"/>
+					<input type="hidden" th:field="*{place}" th:value="${interviewToReview.place}"/>
+					<input type="hidden" th:field="*{time}" th:value="${interviewToReview.time}"/>
+
 					<div class="row step">
 						<div class="row step-title" style="color: #35609F">
 							<p>Notes about the interview</p>
@@ -357,25 +362,25 @@
 
 
 					<div class="rate" >
-						<input type="radio" id="star10" name="rate" th:field="*{point}" th:value="${interviewToReview.point}" value="10"/>
+						<input type="radio" id="star10" name="rate" th:field="*{point}" value="10"/>
 						<label for="star10" title="10">10 stars</label>
-						<input type="radio" id="star9" name="rate" th:field="*{point}" th:value="${interviewToReview.point}" value="9" />
+						<input type="radio" id="star9" name="rate" th:field="*{point}" value="9" />
 						<label for="star9" title="9">9 stars</label>
-						<input type="radio" id="star8" name="rate" th:field="*{point}" th:value="${interviewToReview.point}" value="8" />
+						<input type="radio" id="star8" name="rate" th:field="*{point}" value="8" />
 						<label for="star8" title="8">8 stars</label>
-						<input type="radio" id="star7" name="rate" th:field="*{point}" th:value="${interviewToReview.point}" value="7" />
+						<input type="radio" id="star7" name="rate" th:field="*{point}" value="7" />
 						<label for="star7" title="7">7 stars</label>
-						<input type="radio" id="star6" name="rate" th:field="*{point}" th:value="${interviewToReview.point}" value="6" />
+						<input type="radio" id="star6" name="rate" th:field="*{point}" value="6" />
 						<label for="star6" title="6">6 star</label>
-						<input type="radio" id="star5" name="rate" th:field="*{point}" th:value="${interviewToReview.point}" value="5" />
+						<input type="radio" id="star5" name="rate" th:field="*{point}" value="5" />
 						<label for="star5" title="5">5 stars</label>
-						<input type="radio" id="star4" name="rate" th:field="*{point}" th:value="${interviewToReview.point}" value="4" />
+						<input type="radio" id="star4" name="rate" th:field="*{point}" value="4" />
 						<label for="star4" title="4">4 stars</label>
-						<input type="radio" id="star3" name="rate" th:field="*{point}" th:value="${interviewToReview.point}" value="3" />
+						<input type="radio" id="star3" name="rate" th:field="*{point}" value="3" />
 						<label for="star3" title="3">3 stars</label>
-						<input type="radio" id="star2" name="rate" th:field="*{point}" th:value="${interviewToReview.point}" value="2" />
+						<input type="radio" id="star2" name="rate" th:field="*{point}" value="2" />
 						<label for="star2" title="2">2 stars</label>
-						<input type="radio" id="star1" name="rate" th:field="*{point}" th:value="${interviewToReview.point}" value="1" />
+						<input type="radio" id="star1" name="rate" th:field="*{point}" value="1" />
 						<label for="star1" title="1">1 star</label>
 					</div>
 
