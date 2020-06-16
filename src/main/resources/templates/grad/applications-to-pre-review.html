@@ -24,7 +24,7 @@
 		<div class="container">
 			<div class="navbar-header">
 
-				<a href="#" class="navbar-brand">GAWP - Grad School</a>
+				<a href="/grad" class="navbar-brand">GAWP - Grad School</a>
 			</div>
 			
 			<ul class="nav navbar-nav navbar-right">
@@ -48,19 +48,23 @@
                     <p style="font-size: 28px; color: #474747; border-bottom: solid 1px #c7c6c6aa; padding-left: 50px; padding-bottom:10px; letter-spacing: 0.3px;">Applications to Pre-Review</p>
                 </div>
             </div>
-            <div class="container-second-section">
+            <div class="container-second-section" th:each= "app : ${applications}">
                 <div class="row attribute-part col-9 col-md-9 col-lg-9">
                     <div class="col-4 col-md-4 col-lg-4 id-part">
-                        <p style="margin-top:10px;">#A1B2Y34F</p>
+
+
+                        <p th:text="'#' + ${app.id}"></p>
+
                     </div>
                     <div class="col-2 col-md-2 col-lg-2 from-part">
                         <p style="margin-top:10px;">from</p>
                     </div>
                     <div class="col-3 col-md-3 col-lg-3 name-part">
-                        <p style="margin-top: 10px;">Elman Hamdi</p>
+                        <p th:text="${app.applicant.userName}"> </p>
                     </div>
                     <div class="col-3 col-md-3 col-lg-3 button-part">
-                        <a href="#">
+
+                        <a th:href="${'/grad/applicationsBeforeForwarding/preReview/' + app.id}">
                             <button class="btn btn-search"><i class="fas fa-search"></i></button>
                         </a>
                     </div>

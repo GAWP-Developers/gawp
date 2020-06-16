@@ -1,11 +1,14 @@
 package com.gawpdevelopers.gawp.controllers;
 
-import com.gawpdevelopers.gawp.domain.*;
-import com.gawpdevelopers.gawp.services.*;
 import com.gawpdevelopers.gawp.commands.ApplicationForm;
 import com.gawpdevelopers.gawp.commands.DocumentForm;
 import com.gawpdevelopers.gawp.converters.ApplicationToApplicationForm;
+import com.gawpdevelopers.gawp.domain.*;
+import com.gawpdevelopers.gawp.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -16,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-
 
 import javax.validation.Valid;
 import java.util.Date;
@@ -36,6 +38,12 @@ public class ApplicationHandler {
     private ApplicantService applicantService;
     private StorageService storageService;
     private DocumentService documentService;
+    private MailService emailService;
+
+    @Autowired
+    public void setEmailService(MailService emailService){
+        this.emailService = emailService;
+    }
 
     @Autowired
     public void setApplicationToApplicationForm(ApplicationToApplicationForm applicationToApplicationForm) {
@@ -139,11 +147,40 @@ public class ApplicationHandler {
         return "applicant/succesful-application";
     }
 
+    @RequestMapping(value = "/notify/{id}", method = RequestMethod.POST)
+    public String notifyApplicant(@Valid ApplicationForm applicationForm, BindingResult bindingResult,
+                                  @PathVariable String id,
+                                  @RequestParam("sending-mail") String mailContent){
+        //TODO still not working cant invoke post
+        if(bindingResult.hasErrors()){
+            return "/grad/applications-to-pre-review";
+        }
+        //Application saved = applicationService.saveOrUpdate(application);
+        //Applicant applicant = application.getApplicant();
+       //
+        Application application = applicationService.getById(Long.valueOf(id));
+        application.setStatus(ApplicationStatus.MISSINGDOCUMENT);
+        Application savedApplication = applicationService.saveOrUpdate(application);
+        System.out.println(application.getId());
+        Mail mail = new Mail();
+        mail.setFrom("noreply@gawp.com");
+        mail.setTo(application.getApplicant().getEmail());
+        mail.setSubject("Information About Missing Documents");
+        mail.setContent(mailContent);
+        emailService.sendSimpleMessage(mail);
+        return "redirect:/grad/applicationsBeforeForwarding/preReview";
+    }
+    /**
+    @RequestMapping(value = "/notify", method = RequestMethod.GET)
+    public String notifyApplicant(){
+        return "redirect:/grad/applicationsBeforeForwarding/preReview";
+    }*/
     @RequestMapping(value = "/application", method = RequestMethod.POST)
     public String saveOrUpdateApplication(@Valid ApplicationForm applicationForm, BindingResult bindingResult,
                                           @RequestParam("photo") MultipartFile photo,
                                           @RequestParam("transcript") MultipartFile transcript,
                                           @RequestParam("ales") MultipartFile ales,
+                                          @RequestParam(value = "englishExam", required = false) MultipartFile englishExam,
                                           @RequestParam("referenceLetter") MultipartFile referenceLetter,
                                           @RequestParam(value = "permissionLetter", required = false) MultipartFile permissionLetter,
                                           @RequestParam(value = "passport", required = false) MultipartFile passport,
@@ -186,6 +223,14 @@ public class ApplicationHandler {
         referenceLetterForm.setPath(storageService.store(referenceLetter, applicationId).toString());
         documentService.saveOrUpdateDocumentForm(referenceLetterForm);
 
+        if (englishExam != null && !englishExam.isEmpty()) {
+            DocumentForm englishExamForm = new DocumentForm();
+            englishExamForm.setDocType(DocumentType.ENGLISHEXAM);
+            englishExamForm.setApplication(savedApplication);
+            englishExamForm.setPath(storageService.store(englishExam, applicationId).toString());
+            documentService.saveOrUpdateDocumentForm(englishExamForm);
+        }
+
         if (permissionLetter != null && !permissionLetter.isEmpty()) {
             DocumentForm permissionLetterForm = new DocumentForm();
             permissionLetterForm.setDocType(DocumentType.PERMISSIONLETTER);
@@ -225,38 +270,199 @@ public class ApplicationHandler {
     //  Grad Mapping
 
     @RequestMapping("/grad/applicationsBeforeForwarding")
-    public String applicationsBeforeForwarding(){
+    public String applicationsBeforeForwarding(Model model){
+        List<Application> prereviewList= applicationService.listByStatus(ApplicationStatus.WAITINGFORCONTROL);
+        applicationService.listByStatus(ApplicationStatus.MISSINGDOCUMENT).forEach(prereviewList::add);
+        model.addAttribute("prereview",prereviewList.size());
+        List<Application> toverifyList= applicationService.listByStatus(ApplicationStatus.CONFIRMED);
+        model.addAttribute("toverify",toverifyList.size());
+        List<Application> declinedList= applicationService.listByStatus(ApplicationStatus.REJECTED);
+        model.addAttribute("declined",declinedList.size());
+        List<Application> verifiedList= applicationService.listByStatus(ApplicationStatus.VERIFIED);
+        model.addAttribute("verified",verifiedList.size());
         return "/grad/application-before-forwarding-to-deparment";
     }
 
     @RequestMapping("/grad/applicationsBeforeForwarding/preReview")
     public String listPreReviewApplications(Model model){
         List<Application> applicationList= applicationService.listByStatus(ApplicationStatus.WAITINGFORCONTROL);
+        applicationService.listByStatus(ApplicationStatus.MISSINGDOCUMENT).forEach(applicationList::add);
         model.addAttribute("applications",applicationList);
 
         return "/grad/applications-to-pre-review";
 
     }
+    @RequestMapping("/grad/applicationsBeforeForwarding/preReview/{id}")
+    public String reviewApplication(@PathVariable String id, Model model){
+        Application application = applicationService.getById(Long.valueOf(id));
+        model.addAttribute("applicationToReview", application);
+        model.addAttribute("mail",new Mail());
 
+
+        //  These are needed for applicant's foreign passport and permission letter parts
+        //  in the html
+
+        //  This is filtering with java streams.
+        //  it basically searches for documents with passport and returns them in a list.
+        //  If list is empty, isForeign = false.
+        List passport = application.getDocuments().stream()
+                .filter(d -> d.getDocType().toString().equals("PASSPORT"))
+                .collect(Collectors.toList());
+        boolean isForeign = !passport.isEmpty();
+        model.addAttribute("isForeign", isForeign);
+
+        //  Same logic as passport
+        List permissionLetter = application.getDocuments().stream()
+                .filter(d -> d.getDocType().toString().equals("PERMISSIONLETTER"))
+                .collect(Collectors.toList());
+        boolean isWorking = !permissionLetter.isEmpty();
+        model.addAttribute("isWorking", isWorking);
+
+        //  Same logic as passport
+        List englishexam = application.getDocuments().stream()
+                .filter(d -> d.getDocType().toString().equals("ENGLISHEXAM"))
+                .collect(Collectors.toList());
+        boolean hasEnglishExam = !englishexam.isEmpty();
+        model.addAttribute("hasEnglishExam", hasEnglishExam);
+
+        return "/grad/check-interview";
+    }
+    @RequestMapping("/setConfirm/{id}")
+    public String setStatus(@PathVariable String id){
+        Application application= applicationService.getById(Long.valueOf(id));
+        application.setStatus(ApplicationStatus.CONFIRMED);
+        Application saved = applicationService.saveOrUpdate(application);
+        return "redirect:/grad/applicationsBeforeForwarding/preReview";
+
+    }
+
+
+    @RequestMapping(path="/ignore/{id}")
+    public String ignore(@PathVariable String id){
+
+        Application application= applicationService.getById(Long.valueOf(id));
+        application.setStatus(ApplicationStatus.REJECTED);
+        Application saved = applicationService.saveOrUpdate(application);
+        Applicant applicant =application.getApplicant();
+        Mail mail = new Mail();
+        System.out.println(mail.getContent());
+        mail.setFrom("noreply@gawp.com");
+        mail.setTo(applicant.getEmail());
+        mail.setSubject("Application Inform Mail");
+        mail.setContent("rejected");
+        emailService.sendSimpleMessage(mail);
+        return "redirect:/grad/applicationsBeforeForwarding/preReview";
+
+    }
+
+
+/*
+    @RequestMapping(path="/notify/{id}")
+    public String notify(@PathVariable String id){
+        //TODO notify için mail-message i fronttan alınması lazım
+        Application application= applicationService.getById(Long.valueOf(id));
+        application.setStatus(ApplicationStatus.MISSINGDOCUMENT);
+        Application saved = applicationService.saveOrUpdate(application);
+        Applicant applicant =application.getApplicant();
+        Mail mail = new Mail();
+        mail.setFrom("noreply@gawp.com");
+        mail.setTo(applicant.getEmail());
+        mail.setSubject("Size Spring ilen Salamlar getirmişem");
+        mail.setContent("You have notified");
+        emailService.sendSimpleMessage(mail);
+        return "redirect:/grad/applicationsBeforeForwarding/preReview";
+
+    }
+
+*/
     @RequestMapping("/grad/applicationsBeforeForwarding/declined")
-    public String listDeclinedApplications(Model model){
-        //TODO List declined applications and add it as attribute to model (DONE)
-        List<Application> declinedApplications = applicationService.listByStatus(ApplicationStatus.REJECTED);
-        model.addAttribute("declinedApplications", declinedApplications);
+    public String listDeclinedApplication(Model model){
+        List<Application> declinedList= applicationService.listByStatus(ApplicationStatus.REJECTED);
+        model.addAttribute("declined",declinedList);
 
         return "/grad/declined-applications";
     }
+    @RequestMapping("/grad/applicationsBeforeForwarding/declined/{id}")
+    public String listDeclinedApplications(@PathVariable String id,Model model){
+        Application application = applicationService.getById(Long.valueOf(id));
+        model.addAttribute("declinedApplication", application);
+
+        return "/grad/view-declined-application";
+    }
 
     @RequestMapping("/grad/applicationsBeforeForwarding/verifiedAndApproved")
-    public String listVerifiedAndApprovedApplications(Model model){
-        //TODO List verified and approved applications and add it as attribute to model
-        return "/grad/verified-and-approved-applications";
+    public String verifiedAndApprovedApplications(Model model){
+        List<Application> verifiedList= applicationService.listByStatus(ApplicationStatus.VERIFIED);
+        model.addAttribute("verified",verifiedList);
+        return "/grad/verfied-and-approved-applications";
+    }
+    //TODO the views are empty now
+    @RequestMapping("/grad/applicationsBeforeForwarding/verified/{id}")
+    public String declinedApplication(@PathVariable String id,Model model){
+        Application application = applicationService.getById(Long.valueOf(id));
+        model.addAttribute("verifiedApplication", application);
+
+        return "/grad/view-verified-application";
     }
 
     @RequestMapping("/grad/applicationsBeforeForwarding/verify")
     public String listApplicationsToVerify(Model model){
-        //TODO List approved applications and add it as attribute to model
+        List<Application> toverifyList= applicationService.listByStatus(ApplicationStatus.CONFIRMED);
+        model.addAttribute("toverify",toverifyList);
         return "/grad/verify-approved-applications";
+    }
+    @RequestMapping("/grad/applicationsBeforeForwarding/verify/{id}")
+    public String applicationToVerify(@PathVariable String id,Model model){
+        Application application = applicationService.getById(Long.valueOf(id));
+        model.addAttribute("applicationToVerify", application);
+
+        return "/grad/view-application-to-verify";
+    }
+    @RequestMapping(path="/verify/{id}")
+    public String verify(@PathVariable String id){
+
+        Application application= applicationService.getById(Long.valueOf(id));
+        application.setStatus(ApplicationStatus.VERIFIED);
+        Application saved = applicationService.saveOrUpdate(application);
+
+        return "redirect:/grad/applicationsBeforeForwarding/verify";
+
+    }
+    @RequestMapping(path="/decline/{id}")
+    public String decline(@PathVariable String id){
+
+        Application application= applicationService.getById(Long.valueOf(id));
+        application.setStatus(ApplicationStatus.REJECTED);
+        Application saved = applicationService.saveOrUpdate(application);
+
+        return "redirect:/grad/applicationsBeforeForwarding/verify";
+
+    }
+    @RequestMapping(path="/undecline/{id}")
+    public String undecline(@PathVariable String id){
+        //TODO link the button change status in declined application view page
+        Application application= applicationService.getById(Long.valueOf(id));
+        application.setStatus(ApplicationStatus.WAITINGFORCONTROL);
+        Application saved = applicationService.saveOrUpdate(application);
+
+        return "redirect:/grad/applicationsBeforeForwarding/declined";
+
+    }
+
+    //  File Mapping
+
+    @RequestMapping("/docs/{id}")
+    public ResponseEntity<Resource> serveDocument(@PathVariable long id){
+        Document doc = documentService.getById(id);
+
+        // TODO Check whether the user should be able to access document
+        // TODO For example, an applicant shouldn't see someone elses document
+
+        Resource document = storageService.loadAsResource(doc);
+
+        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
+        "attachment; filename=\"" + document.getFilename() + "\"").body(document);
+
     }
 
     //  Department Mapping

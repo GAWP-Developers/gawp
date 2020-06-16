@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:t="http://www.w3.org/1999/html">
+<head>
+    <title>Application Document Check</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}"
+          rel="stylesheet"  media="screen"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>
+
+    <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
+            th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+
+    <link href="../../static/css/spring-core.css"
+          th:href="@{css/spring-core.css}" rel="stylesheet" media="screen"/>
+    <link href="../../static/css/check-interview.css"
+		  th:href="@{/css/check-interview.css}"rel="stylesheet" type="text/css"/>
+	<script src="../../static/js/check-interview.js"
+			th:src="@{/js/check-interview.js}"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"/>
+</head>
+<body onload="initialLoad();">
+    <nav class="navbar navbar-default">
+		<div class="container">
+			<div class="navbar-header">
+
+				<a href="/grad" class="navbar-brand">GAWP - Grad School</a>
+			</div>
+			
+			<ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <span class="glyphicon glyphicon-menu-hamburger"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Settings</a></li>
+                        <li><a href="#">Sign Out</a></li>
+                    </ul>
+                </li>
+            </ul>
+		</div>
+	</nav><!-- end of the navbar-->
+
+
+
+	<form th:action="@{/notify/(id)(id=${applicationToReview})}"  method="post">
+    <div class="container" id="first-part" style="margin-bottom: 0px; ">
+        <div class="container-section d-flex align-items-center justify-content-center col-4">
+            <div class="container-section-part ">
+                <div class="row cs-first">
+                    <div class="row cs-first-title col-xs-6">
+                        <p><span th:utext="${applicationToReview.advert.name}"/></p>
+                    </div>
+					
+					<div class="col-xs-4">
+						<div class="date-title col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<p>Expire Date: </p>
+						</div>
+						<div class="date col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<p><span th:utext="${applicationToReview.advert.deadlineDate}"/></p>
+						</div>
+					</div>
+					
+                    <div class="cs-first-description col-xs-2">
+                        <a th:href= "${'/grad/advert/show/' + applicationToReview.advert.id }" >
+                            <button type="submit" class="btn btn-default see-details" style="width: 100%;background: #fff;color:#3F78B3 ;border-color: #3F78B3;border-radius: 15px;">See Details</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+	
+	
+	<div class="container" id="first-part2" style="margin-bottom: 10px; ">
+        <div class="container-section d-flex align-items-center justify-content-center col-4" style="padding-top: 10px;">
+            <div class="container-section-part ">
+				
+                <div class="row step">
+                    <div class="row step-title">
+                        <p>STEP-1</p>
+                    </div>
+
+					<div class="row">
+
+						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+							<p>Name: </p>
+						</div>
+						<div class="info-letter col-xs-5 col-sm-5 col-md-5 col-lg-5">
+							<p>
+								<span th:utext="${applicationToReview.applicant.fName}"></span>
+							</p>
+						</div>
+						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+							<button onclick="whenClick(this.id);" class="btn btn-default" type="button" value="" id="Name" style="width: 100%; background: #fff;color:#C41414 ;border-color: #C41414;border-radius: 15px; font-size: 10px">Add</button>
+						</div>
+
+						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+							<p>Surname: </p>
+						</div>
+						<div class="info-letter col-xs-5 col-sm-5 col-md-5 col-lg-5">
+							<p>
+								<span th:utext="${applicationToReview.applicant.lName}"></span>
+							</p>
+						</div>
+						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+							<button onclick="whenClick(this.id);" class="btn btn-default" type="button"  id="Surname" style="width: 100%; background: #fff;color:#C41414 ;border-color: #C41414;border-radius: 15px; font-size: 10px">Add</button>
+						</div>
+
+					</div>
+					
+
+					
+					
+					<div  class="row">
+						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+							<p>Phone Number: </p>
+						</div>
+						<div class="info-letter col-xs-6 col-sm-6 col-md-6 col-lg-6">
+							<p>
+								<span th:utext="${applicationToReview.applicant.phone}"/>
+							</p>
+						</div>
+						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+							<button onclick="whenClick(this.id);" class="btn btn-default" type="button"  id="Phone-Number" style="width: 100%; background: #fff;color:#C41414 ;border-color: #C41414;border-radius: 15px; font-size: 10px">Add</button>
+                		</div>
+
+
+						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+							<p>Birth Date: </p>
+						</div>
+						<div class="info-letter col-xs-6 col-sm-6 col-md-6 col-lg-6">
+							<p>
+								<span th:utext="${applicationToReview.applicant.birthDate}"/>
+							</p>
+						</div>
+						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+							<button onclick="whenClick(this.id);" class="btn btn-default" type="button" id="Birth-Date" style="width: 100%; background: #fff;color:#C41414 ;border-color: #C41414;border-radius: 15px; font-size: 10px">Add</button>
+						</div>
+					</div>  
+					
+
+
+					<div class="address-part">
+						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+							<p>Address: </p>
+						</div>
+						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+							<button onclick="whenClick(this.id);" class="btn btn-default" type="button" id="Address" style="width: 100%; background: #fff;color:#C41414 ;border-color: #C41414;border-radius: 15px; font-size: 10px">Add</button>
+						</div>
+
+						<div class="text-area-last-section">
+							<textarea readonly id="addr-details" class="" rows="5">Adres Mahallesi. Adres Sokak. No Adres Izmir</textarea>
+						</div>
+						
+				</div>
+					
+                </div>
+				
+				
+				
+				<div class="row step">
+                    <div class="row step-title">
+                        <p>STEP-2</p>
+                    </div>
+					
+					<div class= "row step-question-part">
+						<div class="just-letter col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<p>Photo: </p>
+						</div>
+						<div th:each="doc : ${applicationToReview.getDocuments()}"
+							 th:if="${doc.getDocType().toString().equals('PHOTO')}"class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<a th:href="${'/docs/' + doc.getId()}" style="display: flex; justify-content: flex-end;">
+								<button type="submit" class="btn btn-default Open File-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
+							</a>
+						</div>
+						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+							<button onclick="whenClick(this.id);" class="btn btn-default" type="button"  id="Photo" style="width: 100%; background: #fff;color:#C41414 ;border-color: #C41414;border-radius: 15px; font-size: 10px">Add</button>
+                		</div>
+						
+					</div>
+					
+					<div  class="row step-question-part">
+						<div class="just-letter col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<p>Transcript/s :</p>
+						</div>
+						<div th:each="doc : ${applicationToReview.getDocuments()}"
+							 th:if="${doc.getDocType().toString().equals('TRANSCRIPT')}"class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<a th:href="${'/docs/' + doc.getId()}" style="display: flex; justify-content: flex-end;">
+								<button type="submit" class="btn btn-default Open File-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
+							</a>
+						</div>
+						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+							<button onclick="whenClick(this.id);" class="btn btn-default" type="button"  id="Transcript" style="width: 100%; background: #fff;color:#C41414 ;border-color: #C41414;border-radius: 15px; font-size: 10px">Add</button>
+                		</div>
+					</div>
+					
+					<div  class="row step-question-part">
+						<div class="just-letter col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<p>ALES Result?*</p>
+						</div>
+						<div th:each="doc : ${applicationToReview.getDocuments()}"
+							 th:if="${doc.getDocType().toString().equals('ALES')}"class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<a th:href="${'/docs/' + doc.getId()}" style="display: flex; justify-content: flex-end;">
+								<button type="submit" class="btn btn-default Open File-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
+							</a>
+						</div>
+						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+							<button onclick="whenClick(this.id);" class="btn btn-default" type="button" id="ALES-Result" style="width: 100%; background: #fff;color:#C41414 ;border-color: #C41414;border-radius: 15px; font-size: 10px">Add</button>
+                		</div>
+					</div>
+
+					<input hidden id="hasEnglishExam" th:value="${hasEnglishExam}"/>
+					<div id="englishExamPart" class="row step-question-part">
+						<div class="just-letter col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<p>English Exam Result?</p>
+						</div>
+						<div th:each="doc : ${applicationToReview.getDocuments()}"
+							 th:if="${doc.getDocType().toString().equals('ENGLISHEXAM')}"class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<a th:href="${'/docs/' + doc.getId()}" style="display: flex; justify-content: flex-end;">
+								<button type="submit" class="btn btn-default Open File-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
+							</a>
+						</div>
+						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+							<button onclick="whenClick(this.id);" class="btn btn-default" type="button"  id="English-Exam-Result" style="width: 100%; background: #fff;color:#C41414 ;border-color: #C41414;border-radius: 15px; font-size: 10px">Add</button>
+                		</div>
+					</div>
+					 
+                </div>
+				
+	
+				
+				<div class="row step">
+                    <div class="row step-title">
+                        <p>About Applicant's Application</p>
+                    </div>
+									
+					<div  class="row">
+						<div class="just-letter col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<p>Purpose Letter </p>
+						</div>
+						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+							<button onclick="whenClick(this.id);" class="btn btn-default" type="button" id="Purpose-Letter" style="width: 100%; background: #fff;color:#C41414 ;border-color: #C41414;border-radius: 15px; font-size: 10px">Add</button>
+                		</div>
+						<p class="info-letter big  col-xs-12 col-sm-12 col-md-12 col-lg-12" style="width: 90%" rows="10">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia voluptatem distinctio veritatis modi incidunt animi, totam nihil molestiae molestias, dolor quod neque numquam tempora odio fugiat magnam? Eos, alias reprehenderit!</p>
+						
+						<div class="just-letter col-xs-2 col-sm-2 col-md-2 col-lg-2" style="margin-top: 15px">
+							<p>Reference Letter/s :</p>
+						</div>
+
+						<div th:each="doc : ${applicationToReview.getDocuments()}"
+							 th:if="${doc.getDocType().toString().equals('REFERENCELETTER')}"class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<a th:href="${'/docs/' + doc.getId()}" style="display: flex; justify-content: flex-end;">
+								<button type="submit" class="btn btn-default Open File-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
+							</a>
+						</div>
+						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1" style="padding-top:5px">
+							<button onclick="whenClick(this.id);" class="btn btn-default" type="button"  id="Reference-Letter" style="width: 100%; background: #fff;color:#C41414 ;border-color: #C41414;border-radius: 15px; font-size: 10px">Add</button>
+                		</div>
+
+					</div>
+					
+				</div>
+
+			
+
+				<div class="row step">
+                    <div class="row step-title">
+                        <p>Other Information About The Applicant</p>
+                    </div>
+									
+					<div  class="row select-part need-space">
+						<input hidden id="isForeign" th:value="${isForeign}"/>
+						<div class="just-letter col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<div  class="col-xs-4 col-sm-4 col-md-4 col-lg-4">Is applicant have Turkish identity card?: </div>
+							<div id="no1"  style= "display: none">No </div>
+							<div id="yes1" style= "display: none">Yes</div>
+						</div>
+						
+						<div id="extra-1" style="visibility: hidden;">
+							<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"></div>
+							<div class="disc-letter col-xs-2 col-sm-2 col-md-2 col-lg-2">
+								<p>Foreign passport:</p>
+							</div>
+
+							<div th:each="doc : ${applicationToReview.getDocuments()}"
+								 th:if="${doc.getDocType().toString().equals('PASSPORT')}"class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
+								<a th:href="${'/docs/' + doc.getId()}" style="display: flex; justify-content: flex-end;">
+									<button type="submit" class="btn btn-default Open File-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
+								</a>
+							</div>
+							<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1" >
+								<button onclick="whenClick(this.id);" class="btn btn-default" type="button"  id="Foreign-Passport" style="width: 100%; background: #fff;color:#C41414 ;border-color: #C41414;border-radius: 15px; font-size: 10px">Add</button>
+							</div>
+						</div>
+					</div>
+						
+			
+
+					<div  class="row select-part need-space">
+						<div class="just-letter col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+							<input hidden id="isWorking" th:value="${isWorking}"/>
+							<div  class="col-xs-4 col-sm-4 col-md-4 col-lg-4">Is the applicant working?: </div>
+							<div id="no2"  style= "display: none">No </div>
+							<div id="yes2" style= "display: none">Yes</div>
+						</div>
+						
+						<div id="extra-2" style="visibility: hidden;">
+							<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"></div>
+							<div class="disc-letter col-xs-2 col-sm-2 col-md-2 col-lg-2">
+								<p>Permission letter:</p>
+							</div>
+							<div th:each="doc : ${applicationToReview.getDocuments()}"
+								 th:if="${doc.getDocType().toString().equals('PERMISSIONLETTER')}"class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
+								<a th:href="${'/docs/' + doc.getId()}" style="display: flex; justify-content: flex-end;">
+									<button type="submit" class="btn btn-default Open File-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
+								</a>
+							</div>
+							<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1" >
+								<button onclick="whenClick(this.id);" class="btn btn-default" type="button"  id="Permission-Letter" style="width: 100%; background: #ffffff;color:#C41414 ;border-color: #C41414;border-radius: 15px; font-size: 10px">Add</button>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<input hidden id="is-phd" th:value="${applicationToReview.getAdvert().getType().toString().equals('PHD')}"/>
+				<div id="phd-application" class="row step">
+                    <div class="row step-title">
+                        <p>PhD Application</p>
+					</div>
+					
+									
+					<div  class="row">
+						<div class="just-letter col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<p>You are in last step. You are trying  to apply to an PhD advert. Please Open File your Master Transcript to complete application.* </p>
+						</div>
+						
+						<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" ></div>
+						<div class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<button type="submit" class="btn btn-default Open File-button" style="width: 100%;background: #ffffff;color:#b29b25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
+						</div>
+						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+							<button onclick="whenClick(this.id);" class="btn btn-default" type="button"  id="PhD" style="width: 100%; background: #fff;color:#C41414 ;border-color: #C41414;border-radius: 15px; font-size: 10px">Add</button>
+						</div>
+					</div>
+
+				</div>
+
+				<form >
+				<!--Hey Can, Please don't change form's tag alligment, this is important, for shape of mail.-->
+				<form >
+					<textarea  id="missing-info" name = "mailtext" style="display:none">Dear Applicant,
+In your application some information which you give when appling are not correct or has some mistakes. Please check your information/s which is in below:
+					</textarea>
+					<input id="mail-message" name="send-mail" value="" style="display: none;"/>
+				</form>
+				</form>
+		
+				
+				
+				
+				<div class="bottom-buttons">
+					<div class="col-xs-10"></div>
+
+					<div class="cs-first-description col-xs-2">
+
+							<button id ="continue" type="button" onClick="insertTexts(); makeVisiable('last-part'); makeUnvisiable('first-part'); makeUnvisiable('first-part2'); " class="btn btn-default update" style="width: 100%;background: #3F78B3;color:#fff ;border-color: #3F78B3;border-radius: 15px; display: none;" >Continue</button>
+
+
+							<a th:href="${'/setConfirm/'+applicationToReview.id}">
+								<button id="confirm"   class="btn btn-default update" style="width: 100%;background: #3F78B3;color:#fff ;border-color: #3F78B3;border-radius: 15px; display:block;">Confirm</button>
+							</a>
+					</div>
+				
+				</div>
+
+	
+            
+			</div>
+		</div>
+	</div>
+
+	
+	<div class="container" id="last-part" style="display:none">
+        <div class="container-section d-flex align-items-center justify-content-center col-4">
+            <div class="container-second-section">
+                <div class="container-second-part">
+                    <div class="second-part-title-section">
+                        <p>Number of missing/corrupted info: <span id ="number" style="color:#F25A73;">0</span></p>
+                    </div>
+                    <div class="second-part-description-part">
+                        <p id="sum-missing-info">Summary of missing/corrupted info</p>
+                    </div>
+                    <div class="second-part-second-description-part">
+                        <p>Click to notify to 'Notify' to send mail to applicant to edit his/her form about the missing.</p>
+                    </div>
+
+                    <div class="row button-part-section">
+                        <div class="col-3 col-md-3 col-lg-3 cancel-button">
+                            <a th:href="${'/grad/applicationsBeforeForwarding/preReview'}">
+
+                                <button  class="btn btn-default cancel" style=" width: 80px; border-radius: 15px;">Cancel</button>
+                            </a>
+                        </div>
+                        <div class="col-6 col-md-6 col-lg-6 back-button">
+                                <button  class="btn btn-default back" onclick="reverseSituation();makeUnvisiable('last-part'); makeVisiable('first-part'); makeVisiable('first-part2');" style="color: #F25A73; border-color: #F25A73; width: 80px; border-radius: 15px;">Back</button>
+                        </div>
+                        <div class="col-2 col-md-2 col-lg-2 notify-button">
+                            <a >
+                                <button type="submit" class="btn btn-default notify" style=" width: 80px; border-radius: 15px;">Notify</button>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="second-part-last-description-part">
+                        <p>If the requirements are not satisfied in this application. Please ignore this application to click button below.</p>
+                    </div>
+
+                    <div class="row second-button-part">
+                        <div class="applicant-button">
+                            <a th:href="${'/ignore/'+applicationToReview.id}">
+                                <button type="submit" class="btn btn-default applicant-button" style=" width: 200px; border-radius: 15px;">Ignore and Inform Applicant</button>
+                            </a>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+        
+        </div> 
+    </div>
+</form>
+</body>
+</html>
