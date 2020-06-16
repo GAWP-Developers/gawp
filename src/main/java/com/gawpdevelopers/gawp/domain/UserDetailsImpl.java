@@ -17,6 +17,7 @@ public class UserDetailsImpl implements UserDetails {
     private String fName;
     private String lName;
     private List<GrantedAuthority> authorities;
+    private DepartmentType departmentType;
 
 
     public UserDetailsImpl(User user) {
@@ -29,6 +30,7 @@ public class UserDetailsImpl implements UserDetails {
                     .collect(Collectors.toList());
         this.fName = user.getfName();
         this.lName = user.getlName();
+        this.departmentType = user.getDepartmentType();
     }
 
     @Override
@@ -88,5 +90,13 @@ public class UserDetailsImpl implements UserDetails {
 
     public void setlName(String lName) {
         this.lName = lName;
+    }
+
+    public DepartmentType getDepartmentType() {
+        return departmentType;
+    }
+
+    public void setDepartmentType(DepartmentType departmentType) {
+        this.departmentType = departmentType;
     }
 }

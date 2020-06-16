@@ -64,7 +64,7 @@
 					
                     <div class="cs-first-description col-xs-2">
                         <a th:href= "${'/grad/advert/show/' + applicationToReview.advert.id }" >
-                            <button type="submit" class="btn btn-default see-details" style="width: 100%;background: #fff;color:#3F78B3 ;border-color: #3F78B3;border-radius: 15px;">See Details</button>
+                            <button type="button" class="btn btn-default see-details" style="width: 100%;background: #fff;color:#3F78B3 ;border-color: #3F78B3;border-radius: 15px;">See Details</button>
                         </a>
                     </div>
                 </div>
@@ -423,7 +423,7 @@ In your application some information which you give when appling are not correct
                     <div class="row second-button-part">
                         <div class="applicant-button">
                             <a th:href="${'/grad/ignore/'+applicationToReview.id}">
-                                <button type="button" class="btn btn-default applicant-button" style=" width: 200px; border-radius: 15px;">Ignore and Inform Applicant</button>
+                                <button type="submit" class="btn btn-default applicant-button" style=" width: 200px; border-radius: 15px;">Reject and Inform Applicant</button>
                             </a>
                         </div>
                     </div>

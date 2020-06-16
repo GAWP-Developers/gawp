@@ -25,6 +25,7 @@ public class Advert {
     private AdvertType type;
     @Column(columnDefinition = "varchar(max)")
     private String details;
+    private DepartmentType departmentType;
 
     public Long getId() {
         return id;
@@ -96,5 +97,13 @@ public class Advert {
 
     public void setApplications(List<Application> applications) {
         this.applications = applications;
+    }
+
+    public DepartmentType getDepartmentType() {
+        return departmentType;
+    }
+
+    public void setDepartmentType(DepartmentType departmentType) {
+        this.departmentType = departmentType;
     }
 }

@@ -90,8 +90,8 @@
                                 <div class="form-group" th:class="${#fields.hasErrors('deadlineDate')} ? 'form-group has-error' : 'form-group'"></div>
                                 <label class="col control-label">Responsive Department</label>
                                 <div class="col">
-                                    <select type="text" class="form-control" th:field="*{type}">
-                                        <option value="something"> </option>
+                                    <select type="text" class="form-control" th:field="*{departmentType}">
+                                        <option th:each="role : ${T(com.gawpdevelopers.gawp.domain.DepartmentType).values()}" th:value="${role}" th:text="${role}"></option>
                                     </select>
 
                                     <span class="help-block">

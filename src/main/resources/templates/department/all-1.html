@@ -23,7 +23,6 @@
     <nav class="navbar navbar-default">
 		<div class="container">
 			<div class="navbar-header">
-
 				<a href="/department" class="navbar-brand">GAWP - Department Panel</a>
 			</div>
 			
@@ -57,12 +56,12 @@
                         <p>Expires on : <br><span th:text="${#dates.format(advert.deadlineDate, 'dd-MM-yyyy')}"/></p>
                     </div>
                     <div class="col-2 col-md-2 col-lg-2 add-interview-date-part">
-                        <a href="/department/adverts/interviewNotSet/applications">
+                        <a th:href="${'/department/adverts/interviewNotSet/applications/' + advert.id}">
                             <button class="btn btn-default add-interview-date" style=" padding: 6px 10px; outline: 0 !important; background: #FFFFFF;color:#B5A61F ;border-color: #B5A61F;border-radius: 15px;">Set Interview for Applications</button>
                         </a>
                     </div>
 					<div class="col-2 col-md-2 col-lg-2 button-part"> 
-                        <a th:href= "${'/department/advert/show/' + advert.id}">
+                        <a th:href="${'/department/advert/show/' + advert.id}">
                             <button class="btn btn-default manage-app" style="padding: 6px 10px; outline: 0 !important; background: #FFFFFF;color:#3F78B3 ;border-color: #3F78B3;border-radius: 15px;">See Details</button>
                         </a>
                     </div>

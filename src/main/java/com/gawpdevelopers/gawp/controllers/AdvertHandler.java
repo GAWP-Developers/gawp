@@ -3,6 +3,7 @@ package com.gawpdevelopers.gawp.controllers;
 import com.gawpdevelopers.gawp.commands.AdvertForm;
 import com.gawpdevelopers.gawp.converters.AdvertToAdvertForm;
 import com.gawpdevelopers.gawp.domain.Advert;
+import com.gawpdevelopers.gawp.domain.DepartmentType;
 import com.gawpdevelopers.gawp.domain.Mail;
 import com.gawpdevelopers.gawp.domain.UserDetailsImpl;
 import com.gawpdevelopers.gawp.services.AdvertService;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -57,7 +59,7 @@ public class AdvertHandler {
 //        return "/index";
 //    }
 
-    //Mail yollamaca brom
+    /*//Mail yollamaca brom
     @RequestMapping({"/sendmail"})
     public String sendmail(){
         Mail mail = new Mail();
@@ -67,7 +69,7 @@ public class AdvertHandler {
         mail.setContent("Azerbaycandan gucak dolusu salamlar");
         emailService.sendSimpleMessage(mail);
         return "index";
-    }
+    }*/
 
     //  GRAD Mappings
 
@@ -107,6 +109,8 @@ public class AdvertHandler {
         UserDetailsImpl  user =  (UserDetailsImpl) userDetailsService.loadUserByUsername(auth.getName());
         advertForm.setGradID(user.getId());
         Advert savedAdvert = advertService.saveOrUpdateAdvertForm(advertForm);
+        System.out.println(user.getDepartmentType());
+        System.out.println(savedAdvert.getDepartmentType());
 
         return "redirect:/grad/advert";
     }
@@ -130,17 +134,17 @@ public class AdvertHandler {
 
     @RequestMapping("/department/adverts")
     public String listAdvertsOfDepartment(Model model){
-        //TODO get adverts belonging to department and put it in model.
         //TODO html is currently hardcoded. Connect the front-end with back-end.
-        List adverts = advertService.listAll(); //  TODO may not want to list all, only adverts belonging to department
+        List adverts = advertService.listAll();
+        List<Advert> deptAdverts = getDepartmentAdverts(adverts);
 
-        model.addAttribute("adverts", adverts);
+        model.addAttribute("adverts", deptAdverts);
         return "department/all";
     }
 
     @RequestMapping("/department/adverts/interviewNotSet")
     public String listAdvertsThatInterviewNotSet(Model model){
-        List<Advert> allAdverts = advertService.listAll(); //  TODO may not want to list all, only adverts belonging to department
+        List<Advert> allAdverts = advertService.listAll();
 
         // TODO CANA ÖZEL NOT: APPLICATION STATUSÜ UNUTMA!
         List<Advert> adverts =
@@ -150,7 +154,9 @@ public class AdvertHandler {
                                         .anyMatch(application -> application.getInterview() == null))
                         .collect(Collectors.toList());
 
-        model.addAttribute("adverts", adverts);
+        List<Advert> deptAdverts = getDepartmentAdverts(adverts);
+
+        model.addAttribute("adverts", deptAdverts);
 
         return "department/all-1";
     }
@@ -165,6 +171,7 @@ public class AdvertHandler {
     }
 
 
+
     @RequestMapping("/applicant/advert/show/{id}")
     public String getAdverttoApplicant(@PathVariable String id, Model model){
         model.addAttribute("advert", advertService.getById(Long.valueOf(id)));
@@ -176,11 +183,38 @@ public class AdvertHandler {
         return "grad/advert-details";
     }
 
+
     @RequestMapping( "/department/advert/show/{id}")
     public String getAdverttoDept(@PathVariable String id, Model model){
         model.addAttribute("advert", advertService.getById(Long.valueOf(id)));
         return "department/advert-details-dept";
     }
+
+    private List<Advert> getDepartmentAdverts(List<Advert> allAdverts){
+        List<Advert> deptAdverts = new ArrayList<>();
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetailsImpl  user =  (UserDetailsImpl) userDetailsService.loadUserByUsername(auth.getName());
+        DepartmentType currentDepartmentType = user.getDepartmentType();
+        System.out.println(user.getUsername());
+        System.out.println(currentDepartmentType);
+        for (int i = 0; i < allAdverts.size();i++){
+            Advert advert = (Advert) allAdverts.get(i);
+            if (currentDepartmentType == advert.getDepartmentType()){
+                deptAdverts.add(advert);
+                System.out.println(advert.getDepartmentType());
+                System.out.println(advert.getName());
+                System.out.println("içindeki");
+
+            }
+            System.out.println(advert.getName());
+        }
+        return deptAdverts;
+
+    }
+
+
+
 
     //
 
