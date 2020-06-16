@@ -49,15 +49,15 @@
             <div class="container-section-part ">
                 <div class="row cs-first">
                     <div class="row cs-first-title col-xs-6">
-                        <p>Advert Name Is This.</p>
+                        <p><span th:text="${applicationForm.advert.name}"/></p>
                     </div>
 					
 					<div class="col-xs-4">
 						<div class="date-title col-xs-2 col-sm-2 col-md-2 col-lg-2">
-							<p>Expire Date: </p>
+							<p>Expire Date:</p>
 						</div>
 						<div class="date col-xs-2 col-sm-2 col-md-2 col-lg-2">
-							<p>02/05/2020</p>
+							<p><span th:text="${#dates.format(applicationForm.advert.deadlineDate, 'dd-MM-yyyy')}"/> </p>
 						</div>
 					</div>
 					

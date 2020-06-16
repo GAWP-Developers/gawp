@@ -3,9 +3,11 @@ package com.gawpdevelopers.gawp.controllers;
 import com.gawpdevelopers.gawp.commands.AdvertForm;
 import com.gawpdevelopers.gawp.converters.AdvertToAdvertForm;
 import com.gawpdevelopers.gawp.domain.Advert;
+import com.gawpdevelopers.gawp.domain.Applicant;
 import com.gawpdevelopers.gawp.domain.Mail;
 import com.gawpdevelopers.gawp.domain.UserDetailsImpl;
 import com.gawpdevelopers.gawp.services.AdvertService;
+import com.gawpdevelopers.gawp.services.ApplicantService;
 import com.gawpdevelopers.gawp.services.MailService;
 import com.gawpdevelopers.gawp.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,8 @@ public class AdvertHandler {
     private UserDetailsServiceImpl userDetailsService;
     @Autowired
     private MailService emailService;
+    private ApplicantService applicantService;
+
     public void setEmailService(MailService emailService){
         this.emailService = emailService;
     }
@@ -46,13 +50,22 @@ public class AdvertHandler {
         this.userDetailsService = userDetailsService;
     }
 
+    @Autowired
+    public void setUserDetailsService(UserDetailsServiceImpl userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
 
     @Autowired
     public void setAdvertService(AdvertService advertService) {
         this.advertService = advertService;
     }
 
-//    @RequestMapping({"/", "/index"})
+    @Autowired
+    public void setApplicantService(ApplicantService applicantService) {
+        this.applicantService = applicantService;
+    }
+
+    //    @RequestMapping({"/", "/index"})
 //    public String redirToIndex(){
 //        return "/index";
 //    }
@@ -160,7 +173,15 @@ public class AdvertHandler {
 
     @RequestMapping({"/applicant/advert/", "/applicant/advert/list"})
     public String listAdvertsForApplicant(Model model){
-        model.addAttribute("adverts", advertService.listAll());
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Applicant applicant = applicantService.getByApiId(auth.getName());
+        List adverts =
+                advertService.listAll().stream()
+                        .filter(advert ->
+                                advert.getApplications().stream()
+                                        .noneMatch(application -> application.getApplicant().getId() == applicant.getId()))
+                        .collect(Collectors.toList());
+        model.addAttribute("adverts", adverts);
         return "applicant/find-advert-applicant";
     }
 
