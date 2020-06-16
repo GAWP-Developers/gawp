@@ -293,5 +293,20 @@ public class ApplicationHandler {
 
     }
 
+    @RequestMapping("/department/adverts/interviewNotSet/applications")
+    public String listInterviewNotSetApplications(Model model){
+
+        //  TODO CANA ÖZEL NOT: STATUSÜ UNUTMA!
+        List<Application> allApplications = applicationService.listAll();
+        List<Application> applications =
+                allApplications.stream()
+                        .filter(application -> application.getInterview() == null)
+                        .collect(Collectors.toList());
+
+        model.addAttribute("applications", applications);
+
+        return "department/all-1-1";
+    }
+
 
 }

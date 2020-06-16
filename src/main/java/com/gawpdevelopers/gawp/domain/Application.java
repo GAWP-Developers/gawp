@@ -12,8 +12,7 @@ public class Application {
     private Long id;
     @OneToOne(mappedBy = "application")
     private Interview interview;
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ADVERT_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
     private Advert advert;  // Advert ID - Will be Set Later
     //TODO @NotNull
     @ManyToOne

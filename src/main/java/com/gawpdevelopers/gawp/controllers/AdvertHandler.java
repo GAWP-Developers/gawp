@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Controller class that responds to the /advert/* requests.
@@ -133,7 +135,27 @@ public class AdvertHandler {
     public String listAdvertsOfDepartment(Model model){
         //TODO get adverts belonging to department and put it in model.
         //TODO html is currently hardcoded. Connect the front-end with back-end.
-        return "department/all-adverts-of-the-department";
+        List adverts = advertService.listAll(); //  TODO may not want to list all, only adverts belonging to department
+
+        model.addAttribute("adverts", adverts);
+        return "department/all";
+    }
+
+    @RequestMapping("/department/adverts/interviewNotSet")
+    public String listAdvertsThatInterviewNotSet(Model model){
+        List<Advert> allAdverts = advertService.listAll(); //  TODO may not want to list all, only adverts belonging to department
+
+        // TODO CANA ÖZEL NOT: APPLICATION STATUSÜ UNUTMA!
+        List<Advert> adverts =
+                allAdverts.stream()
+                        .filter(advert ->
+                                advert.getApplications().stream()
+                                        .anyMatch(application -> application.getInterview() == null))
+                        .collect(Collectors.toList());
+
+        model.addAttribute("adverts", adverts);
+
+        return "department/all-1";
     }
 
 
