@@ -99,6 +99,22 @@ public class ApplicationHandler {
         return "applicant/main-page-applicant";
     }
 
+    @RequestMapping("/applicant/myApplications")
+    public String listMyApplications(Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Applicant applicant = applicantService.getByApiId(auth.getName());
+        List<Application> allAplications = applicationService.listAll();
+
+        List<Application> myApplications =
+                allAplications.stream()
+                        .filter(application -> application.getApplicant().getId() == applicant.getId())
+                        .collect(Collectors.toList());
+        model.addAttribute("myApplications", myApplications);
+
+        return "applicant/my-applications";
+    }
+    /* USELESS?
+
     @RequestMapping({"/application/list", "/application"})
     public String listApplications(Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -121,7 +137,7 @@ public class ApplicationHandler {
 
         model.addAttribute("ApplicationForm", applicationForm);
         return "application/applicationform";
-    }
+    }*/
 
     @RequestMapping("/applicant/application/new/{advert_id}")
     public String newApplication(@PathVariable Long advert_id, Model model){
@@ -148,24 +164,27 @@ public class ApplicationHandler {
     }
 
     @RequestMapping(value = "/notify/{id}", method = RequestMethod.POST)
-    public String notifyApplicant(@Valid ApplicationForm applicationForm, BindingResult bindingResult,
-                                  @PathVariable String id,
+    public String notifyApplicant(@PathVariable String id,
                                   @RequestParam("sending-mail") String mailContent){
         //TODO still not working cant invoke post
-        if(bindingResult.hasErrors()){
-            return "/grad/applications-to-pre-review";
-        }
+//        if(bindingResult.hasErrors()){
+//            return "/grad/applications-to-pre-review";
+//        }
         //Application saved = applicationService.saveOrUpdate(application);
         //Applicant applicant = application.getApplicant();
        //
         Application application = applicationService.getById(Long.valueOf(id));
         application.setStatus(ApplicationStatus.MISSINGDOCUMENT);
         Application savedApplication = applicationService.saveOrUpdate(application);
-        System.out.println(application.getId());
+
+        mailContent = mailContent.replaceAll("<br>", "\n");
+        mailContent += "\nPlease fix those parts of your application in your 'My Applications' page.\n\nRegards\nGAWP";
+        System.out.println("###############");
+        System.out.println(mailContent);
         Mail mail = new Mail();
         mail.setFrom("noreply@gawp.com");
         mail.setTo(application.getApplicant().getEmail());
-        mail.setSubject("Information About Missing Documents");
+        mail.setSubject("About Your Application To " + application.getAdvert().getName());
         mail.setContent(mailContent);
         emailService.sendSimpleMessage(mail);
         return "redirect:/grad/applicationsBeforeForwarding/preReview";
@@ -356,25 +375,25 @@ public class ApplicationHandler {
     }
 
 
-/*
-    @RequestMapping(path="/notify/{id}")
-    public String notify(@PathVariable String id){
-        //TODO notify için mail-message i fronttan alınması lazım
-        Application application= applicationService.getById(Long.valueOf(id));
-        application.setStatus(ApplicationStatus.MISSINGDOCUMENT);
-        Application saved = applicationService.saveOrUpdate(application);
-        Applicant applicant =application.getApplicant();
-        Mail mail = new Mail();
-        mail.setFrom("noreply@gawp.com");
-        mail.setTo(applicant.getEmail());
-        mail.setSubject("Size Spring ilen Salamlar getirmişem");
-        mail.setContent("You have notified");
-        emailService.sendSimpleMessage(mail);
-        return "redirect:/grad/applicationsBeforeForwarding/preReview";
+//    @RequestMapping(value = "/notify/{applicationID}", method = RequestMethod.POST)
+//    public String notify(@PathVariable String applicationID, @RequestParam("sendingMail") String mailContent){
+//        //TODO notify için mail-message i fronttan alınması lazım
+//        System.out.println("FELDİM BURDAYIM#######");
+//        Application application= applicationService.getById(Long.valueOf(applicationID));
+//        application.setStatus(ApplicationStatus.MISSINGDOCUMENT);
+//        Application saved = applicationService.saveOrUpdate(application);
+//        Applicant applicant =application.getApplicant();
+//        Mail mail = new Mail();
+//        System.out.println(applicant.getEmail());
+//        mail.setFrom("noreply@gawp.com");
+//        mail.setTo(applicant.getEmail());
+//        mail.setSubject("About Your Application To" + application.getAdvert().getName());
+//        mail.setContent(mailContent);
+//        emailService.sendSimpleMessage(mail);
+//
+//        return "redirect:/grad/applicationsBeforeForwarding/preReview";
 
-    }
-
-*/
+//    }
     @RequestMapping("/grad/applicationsBeforeForwarding/declined")
     public String listDeclinedApplication(Model model){
         List<Application> declinedList= applicationService.listByStatus(ApplicationStatus.REJECTED);

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>My Applications</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+        <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
+            th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}"
+            rel="stylesheet" media="screen"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+        <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
+                th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+
+        <link href="../../static/css/spring-core.css"
+            th:href="@{css/spring-core.css}" rel="stylesheet" media="screen"/>
+        <link href="../../static/css/my-applications.css"
+              th:href="@{/css/my-applications.css}" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"/>
+    </head>
+    <body onload="addToList();addToList2();setStatusColor()">
+        <nav class="navbar navbar-default">
+            <div class="container">
+                <div class="navbar-header">
+
+                    <a href="#" class="navbar-brand">Graduate Application Program</a>
+                </div>
+                
+                <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                <span class="glyphicon glyphicon-menu-hamburger"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="#">Settings</a></li>
+                <li><a href="#">Sign Out</a></li>
+            </ul>
+        </li>
+        </ul>
+            </div>
+        </nav><!-- end of the navbar-->
+
+
+
+        <div class="section">
+            <p class="main-title">My Applications</p>
+                
+                
+            <div class="container"  style="margin-bottom: 10px; ">
+                <div class="container-section d-flex align-items-center justify-content-center col-4">
+                    <div class="find-right-advert-section" style="box-sizing: border-box; border: solid 1px #337ab7; padding: 20px 30px 20px 30px;border-radius: 30px;box-shadow: -2px 3px 4px #f7e4e4; ">
+                        <th:block th:each="myApplication : ${myApplications}">
+                        <div class="row">
+                            <div class="col-md-3 col-lg-3 job-attribute-part" style="padding-left: 30px;">
+                                <p>Application to <span th:text="${myApplication.getAdvert().getName()}"/></p>
+                            </div>
+                            
+                            <div class="col-md-2 col-lg-2 date-attribute-part" style="text-align: right;">
+                                <p>Deadline:<br><span th:text="${#dates.format(myApplication.advert.deadlineDate, 'dd-MM-yyyy')}"/></p>
+                            </div>
+                            <div class="col-md-2 col-lg-2 date-attribute-part">
+                                <p>Last Updated:<br><span th:text="${#dates.format(myApplication.lastUpdateDate, 'dd-MM-yyyy')}"/></p>
+                            </div>
+
+                            <div class="col-md-3 col-lg-3"  >
+                                <p>Status:<br> <span th:text="${myApplication.status}"/></p>
+                            </div>
+
+                            <div th:if="${myApplication.status.toString().equals('MISSINGDOCUMENT')}" class="col-md-2 col-lg-2 button-part-second" >
+                                    <a href="#" class="btn btn-default apply" style="color: red; border-color: red;">Fix</a>
+                            </div>
+                            <div th:if="${myApplication.status.toString().equals('WAITINGFORCONTROL')}" class="col-md-2 col-lg-2 button-part-second" >
+                                <a href="#" class="btn btn-default apply" style="color: blue; border-color: blue;">Update</a>
+                            </div>
+                        </div>
+                        </th:block>
+                    </div>
+                </div>
+            </div>
+            
+
+        </div>
+        
+
+    </body>
+</html>

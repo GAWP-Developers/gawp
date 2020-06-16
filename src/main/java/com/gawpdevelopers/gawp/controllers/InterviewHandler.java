@@ -221,6 +221,13 @@ public class InterviewHandler {
 
         System.out.println(application.getId());
 
+
+        //  These are needed for applicant's foreign passport and permission letter parts
+        //  in the html
+
+        //  This is filtering with java streams.
+        //  it basically searches for documents with passport and returns them in a list.
+        //  If list is empty, isForeign = false.
         List passport = application.getDocuments().stream()
                 .filter(d -> d.getDocType().toString().equals("PASSPORT"))
                 .collect(Collectors.toList());
