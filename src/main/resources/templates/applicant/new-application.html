@@ -49,7 +49,7 @@
             <div class="container-section-part ">
                 <div class="row cs-first">
                     <div class="row cs-first-title col-xs-6">
-                        <p>Advert Name Is This.</p>
+                        <p th:text="${applicationForm.advert.getType() + ' in ' + applicationForm.advert.getName()}"></p>
                     </div>
 					
 					<div class="col-xs-4">
@@ -57,12 +57,12 @@
 							<p>Expire Date: </p>
 						</div>
 						<div class="date col-xs-2 col-sm-2 col-md-2 col-lg-2">
-							<p>02/05/2020</p>
+							<span th:utext="${#dates.format(applicationForm.advert.deadlineDate, 'dd-MM-yyyy')}"/>
 						</div>
 					</div>
 					
                     <div class="cs-first-description col-xs-2">
-                        <a href="#" style="display: flex; justify-content: flex-end;">
+                        <a th:href="${'/applicant/advert/show/' + applicationForm.advert.id}" style="display: flex; justify-content: flex-end;">
                             <button type="button" class="btn btn-default see-details" style="width: 100%;background: #fff;color:#3F78B3 ;border-color: #3F78B3;border-radius: 15px;">See Details</button>
                         </a>
                     </div>
