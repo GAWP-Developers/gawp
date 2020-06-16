@@ -3,12 +3,6 @@ package com.gawpdevelopers.gawp.controllers;
 import com.gawpdevelopers.gawp.commands.InterviewForm;
 import com.gawpdevelopers.gawp.converters.InterviewToInterviewForm;
 import com.gawpdevelopers.gawp.domain.*;
-import com.gawpdevelopers.gawp.services.ApplicationService;
-import com.gawpdevelopers.gawp.services.InterviewService;
-import com.gawpdevelopers.gawp.services.MailService;
-import com.gawpdevelopers.gawp.services.UserDetailsServiceImpl;
-import com.gawpdevelopers.gawp.domain.Interview;
-import com.gawpdevelopers.gawp.domain.UserDetailsImpl;
 import com.gawpdevelopers.gawp.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -22,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -81,6 +74,7 @@ public class InterviewHandler {
         int applicationsToInterviewCount =
                 applicationService.listAll().stream()
                         .filter(application -> application.getInterview() != null && application.getStatus() == ApplicationStatus.WAITINGFORINTERVIEW)
+                        .filter (application -> application.getAdvert().getDepartmentType() == user.getDepartmentType())
                         .collect(Collectors.toList())
                         .size();
         model.addAttribute("applicationsToInterviewCount", applicationsToInterviewCount);
@@ -88,6 +82,7 @@ public class InterviewHandler {
         int interviewedApplicationCount =
                 applicationService.listAll().stream()
                         .filter(application -> application.getInterview() != null && application.getStatus() == ApplicationStatus.INTERVIEWED)
+                        .filter(application -> application.getAdvert().getDepartmentType() == user.getDepartmentType())
                         .collect(Collectors.toList())
                         .size();
         model.addAttribute("interviewedApplicationCount", interviewedApplicationCount);
@@ -127,8 +122,6 @@ public class InterviewHandler {
         if(bindingResult.hasErrors())
             return "interview";
 
-        // TODO things to do before setting parameters?
-        // TODO @Valid Interview interview (as parameter)
         Interview interview = new Interview();
 
         interview.setPlace(place);
@@ -140,9 +133,16 @@ public class InterviewHandler {
         return "redirect:/department/interview/list";
     }*/
 
-    @RequestMapping("/department/interview/new/success")
-    public String interviewSuccess(){
-        return "department/succesful-interview";
+    @RequestMapping("/department/interview/new/success/{successMessage}")
+    public String interviewSuccess(Model model,
+                                   @PathVariable String successMessage){
+        if (successMessage.equals("interview-created"))
+            return "department/succesful-interview";
+
+        else if (successMessage.equals("interview-evaluated"))
+            return "department/evaluated-interview";
+
+        return "/department"; // TODO error page would be better.
     }
 
     @RequestMapping("/department/interview/new/{application_id}")
@@ -154,8 +154,9 @@ public class InterviewHandler {
         model.addAttribute("lname", applicationService.getById(application_id).getApplicant().getlName());
         model.addAttribute("advertName", applicationService.getById(application_id).getAdvert().getName());
         model.addAttribute("advertDeadline", applicationService.getById(application_id).getAdvert().getDeadlineDate());
+        model.addAttribute("advertID", applicationService.getById(application_id).getAdvert().getId());
 
-        System.out.println("BURDAYIM");
+        //System.out.println("BURDAYIM");
 
         /**System.out.println("application");
 
@@ -190,7 +191,7 @@ public class InterviewHandler {
         interviewForm.getApplication().setStatus(ApplicationStatus.WAITINGFORINTERVIEW);
         Interview savedInterview = interviewService.saveOrUpdateInterviewForm(interviewForm);
 
-        return "redirect:/department/interview/new/success";
+        return "redirect:/department/interview/new/success/interview-created";
     }
 
     private void sendMail(InterviewForm interviewForm, String mailContent) {
@@ -255,7 +256,7 @@ public class InterviewHandler {
     }
 
     @RequestMapping(value = "/department/interview/afterreview", method = RequestMethod.POST)
-    public String UpdateInterviewAfter(@Valid InterviewForm interviewForm, BindingResult bindingResult){
+    public String updateInterviewAfter(@Valid InterviewForm interviewForm, BindingResult bindingResult){
 
         if(bindingResult.hasErrors()){
             return "department/interviewform";
@@ -266,7 +267,7 @@ public class InterviewHandler {
 
         System.out.println(savedInterview.getTime());
 
-        return "redirect:/department/interview/new/success";
+        return "redirect:/department/interview/new/success/interview-evaluated";
     }
 
     /*

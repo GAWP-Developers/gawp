@@ -32,13 +32,17 @@ import java.util.stream.Collectors;
 @Controller
 public class ApplicationHandler {
     private ApplicationService applicationService;
-
+    private UserDetailsServiceImpl userDetailsService;
     private ApplicationToApplicationForm applicationToApplicationForm;
     private AdvertService advertService;
     private ApplicantService applicantService;
     private StorageService storageService;
     private DocumentService documentService;
     private MailService emailService;
+    @Autowired
+    public void setUserDetailsServiceImpl(UserDetailsServiceImpl userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
 
     @Autowired
     public void setEmailService(MailService emailService){
@@ -531,7 +535,7 @@ public class ApplicationHandler {
 
         return "/grad/check-interview";
     }
-    @RequestMapping("/setConfirm/{id}")
+    @RequestMapping("/grad/setConfirm/{id}")
     public String setStatus(@PathVariable String id){
         Application application= applicationService.getById(Long.valueOf(id));
         application.setStatus(ApplicationStatus.CONFIRMED);
@@ -541,7 +545,7 @@ public class ApplicationHandler {
     }
 
 
-    @RequestMapping(path="/ignore/{id}")
+    @RequestMapping(path="/grad/ignore/{id}")
     public String ignore(@PathVariable String id){
 
         Application application= applicationService.getById(Long.valueOf(id));
@@ -560,23 +564,23 @@ public class ApplicationHandler {
     }
 
 
-//    @RequestMapping(value = "/notify/{applicationID}", method = RequestMethod.POST)
-//    public String notify(@PathVariable String applicationID, @RequestParam("sendingMail") String mailContent){
-//        //TODO notify için mail-message i fronttan alınması lazım
-//        System.out.println("FELDİM BURDAYIM#######");
-//        Application application= applicationService.getById(Long.valueOf(applicationID));
-//        application.setStatus(ApplicationStatus.MISSINGDOCUMENT);
-//        Application saved = applicationService.saveOrUpdate(application);
-//        Applicant applicant =application.getApplicant();
-//        Mail mail = new Mail();
-//        System.out.println(applicant.getEmail());
-//        mail.setFrom("noreply@gawp.com");
-//        mail.setTo(applicant.getEmail());
-//        mail.setSubject("About Your Application To" + application.getAdvert().getName());
-//        mail.setContent(mailContent);
-//        emailService.sendSimpleMessage(mail);
-//
-//        return "redirect:/grad/applicationsBeforeForwarding/preReview";
+
+/*
+    @RequestMapping(path="/notify/{id}")
+    public String notify(@PathVariable String id){
+        Application application= applicationService.getById(Long.valueOf(id));
+        application.setStatus(ApplicationStatus.MISSINGDOCUMENT);
+        Application saved = applicationService.saveOrUpdate(application);
+        Applicant applicant =application.getApplicant();
+        Mail mail = new Mail();
+        mail.setFrom("noreply@gawp.com");
+        mail.setTo(applicant.getEmail());
+        mail.setSubject("Size Spring ilen Salamlar getirmişem");
+        mail.setContent("You have notified");
+        emailService.sendSimpleMessage(mail);
+        return "redirect:/grad/applicationsBeforeForwarding/preReview";
+
+    }
 
 //    }
     @RequestMapping("/grad/applicationsBeforeForwarding/declined")
@@ -590,23 +594,60 @@ public class ApplicationHandler {
     public String listDeclinedApplications(@PathVariable String id,Model model){
         Application application = applicationService.getById(Long.valueOf(id));
         model.addAttribute("declinedApplication", application);
+        List passport = application.getDocuments().stream()
+                .filter(d -> d.getDocType().toString().equals("PASSPORT"))
+                .collect(Collectors.toList());
+        boolean isForeign = !passport.isEmpty();
+        model.addAttribute("isForeign", isForeign);
 
-        return "/grad/view-declined-application";
+        //  Same logic as passport
+        List permissionLetter = application.getDocuments().stream()
+                .filter(d -> d.getDocType().toString().equals("PERMISSIONLETTER"))
+                .collect(Collectors.toList());
+        boolean isWorking = !permissionLetter.isEmpty();
+        model.addAttribute("isWorking", isWorking);
+
+        //  Same logic as passport
+        List englishexam = application.getDocuments().stream()
+                .filter(d -> d.getDocType().toString().equals("ENGLISHEXAM"))
+                .collect(Collectors.toList());
+        boolean hasEnglishExam = !englishexam.isEmpty();
+        model.addAttribute("hasEnglishExam", hasEnglishExam);
+
+        return "/grad/declined-application";
     }
 
     @RequestMapping("/grad/applicationsBeforeForwarding/verifiedAndApproved")
     public String verifiedAndApprovedApplications(Model model){
         List<Application> verifiedList= applicationService.listByStatus(ApplicationStatus.VERIFIED);
         model.addAttribute("verified",verifiedList);
-        return "/grad/verfied-and-approved-applications";
+        return "/grad/verified-and-approved-applications";
     }
-    //TODO the views are empty now
-    @RequestMapping("/grad/applicationsBeforeForwarding/verified/{id}")
+
+    @RequestMapping("/grad/applicationsBeforeForwarding/verifiedAndApproved/{id}")
     public String declinedApplication(@PathVariable String id,Model model){
         Application application = applicationService.getById(Long.valueOf(id));
         model.addAttribute("verifiedApplication", application);
+        List passport = application.getDocuments().stream()
+                .filter(d -> d.getDocType().toString().equals("PASSPORT"))
+                .collect(Collectors.toList());
+        boolean isForeign = !passport.isEmpty();
+        model.addAttribute("isForeign", isForeign);
 
-        return "/grad/view-verified-application";
+        //  Same logic as passport
+        List permissionLetter = application.getDocuments().stream()
+                .filter(d -> d.getDocType().toString().equals("PERMISSIONLETTER"))
+                .collect(Collectors.toList());
+        boolean isWorking = !permissionLetter.isEmpty();
+        model.addAttribute("isWorking", isWorking);
+
+        //  Same logic as passport
+        List englishexam = application.getDocuments().stream()
+                .filter(d -> d.getDocType().toString().equals("ENGLISHEXAM"))
+                .collect(Collectors.toList());
+        boolean hasEnglishExam = !englishexam.isEmpty();
+        model.addAttribute("hasEnglishExam", hasEnglishExam);
+        return "/grad/verified-application";
     }
 
     @RequestMapping("/grad/applicationsBeforeForwarding/verify")
@@ -619,10 +660,28 @@ public class ApplicationHandler {
     public String applicationToVerify(@PathVariable String id,Model model){
         Application application = applicationService.getById(Long.valueOf(id));
         model.addAttribute("applicationToVerify", application);
+        List passport = application.getDocuments().stream()
+                .filter(d -> d.getDocType().toString().equals("PASSPORT"))
+                .collect(Collectors.toList());
+        boolean isForeign = !passport.isEmpty();
+        model.addAttribute("isForeign", isForeign);
 
-        return "/grad/view-application-to-verify";
+        //  Same logic as passport
+        List permissionLetter = application.getDocuments().stream()
+                .filter(d -> d.getDocType().toString().equals("PERMISSIONLETTER"))
+                .collect(Collectors.toList());
+        boolean isWorking = !permissionLetter.isEmpty();
+        model.addAttribute("isWorking", isWorking);
+
+        //  Same logic as passport
+        List englishexam = application.getDocuments().stream()
+                .filter(d -> d.getDocType().toString().equals("ENGLISHEXAM"))
+                .collect(Collectors.toList());
+        boolean hasEnglishExam = !englishexam.isEmpty();
+        model.addAttribute("hasEnglishExam", hasEnglishExam);
+        return "/grad/verify-application";
     }
-    @RequestMapping(path="/verify/{id}")
+    @RequestMapping(path="/grad/verify/{id}")
     public String verify(@PathVariable String id){
 
         Application application= applicationService.getById(Long.valueOf(id));
@@ -632,26 +691,59 @@ public class ApplicationHandler {
         return "redirect:/grad/applicationsBeforeForwarding/verify";
 
     }
-    @RequestMapping(path="/decline/{id}")
+    @RequestMapping(path="/grad/decline/{id}")
     public String decline(@PathVariable String id){
 
         Application application= applicationService.getById(Long.valueOf(id));
         application.setStatus(ApplicationStatus.REJECTED);
         Application saved = applicationService.saveOrUpdate(application);
+        Mail mail = new Mail();
+        System.out.println(mail.getContent());
+        mail.setFrom("noreply@gawp.com");
+        mail.setTo(saved.getApplicant().getEmail());
+        mail.setSubject("Application Inform Mail");
+        mail.setContent("rejected");
+        emailService.sendSimpleMessage(mail);
 
         return "redirect:/grad/applicationsBeforeForwarding/verify";
 
     }
-    @RequestMapping(path="/undecline/{id}")
-    public String undecline(@PathVariable String id){
-        //TODO link the button change status in declined application view page
-        Application application= applicationService.getById(Long.valueOf(id));
-        application.setStatus(ApplicationStatus.WAITINGFORCONTROL);
-        Application saved = applicationService.saveOrUpdate(application);
 
-        return "redirect:/grad/applicationsBeforeForwarding/declined";
+    // from department
+
+    @RequestMapping(path="/grad/applicationsFromDepartment")
+    public String applicationFromDept(Model model){
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetailsImpl  user =  (UserDetailsImpl) userDetailsService.loadUserByUsername(auth.getName());
+        List<Advert> adverts = advertService.listByGradID(user.getId());
+        model.addAttribute("adverts",adverts);
+
+
+        return "grad/application-from-dept";
 
     }
+    @RequestMapping(path="/grad/applicationsFromDepartment/see-applications/{id}")
+    public String applicationsFromDept(@PathVariable String id, Model model){
+        List<Application> applications = applicationService.listAllInterviewedByAdvert(advertService.getById(Long.valueOf(id)));
+        model.addAttribute("interviewedApplications",applications);
+
+
+        return "grad/see-applications";
+
+    }
+    //TODO html is waiting elman
+    @RequestMapping(path="/grad/applicationsFromDepartment/see-application/{id}")
+    public String applicationFromDept(@PathVariable String id, Model model){
+        Application application = applicationService.getById(Long.valueOf(id));
+        model.addAttribute("interviewedApplication",application);
+
+
+        return "grad/see-application";
+
+    }
+
+
 
     //  File Mapping
 
@@ -659,9 +751,10 @@ public class ApplicationHandler {
     public ResponseEntity<Resource> serveDocument(@PathVariable long id){
         Document doc = documentService.getById(id);
 
-        // TODO Check whether the user should be able to access document
-        // TODO For example, an applicant shouldn't see someone elses document
-
+        /*
+        TODO Check whether the user should be able to access document
+        For example, an applicant shouldn't see someone elses document
+        */
         Resource document = storageService.loadAsResource(doc);
 
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
@@ -673,13 +766,14 @@ public class ApplicationHandler {
 
     @RequestMapping("/department/applicationsToInterview")
     public String listApplicationsToInterview(Model model){
-        //  TODO Applications that belongs to this department should be shown.
-        //      Or are they?
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetailsImpl  user =  (UserDetailsImpl) userDetailsService.loadUserByUsername(auth.getName());
 
         List<Application> applications = applicationService.listAll();
         List<Application> applicationsToInterview =
                 applications.stream()
                         .filter(application ->  application.getStatus() == ApplicationStatus.WAITINGFORINTERVIEW)
+                        .filter(application -> application.getAdvert().getDepartmentType() == user.getDepartmentType())
                         .collect(Collectors.toList());
 
         model.addAttribute("applicationsToInterview", applicationsToInterview);
@@ -689,12 +783,15 @@ public class ApplicationHandler {
 
     @RequestMapping("/department/interviewedApplications")
     public String listInterviewedApplications(Model model){
-        //  TODO Applications that belongs to this department should be shown.
-        //      Or are they?
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetailsImpl  user =  (UserDetailsImpl) userDetailsService.loadUserByUsername(auth.getName());
+        
         List<Application> applications = applicationService.listAll();
         List<Application> interviewedApplications =
                 applications.stream()
-                        .filter(application ->  application.getStatus() == ApplicationStatus.INTERVIEWED)
+                        .filter(application -> application.getStatus() == ApplicationStatus.INTERVIEWED)
+                        .filter(application -> application.getStatus() != ApplicationStatus.ACCEPTED)
+                        .filter(application -> application.getAdvert().getDepartmentType() == user.getDepartmentType())
                         .collect(Collectors.toList());
 
         model.addAttribute("interviewedApplications", interviewedApplications);
@@ -703,14 +800,17 @@ public class ApplicationHandler {
 
     }
 
-    @RequestMapping("/department/adverts/interviewNotSet/applications")
-    public String listInterviewNotSetApplications(Model model){
+    @RequestMapping("/department/adverts/interviewNotSet/applications/{advertId}")
+    public String listInterviewNotSetApplications(Model model,
+                                                  @PathVariable Long advertId){
 
+        //Advert advert = advertService.getById(advertId);
         //  TODO CANA ÖZEL NOT: STATUSÜ UNUTMA!
         List<Application> allApplications = applicationService.listAll();
         List<Application> applications =
                 allApplications.stream()
                         .filter(application -> application.getInterview() == null)
+                        .filter(application -> application.getAdvert().getId().equals(advertId))
                         .collect(Collectors.toList());
 
         model.addAttribute("applications", applications);

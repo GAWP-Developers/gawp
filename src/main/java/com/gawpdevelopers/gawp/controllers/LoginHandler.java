@@ -65,7 +65,7 @@ public class LoginHandler {
           applicantService.saveOrUpdate(newApplicant);
       }
       model.addAttribute("name", attributes.get("name"));
-      return "redirect:applicant/";
+      return "redirect:/applicant";
 }
     @RequestMapping({"/login"})
     public String whoisit(Model  model){

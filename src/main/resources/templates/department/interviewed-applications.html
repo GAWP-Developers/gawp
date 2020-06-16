@@ -23,8 +23,7 @@
     <nav class="navbar navbar-default">
 		<div class="container">
 			<div class="navbar-header">
-
-				<a href="#" class="navbar-brand">GAWP - Department Panel</a>
+				<a href="/department" class="navbar-brand">GAWP - Department Panel</a>
 			</div>
 			
 			<ul class="nav navbar-nav navbar-right">
@@ -64,7 +63,7 @@
                         <p style="margin-top:10px;"><span th:text="${interviewedApplication.interview.point + '/10' }"/><i class="fas fa-star" style="color:#35609F;"></i></p>
                     </div>
                     <div class="col-2 col-md-2 col-lg-2 button-part">
-                        <a href="#">
+                        <a th:href="${'/department/interview/do/' + interviewedApplication.interview.id}">
                             <button class="btn btn-search"><i class="fas fa-search"></i></button>
                         </a>
                     </div>

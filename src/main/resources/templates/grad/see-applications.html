@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Verify Approved Applications</title>
+    <title>Adverts From Applications</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
     <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
@@ -15,8 +15,8 @@
 
     <link href="../../static/css/spring-core.css"
           th:href="@{css/spring-core.css}" rel="stylesheet" media="screen"/>
-    <link href="../../static/css/verify-approved-applications.css"
-          th:href="@{/css/verify-approved-applications.css}" rel="stylesheet" type="text/css"/>
+    <link href="../../static/css/see-applications.css"
+          th:href="@{/css/see-applications.css}" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"/>
 </head>
 <body>
@@ -45,38 +45,39 @@
         <div class="container-section d-flex align-items-center justify-content-center ">
             <div class="container-section-part">
                 <div class="container-title">
-                    <p style="font-size: 28px; color: #474747; border-bottom: solid 1px #c7c6c6aa; padding-left: 50px; padding-bottom:10px; letter-spacing: 0.3px;">Approved Applications</p>
+                    <p style="font-size: 28px; color: #474747; border-bottom: solid 1px #c7c6c6aa; padding-left: 50px; padding-bottom:10px; letter-spacing: 0.3px;">Applications from Department</p>
                 </div>
             </div>
-            <div th:if="${#lists.isEmpty(toverify)}">
-                <p style="margin-top:10px;">There is no application to verify</p>
+            <div th:if="${#lists.isEmpty(interviewedApplications)}">
+                <p style="margin-top:10px;">There is no interviewed application</p>
             </div>
-            <div class="container-second-section"th:each= "vApplication : ${toverify}">
-                <div class="row attribute-part col-9 col-md-9 col-lg-9">
+            <div class="container-second-section" th:each= "interviewedApp : ${interviewedApplications}">
+                <div class="row attribute-part col-9 col-md-9 col-lg-9" style="margin-left: 40px;">
                     <div class="col-4 col-md-4 col-lg-4 id-part">
-                        <p style="margin-top:10px;"th:text="'#' + ${vApplication.id}"></p>
+                        <p th:text="'#' + ${interviewedApp.id}"></p>
                     </div>
                     <div class="col-2 col-md-2 col-lg-2 from-part">
                         <p style="margin-top:10px;">from</p>
                     </div>
-                    <div class="col-3 col-md-3 col-lg-3 name-part">
-                        <p style="margin-top: 10px;"th:text="'#' + ${vApplication.applicant.userName}"></p>
+                    <div class="col-2 col-md-2 col-lg-2 name-part">
+                        <p th:text="${interviewedApp.applicant.userName}"> </p>
                     </div>
-                    <div class="col-3 col-md-3 col-lg-3 button-part">
-                        <a  th:href="${'/grad/applicationsBeforeForwarding/verify/' + vApplication.id}">
+                    <div class="col-2 col-md-2 col-lg-2 star-part">
+                        <p style="margin-top:10px;" th:text=" ${interviewedApp.interview.point+'/10'}"><i class="fas fa-star" style="color:#5F262F;"></i></p>
+                    </div>
+                    <div class="col-2 col-md-2 col-lg-2 button-part">
+                        <a th:href="${'/grad/applicationsFromDepartment/application/' + interviewedApp.id}">
                             <button class="btn btn-search"><i class="fas fa-search"></i></button>
                         </a>
-                        <a  th:href="${'/grad/decline/' + vApplication.id}">
-                            <button class="btn btn-wrong"><i class="fas fa-times"></i></button>
-                        </a>
-                        <a  th:href="${'/grad/verify/' + vApplication.id}">
-                            <button class="btn btn-correct"><i class="fas fa-check"></i></button>
-                        </a>
                     </div>
-                </div>
-            </div>
 
+                </div>
+
+            </div>
         </div>
     </div>
+
+    
+
 </body>
 </html>

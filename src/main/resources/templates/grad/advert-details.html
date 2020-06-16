@@ -15,8 +15,8 @@
 
     <link href="../../static/css/spring-core.css"
           th:href="@{css/spring-core.css}" rel="stylesheet" media="screen"/>
-    <link href="../../static/css/advert-detail-applicant.css"
-          th:href="@{/css/advert-detail-applicant.css}"rel="stylesheet" type="text/css"/>
+    <link href="../../static/css/advert-details.css"
+          th:href="@{/css/advert-details.css}" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"/>
 </head>
 <body>
@@ -24,7 +24,7 @@
 		<div class="container">
 			<div class="navbar-header">
 
-				<a href="/applicant" class="navbar-brand">Graduate Application Program</a>
+				<a href="/grad" class="navbar-brand">GAWP - Grad School</a>
 			</div>
 			
 			<ul class="nav navbar-nav navbar-right">
@@ -52,13 +52,8 @@
         <div class="container-section d-flex align-items-center justify-content-center col-4">
             <div class="container-section-part ">
                 <div class="row cs-first">
-                    <div class="row cs-first-title col-xs-8">
-                        <p ><span th:utext="${advert.getName()}"/></p>
-                    </div>
-                    <div class="cs-first-description col-xs-4">
-                        <a th:href="${'/applicant/application/new/' + advert.getId()}" style="display: flex; justify-content: flex-end;">
-                            <button type="submit" class="btn btn-default see-details" style="width: 50%;background: #3F78B3;color:#FFF ;border-color: #3F78B3;border-radius: 15px;">Apply</button>
-                        </a>
+                    <div class="row cs-first-title col-xs-12">
+                        <p><span th:text="${advert.type + ' in ' + advert.name}"/></p>
                     </div>
                 </div>
 				
@@ -73,7 +68,7 @@
 							<p>Expire Date : </p>
 						</div>
 						<div class="date col-xs-2 col-sm-2 col-md-2 col-lg-2">
-							<p><span th:utext="${#dates.format(advert.deadlineDate, 'dd-MM-yyyy')}"/></p>
+							<p><span th:text="${#dates.format(advert.deadlineDate, 'dd-MM-yyyy')}"/></p>
 						</div>
 					</div>
 				</div>
@@ -85,7 +80,7 @@
                     <div class="cs-third">
                         <div class="details">
 							
-                            <p><span th:utext="${advert.getDetails()}" /></p>
+                            <p><span th:text="${advert.details}"/></p>
 						</div>
                     </div>
 
