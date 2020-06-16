@@ -122,8 +122,6 @@ public class InterviewHandler {
         if(bindingResult.hasErrors())
             return "interview";
 
-        // TODO things to do before setting parameters?
-        // TODO @Valid Interview interview (as parameter)
         Interview interview = new Interview();
 
         interview.setPlace(place);

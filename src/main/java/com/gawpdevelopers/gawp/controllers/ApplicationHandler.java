@@ -363,7 +363,6 @@ public class ApplicationHandler {
 /*
     @RequestMapping(path="/notify/{id}")
     public String notify(@PathVariable String id){
-        //TODO notify için mail-message i fronttan alınması lazım
         Application application= applicationService.getById(Long.valueOf(id));
         application.setStatus(ApplicationStatus.MISSINGDOCUMENT);
         Application saved = applicationService.saveOrUpdate(application);
@@ -547,9 +546,10 @@ public class ApplicationHandler {
     public ResponseEntity<Resource> serveDocument(@PathVariable long id){
         Document doc = documentService.getById(id);
 
-        // TODO Check whether the user should be able to access document
-        // TODO For example, an applicant shouldn't see someone elses document
-
+        /*
+        TODO Check whether the user should be able to access document
+        For example, an applicant shouldn't see someone elses document
+        */
         Resource document = storageService.loadAsResource(doc);
 
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
@@ -561,13 +561,14 @@ public class ApplicationHandler {
 
     @RequestMapping("/department/applicationsToInterview")
     public String listApplicationsToInterview(Model model){
-        //  TODO Applications that belongs to this department should be shown.
-        //      Or are they?
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetailsImpl  user =  (UserDetailsImpl) userDetailsService.loadUserByUsername(auth.getName());
 
         List<Application> applications = applicationService.listAll();
         List<Application> applicationsToInterview =
                 applications.stream()
                         .filter(application ->  application.getStatus() == ApplicationStatus.WAITINGFORINTERVIEW)
+                        .filter(application -> application.getAdvert().getDepartmentType() == user.getDepartmentType())
                         .collect(Collectors.toList());
 
         model.addAttribute("applicationsToInterview", applicationsToInterview);
@@ -577,13 +578,15 @@ public class ApplicationHandler {
 
     @RequestMapping("/department/interviewedApplications")
     public String listInterviewedApplications(Model model){
-        //  TODO Applications that belongs to this department should be shown.
-        //      Or are they?
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetailsImpl  user =  (UserDetailsImpl) userDetailsService.loadUserByUsername(auth.getName());
+        
         List<Application> applications = applicationService.listAll();
         List<Application> interviewedApplications =
                 applications.stream()
                         .filter(application -> application.getStatus() == ApplicationStatus.INTERVIEWED)
                         .filter(application -> application.getStatus() != ApplicationStatus.ACCEPTED)
+                        .filter(application -> application.getAdvert().getDepartmentType() == user.getDepartmentType())
                         .collect(Collectors.toList());
 
         model.addAttribute("interviewedApplications", interviewedApplications);
