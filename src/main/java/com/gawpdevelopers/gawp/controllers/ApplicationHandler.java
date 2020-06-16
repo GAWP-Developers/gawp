@@ -581,7 +581,7 @@ public class ApplicationHandler {
         return "redirect:/grad/applicationsBeforeForwarding/preReview";
 
     }
-
+*/
 //    }
     @RequestMapping("/grad/applicationsBeforeForwarding/declined")
     public String listDeclinedApplication(Model model){

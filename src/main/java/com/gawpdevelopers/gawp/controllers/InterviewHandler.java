@@ -70,6 +70,7 @@ public class InterviewHandler {
         UserDetailsImpl  user =  (UserDetailsImpl) userDetailsService.loadUserByUsername(auth.getName());
         System.out.println(String.join("  ", user.getfName(), user.getlName()));
         model.addAttribute("name", String.join("  ", user.getfName(), user.getlName()));
+        model.addAttribute("deptName", user.getDepartmentType().toString());
 
         int applicationsToInterviewCount =
                 applicationService.listAll().stream()
