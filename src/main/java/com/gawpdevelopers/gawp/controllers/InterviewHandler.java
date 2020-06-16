@@ -80,14 +80,14 @@ public class InterviewHandler {
 
         int applicationsToInterviewCount =
                 applicationService.listAll().stream()
-                        .filter(application -> application.getInterview() == null && application.getStatus() == ApplicationStatus.VERIFIED)
+                        .filter(application -> application.getInterview() != null && application.getStatus() == ApplicationStatus.WAITINGFORINTERVIEW)
                         .collect(Collectors.toList())
                         .size();
         model.addAttribute("applicationsToInterviewCount", applicationsToInterviewCount);
 
         int interviewedApplicationCount =
                 applicationService.listAll().stream()
-                        .filter(application -> application.getInterview() != null && application.getStatus() == ApplicationStatus.VERIFIED)
+                        .filter(application -> application.getInterview() != null && application.getStatus() == ApplicationStatus.INTERVIEWED)
                         .collect(Collectors.toList())
                         .size();
         model.addAttribute("interviewedApplicationCount", interviewedApplicationCount);
@@ -185,8 +185,8 @@ public class InterviewHandler {
 
         sendMail(interviewForm, mailContent);
 
+        interviewForm.getApplication().setStatus(ApplicationStatus.WAITINGFORINTERVIEW);
         Interview savedInterview = interviewService.saveOrUpdateInterviewForm(interviewForm);
-        System.out.println(savedInterview.getTime());
 
         return "redirect:/department/interview/new/success";
     }
@@ -252,7 +252,7 @@ public class InterviewHandler {
             return "department/interviewform";
         }
 
-
+        interviewForm.getApplication().setStatus(ApplicationStatus.INTERVIEWED);
         Interview savedInterview = interviewService.saveOrUpdateInterviewForm(interviewForm);
 
         System.out.println(savedInterview.getTime());

@@ -269,7 +269,7 @@ public class ApplicationHandler {
         List<Application> applications = applicationService.listAll();
         List<Application> applicationsToInterview =
                 applications.stream()
-                        .filter(application -> application.getInterview() == null && application.getStatus() == ApplicationStatus.VERIFIED)
+                        .filter(application ->  application.getStatus() == ApplicationStatus.WAITINGFORINTERVIEW)
                         .collect(Collectors.toList());
 
         model.addAttribute("applicationsToInterview", applicationsToInterview);
@@ -284,7 +284,7 @@ public class ApplicationHandler {
         List<Application> applications = applicationService.listAll();
         List<Application> interviewedApplications =
                 applications.stream()
-                        .filter(application -> application.getInterview() != null && application.getStatus() == ApplicationStatus.VERIFIED)
+                        .filter(application ->  application.getStatus() == ApplicationStatus.INTERVIEWED)
                         .collect(Collectors.toList());
 
         model.addAttribute("interviewedApplications", interviewedApplications);

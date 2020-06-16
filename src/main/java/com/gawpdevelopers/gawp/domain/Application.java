@@ -11,7 +11,7 @@ public class Application {
     @Column(name = "APPLICATION_ID")
     private Long id;
     @OneToOne(mappedBy = "application")
-    private Interview interview;     //  Interview ID - Will be Set Later
+    private Interview interview;
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ADVERT_ID")
     private Advert advert;  // Advert ID - Will be Set Later
