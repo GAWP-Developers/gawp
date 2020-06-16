@@ -63,7 +63,7 @@
                         <p th:text="${interviewedApp.applicant.userName}"> </p>
                     </div>
                     <div class="col-2 col-md-2 col-lg-2 star-part">
-                        <p style="margin-top:10px;">1/10<i class="fas fa-star" style="color:#5F262F;"></i></p>
+                        <p style="margin-top:10px;" th:text=" ${interviewedApp.interview.point+'/10'}"><i class="fas fa-star" style="color:#5F262F;"></i></p>
                     </div>
                     <div class="col-2 col-md-2 col-lg-2 button-part">
                         <a th:href="${'/grad/applicationsFromDepartment/application/' + interviewedApp.id}">
