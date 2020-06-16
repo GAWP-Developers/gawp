@@ -490,7 +490,8 @@ public class ApplicationHandler {
         List<Application> applications = applicationService.listAll();
         List<Application> interviewedApplications =
                 applications.stream()
-                        .filter(application ->  application.getStatus() == ApplicationStatus.INTERVIEWED)
+                        .filter(application -> application.getStatus() == ApplicationStatus.INTERVIEWED)
+                        .filter(application -> application.getStatus() != ApplicationStatus.ACCEPTED)
                         .collect(Collectors.toList());
 
         model.addAttribute("interviewedApplications", interviewedApplications);
@@ -499,14 +500,17 @@ public class ApplicationHandler {
 
     }
 
-    @RequestMapping("/department/adverts/interviewNotSet/applications")
-    public String listInterviewNotSetApplications(Model model){
+    @RequestMapping("/department/adverts/interviewNotSet/applications/{advertId}")
+    public String listInterviewNotSetApplications(Model model,
+                                                  @PathVariable Long advertId){
 
+        //Advert advert = advertService.getById(advertId);
         //  TODO CANA ÖZEL NOT: STATUSÜ UNUTMA!
         List<Application> allApplications = applicationService.listAll();
         List<Application> applications =
                 allApplications.stream()
                         .filter(application -> application.getInterview() == null)
+                        .filter(application -> application.getAdvert().getId().equals(advertId))
                         .collect(Collectors.toList());
 
         model.addAttribute("applications", applications);
