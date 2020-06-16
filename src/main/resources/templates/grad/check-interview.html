@@ -45,6 +45,9 @@
 
 
 
+	<form id="mail-form" th:action="@{/notify/{id}(id=${applicationToReview.id})}"  method="post">
+
+	<input type="text" id="mail-input" name="sending-mail" required   style=" visibility:hidden;" >
     <div class="container" id="first-part" style="margin-bottom: 0px; ">
         <div class="container-section d-flex align-items-center justify-content-center col-4">
             <div class="container-section-part ">
@@ -213,7 +216,7 @@
 					</div>
 
 					<input hidden id="hasEnglishExam" th:value="${hasEnglishExam}"/>
-					<div id="englishExamPart" class="row step-question-part">
+					<div id="englishExamPart" >
 						<div class="just-letter col-xs-2 col-sm-2 col-md-2 col-lg-2">
 							<p>English Exam Result?</p>
 						</div>
@@ -350,15 +353,16 @@
 
 				</div>
 
-				<form >
+<!--				<form >-->
 				<!--Hey Can, Please don't change form's tag alligment, this is important, for shape of mail.-->
-				<form >
+<!--				<form >-->
 					<textarea  id="missing-info" name = "mailtext" style="display:none">Dear Applicant,
 In your application some information which you give when appling are not correct or has some mistakes. Please check your information/s which is in below:
 					</textarea>
-					<input id="mail-message" name="sending-mail" value="" style="display: none;"/>
-				</form>
-				</form>
+					<input id="mail-message" name="send-mail" value="" style="display: none;"/>
+<!--				</form>-->
+<!--				</form>-->
+
 		
 				
 				
@@ -411,7 +415,7 @@ In your application some information which you give when appling are not correct
                         </div>
                         <div class="col-2 col-md-2 col-lg-2 notify-button">
                             <a >
-                                <button type="submit" class="btn btn-default notify" style=" width: 80px; border-radius: 15px;">Notify</button>
+                                <button type="button" onclick="setMail(); submitForm();" class="btn btn-default notify" style=" width: 80px; border-radius: 15px;">Notify</button>
                             </a>
                         </div>
                     </div>
@@ -435,5 +439,9 @@ In your application some information which you give when appling are not correct
         
         </div> 
     </div>
+</form>
+
+
+
 </body>
 </html>

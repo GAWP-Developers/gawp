@@ -24,7 +24,7 @@
 	</script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"/>
 </head>
-<body>
+<body onload="initialLoad();">
     <nav class="navbar navbar-default">
 		<div class="container">
 			<div class="navbar-header">
@@ -207,16 +207,19 @@
 							</a>
 						</div>
 					</div>
-					
-					<div  class="row step-question-part">
-						<div class="just-letter col-xs-2 col-sm-2 col-md-2 col-lg-2">
-							<p>English Exam Result?</p>
-						</div>
-						<div th:each="doc : ${applicationToReview.getDocuments()}"
-							 th:if="${doc.getDocType().toString().equals('ENGLISHEXAM')}"class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
-							<a th:href="${'/docs/' + doc.getId()}" style="display: flex; justify-content: flex-end;">
-								<button type="button" class="btn btn-default Open File-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
-							</a>
+
+					<input hidden id="hasEnglishExam" th:value="${hasEnglishExam}"/>
+					<div id="englishExamPart">
+						<div  class="row step-question-part">
+							<div class="just-letter col-xs-2 col-sm-2 col-md-2 col-lg-2">
+								<p>English Exam Result?</p>
+							</div>
+							<div th:each="doc : ${applicationToReview.getDocuments()}"
+								 th:if="${doc.getDocType().toString().equals('ENGLISHEXAM')}"class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
+								<a th:href="${'/docs/' + doc.getId()}" style="display: flex; justify-content: flex-end;">
+									<button type="button" class="btn btn-default Open File-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
+								</a>
+							</div>
 						</div>
 					</div>
 					 
@@ -308,29 +311,31 @@
 					</div>
 
 				</div>
-				
-						
-						
-				
-				
-				<div class="row step">
-                    <div class="row step-title">
-                        <p>PhD Application</p>
-                    </div>
-									
-					<div  class="row">
-						<div class="just-letter col-xs-12 col-sm-12 col-md-12 col-lg-12">
-							<p>You are in last step. You are trying  to apply to an PhD advert. Please Open File your Master Transcript to complete application.* </p>
+
+
+
+
+				<input hidden id="is-phd" th:value="${applicationToReview.getAdvert().getType().toString().equals('PHD')}"/>
+				<div id="phd-application" class="row step">
+					<div class="row step">
+						<div class="row step-title">
+							<p>PhD Application</p>
+						</div>
+
+						<div  class="row">
+							<div class="just-letter col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								<p>You are in last step. You are trying  to apply to an PhD advert. Please Open File your Master Transcript to complete application.* </p>
+							</div>
+
+
+							<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" ></div>
+							<div class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
+								<button type="button" class="btn btn-default Open File-button" style="width: 100%;background: #ffffff;color:#b29b25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
+							</div>
 						</div>
 
 
-						<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" ></div>
-						<div class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
-							<button type="button" class="btn btn-default Open File-button" style="width: 100%;background: #ffffff;color:#b29b25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
-						</div>
 					</div>
-						
-					
 				</div>
 
 
@@ -354,8 +359,6 @@
 						<input type="text" id="note" th:field="*{comment}" th:value="${interviewToReview.comment}" style="display: none;">
 
 					</div>
-
-
 
 
 
@@ -416,8 +419,9 @@
 	<!--İkinci string herzaman functionun döndürdüğü. Birinci ise o durumda normalde ne döneceğini elle gireceksiniz-->
 	<!--Mesale foreign ise normalde "abc" dönüyor ise, birinci string "abc", ikincisi ise function'un returnlediği değer olacak-->
 	<!--Olmaz ise bana salın-->
-	<script>checkPassport("yabancı ise", "asıl dönen");</script>
-	<script>checkWork("çalışıyorsa","asıl dönen");</script>
+<!--	<script>checkPassport("yabancı ise", "asıl dönen");</script>-->
+<!--	<script>checkWork("çalışıyorsa","asıl dönen");</script>-->
+
 
 </body>
 </html>
