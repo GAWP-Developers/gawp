@@ -57,26 +57,26 @@
                 <div class=" container-third-part">
                     <div class="row first-button-part">
                         <div class="col-8 col-md-8 col-lg-8 button-description">
-                            <p style="margin-top: 10px;">Application to Review</p>
+                            <p style="margin-top: 10px;">Applications to Interview</p>
                         </div>
                         <div class="col-2 col-md-2 col-lg-2 total-value">
-                            <p style="margin-top: 10px; color: #ffffff; font-size: 16px;">125</p>
+                            <p style="margin-top: 10px; color: #ffffff; font-size: 16px;"><span th:text="${applicationsToInterviewCount}"/></p>
                         </div>
                         <div class="col-2 col-md-2 col-lg-2 button">
-                            <a href="#">
+                            <a th:href="@{/department/applicationsToInterview}">
                                 <button class="btn btn-next"><i class="fas fa-chevron-right"></i></button>
                             </a>
                         </div>
                     </div>
                     <div class=" row second-button-part">
                         <div class="col-8 col-md-8 col-lg-8 button-description">
-                            <p style="margin-top: 10px;">Reviewed Applications</p>
+                            <p style="margin-top: 10px;">Interviewed Applications</p>
                         </div>
                         <div class="col-2 col-md-2 col-lg-2 total-value">
-                            <p style="margin-top: 10px; color: #ffffff; font-size: 16px;">386</p>
+                            <p style="margin-top: 10px; color: #ffffff; font-size: 16px;"><span th:text="${interviewedApplicationCount}"/></p>
                         </div>
                         <div class="col-2 col-md-2 col-lg-2 button">
-                            <a href="#">
+                            <a th:href="@{/department/interviewedApplications}">
                                 <button class="btn btn-next"><i class="fas fa-chevron-right"></i></button>
                             </a>
                         </div>

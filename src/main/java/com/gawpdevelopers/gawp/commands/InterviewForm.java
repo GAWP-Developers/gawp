@@ -15,7 +15,7 @@ public class InterviewForm {
     private Date date;
     private Application application;
     private String comment;
-    private Double point;
+    private Integer point;
     private String place;
     private String time;
 
@@ -59,11 +59,11 @@ public class InterviewForm {
         this.comment = comment;
     }
 
-    public Double getPoint() {
+    public Integer getPoint() {
         return point;
     }
 
-    public void setPoint(Double point) {
+    public void setPoint(Integer point) {
         this.point = point;
     }
 

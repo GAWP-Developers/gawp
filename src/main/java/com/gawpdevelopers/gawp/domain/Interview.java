@@ -11,7 +11,7 @@ public class Interview {
     private String place;
     private Date date;
     private String comment;
-    private Double point;
+    private Integer point;
     @ManyToOne
     @JoinColumn(name = "INTINFO_ID")
     private InterviewInfo info;
@@ -60,11 +60,11 @@ public class Interview {
         this.comment = comment;
     }
 
-    public Double getPoint() {
+    public Integer getPoint() {
         return point;
     }
 
-    public void setPoint(Double point) {
+    public void setPoint(Integer point) {
         this.point = point;
     }
 
