@@ -23,7 +23,7 @@
     <nav class="navbar navbar-default">
 		<div class="container">
 			<div class="navbar-header">
-				<a href="#" class="navbar-brand">GAWP - Grad School</a>
+				<a href="/grad" class="navbar-brand">GAWP - Grad School</a>
 			</div>
 			
             <ul class="nav navbar-nav navbar-right">
@@ -62,7 +62,7 @@
                             <p style="margin-top: 10px;">Applications to Pre-Review</p>
                         </div>
                         <div class="col-2 col-md-2 col-lg-2 total-value">
-                            <p style="margin-top: 10px; color: #ffffff; font-size: 16px;">125</p>
+                            <p style="margin-top: 10px; color: #ffffff; font-size: 16px;"><span th:utext="${prereview}"/></p>
                         </div>
                         <div class="col-2 col-md-2 col-lg-2 button">
                             <a href="/grad/applicationsBeforeForwarding/preReview">
@@ -75,7 +75,7 @@
                             <p style="margin-top: 10px;">Verify Approved Applications</p>
                         </div>
                         <div class="col-2 col-md-2 col-lg-2 total-value">
-                            <p style="margin-top: 10px; color: #ffffff; font-size: 16px;">386</p>
+                            <p style="margin-top: 10px; color: #ffffff; font-size: 16px;"><span th:utext="${toverify}"/></p>
                         </div>
                         <div class="col-2 col-md-2 col-lg-2 button">
                             <a href="/grad/applicationsBeforeForwarding/verify">
@@ -88,7 +88,7 @@
                             <p style="margin-top: 10px;">Declined Applications</p>
                         </div>
                         <div class="col-2 col-md-2 col-lg-2 total-value">
-                            <p style="margin-top: 10px; color: #ffffff; font-size: 16px;">3</p>
+                            <p style="margin-top: 10px; color: #ffffff; font-size: 16px;"><span th:utext="${declined}"/></p>
                         </div>
                         <div class="col-2 col-md-2 col-lg-2 button">
                             <a href="/grad/applicationsBeforeForwarding/declined">
@@ -101,7 +101,7 @@
                             <p style="margin-top: 10px;">Verified and Approved Applications</p>
                         </div>
                         <div class="col-2 col-md-2 col-lg-2 total-value">
-                            <p style="margin-top: 10px; color: #ffffff; font-size: 16px;">42</p>
+                            <p style="margin-top: 10px; color: #ffffff; font-size: 16px;"><span th:utext="${verified}"/></p>
                         </div>
                         <div class="col-2 col-md-2 col-lg-2 button">
                             <a href="/grad/applicationsBeforeForwarding/verifiedAndApproved">
