@@ -236,7 +236,12 @@
 									
 					<div  class="row">
 						<div class="just-letter col-xs-12 col-sm-12 col-md-12 col-lg-12">
-							<p>Why you are applying to Master in Computer Engineering - Network Enginnering? Please write a purpose of that?* </p>
+							<p th:text="${'Why are you applying to ' +
+							applicationForm.advert.getType() +
+							' in ' +
+							applicationForm.advert.getName() +
+							'. Please write a purpose of that?*'}">
+							</p>
 						</div>
 						<textarea id="propose" onchange="addPropopose()"class="info-letter big  col-xs-12 col-sm-12 col-md-12 col-lg-12" style="width: 90%" placeholder="Your Statement of Purpose" rows="10" required></textarea>
 						<input id="propose-input" th:field="*{statementOfPurpose}" name="statementOfPurpose" required style=" visibility:hidden;" >
