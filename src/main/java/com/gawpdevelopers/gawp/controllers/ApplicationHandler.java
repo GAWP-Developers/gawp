@@ -507,7 +507,7 @@ public class ApplicationHandler {
     @RequestMapping("/grad/applicationsBeforeForwarding/preReview")
     public String listPreReviewApplications(Model model){
         List<Application> applicationList= applicationService.listByStatus(ApplicationStatus.WAITINGFORCONTROL);
-        applicationService.listByStatus(ApplicationStatus.MISSINGDOCUMENT).forEach(applicationList::add);
+//        applicationService.listByStatus(ApplicationStatus.MISSINGDOCUMENT).forEach(applicationList::add);
         model.addAttribute("applications",applicationList);
 
         return "/grad/applications-to-pre-review";
@@ -553,6 +553,7 @@ public class ApplicationHandler {
         Application application= applicationService.getById(Long.valueOf(id));
         application.setStatus(ApplicationStatus.CONFIRMED);
         Application saved = applicationService.saveOrUpdate(application);
+        System.out.println("HA BURAYA HAÇAN DA");
         return "redirect:/grad/applicationsBeforeForwarding/preReview";
 
     }
@@ -855,6 +856,9 @@ public class ApplicationHandler {
         //Advert advert = advertService.getById(advertId);
         //  TODO CANA ÖZEL NOT: STATUSÜ UNUTMA!
         List<Application> allApplications = applicationService.listAll();
+        allApplications = allApplications.stream()
+                .filter(application -> application.getStatus().equals(ApplicationStatus.VERIFIED))
+                .collect(Collectors.toList());
         List<Application> applications =
                 allApplications.stream()
                         .filter(application -> application.getInterview() == null)

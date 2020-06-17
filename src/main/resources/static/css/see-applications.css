@@ -94,7 +94,7 @@ body{
     text-align: end;
     
 }
-.container-second-section .attribute-part .button-part .btn-search{
+.container-second-section .attribute-part .button-part .btn-search , .btn-wrong , .btn-correct{
     background-color: #da7a8883;
     font-size: 20px;
     color: #FFFFFF;

@@ -21,5 +21,5 @@ public enum DepartmentType {
             case MATHEMATICS: return "Mathematics";
             default: throw new IllegalArgumentException();
         }
-    }*/
+    }
 }

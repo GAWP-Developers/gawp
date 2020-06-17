@@ -65,6 +65,12 @@
                         <a th:href="${'/grad/applicationsFromDepartment/application/' + interviewedApp.id}">
                             <button class="btn btn-search"><i class="fas fa-search"></i></button>
                         </a>
+                        <a  th:href="${'/grad/interview/decline/' + interviewedApp.id}">
+                            <button class="btn btn-wrong"><i class="fas fa-times"></i></button>
+                        </a>
+                        <a  th:href="${'/grad/interview/accept/' + interviewedApp.id}">
+                            <button class="btn btn-correct"><i class="fas fa-check"></i></button>
+                        </a>
                     </div>
 
                 </div>
