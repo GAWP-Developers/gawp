@@ -208,7 +208,7 @@ public class AdvertHandler {
     @RequestMapping( "/department/advert/show/{id}")
     public String getAdverttoDept(@PathVariable String id, Model model){
         model.addAttribute("advert", advertService.getById(Long.valueOf(id)));
-        return "department/advert-details-dept";
+        return "department/dept-advert-details";
     }
 
     private List<Advert> getDepartmentAdverts(List<Advert> allAdverts){

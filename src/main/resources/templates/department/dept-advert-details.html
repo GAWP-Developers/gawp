@@ -21,11 +21,11 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"/>
 </head>
 <body>
-    <nav class="navbar navbar-default" style="background-color:#4E90D4">
+    <nav class="navbar navbar-default">
 		<div class="container">
 			<div class="navbar-header">
 
-				<a href="/applicant" class="navbar-brand">Graduate Application Program</a>
+				<a href="/department" class="navbar-brand">GAWP - Department Panel</a>
 			</div>
 
             <ul class="nav navbar-nav navbar-right">
@@ -49,13 +49,8 @@
         <div class="container-section d-flex align-items-center justify-content-center col-4">
             <div class="container-section-part ">
                 <div class="row cs-first">
-                    <div class="row cs-first-title col-xs-8">
-                        <p ><span th:utext="${advert.getName()}"/></p>
-                    </div>
-                    <div class="cs-first-description col-xs-4">
-                        <a th:href="${'/applicant/application/new/' + advert.getId()}" style="display: flex; justify-content: flex-end;">
-                            <button type="submit" class="btn btn-default see-details" style="width: 50%;background: #3F78B3;color:#FFF ;border-color: #3F78B3;border-radius: 15px;">Apply</button>
-                        </a>
+                    <div class="row cs-first-title col-xs-12">
+                        <p><span th:text="${advert.type + ' in ' + advert.name}"/></p>
                     </div>
                 </div>
 				
@@ -66,17 +61,12 @@
 				
 				<div class="row cs-second-part">
 					<div class="row cs-second">
-						<!--<div class="date-title col-xs-2 col-sm-2 col-md-2 col-lg-2">
-							<p>Expire Date :</p>
+						<div class="date-title col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<p>Expire Date : </p>
 						</div>
-						<div class="date col-xs-2 col-sm-2 col-md-2 col-lg-2"  >
-							<p><span th:utext="${#dates.format(advert.deadlineDate, 'dd/MM/yyyy')}"/></p>
-						</div>-->
-                        <div class="col-xs-4">
-                            <div class="date-title col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                                <p>Deadline: <br><span th:utext="${#dates.format(advert.deadlineDate,'dd/MM/yyyy')}"/> </p>
-                            </div>
-                        </div>
+						<div class="date col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<p> <span th:utext="${#dates.format(advert.deadlineDate,'dd/MM/yyyy')}"/> </p>
+						</div>
 					</div>
 				</div>
 				
@@ -86,8 +76,8 @@
                 <div class="row cs-third-part">
                     <div class="cs-third">
                         <div class="details">
-							
-                            <p><span th:utext="${advert.getDetails()}" /></p>
+
+                            <p> <span th:text="${advert.details}"/></p>
 						</div>
                     </div>
 

@@ -10,7 +10,7 @@ public enum DepartmentType {
     CHEMISTRY,
     MATHEMATICS;
 
-    @Override
+    /**@Override
     public String toString() {
         switch(this) {
             case COMPUTERENGINEERING: return "Computer Engineering";
@@ -23,5 +23,5 @@ public enum DepartmentType {
             case MATHEMATICS: return "Mathematics";
             default: throw new IllegalArgumentException();
         }
-    }
+    }*/
 }
