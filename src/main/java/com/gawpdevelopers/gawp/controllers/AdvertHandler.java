@@ -114,14 +114,14 @@ public class AdvertHandler {
     }
 
     @RequestMapping(value = "/advert", method = RequestMethod.POST)
-    public String saveOrUpdateAdvert(@Valid AdvertForm advertForm, BindingResult bindingResult){
-        if(bindingResult.hasErrors()){
-            return "advert/advertform";
-        }
+    public String saveOrUpdateAdvert(@Valid Advert advertForm, BindingResult bindingResult){
+//        if(bindingResult.hasErrors()){
+//            return "advert/advertform";
+//        }
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetailsImpl  user =  (UserDetailsImpl) userDetailsService.loadUserByUsername(auth.getName());
         advertForm.setGradID(user.getId());
-        Advert savedAdvert = advertService.saveOrUpdateAdvertForm(advertForm);
+        Advert savedAdvert = advertService.saveOrUpdate(advertForm);
         System.out.println(user.getDepartmentType());
         System.out.println(savedAdvert.getDepartmentType());
 
@@ -217,8 +217,8 @@ public class AdvertHandler {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetailsImpl  user =  (UserDetailsImpl) userDetailsService.loadUserByUsername(auth.getName());
         DepartmentType currentDepartmentType = user.getDepartmentType();
-        System.out.println(user.getUsername());
-        System.out.println(currentDepartmentType);
+        //System.out.println(user.getUsername());
+        //System.out.println(currentDepartmentType);
         for (int i = 0; i < allAdverts.size();i++){
             Advert advert = (Advert) allAdverts.get(i);
             if (currentDepartmentType == advert.getDepartmentType()){

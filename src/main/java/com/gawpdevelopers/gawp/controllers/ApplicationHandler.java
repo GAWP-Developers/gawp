@@ -1,6 +1,5 @@
 package com.gawpdevelopers.gawp.controllers;
 
-import com.gawpdevelopers.gawp.commands.ApplicationForm;
 import com.gawpdevelopers.gawp.commands.DocumentForm;
 import com.gawpdevelopers.gawp.converters.ApplicationToApplicationForm;
 import com.gawpdevelopers.gawp.domain.*;
@@ -476,6 +475,20 @@ public class ApplicationHandler {
     }
 
     //  Grad Mapping
+//    //OLD
+//    @RequestMapping("/grad/applicationsBeforeForwarding")
+//    public String applicationsBeforeForwarding(Model model){
+//        List<Application> prereviewList= applicationService.listByStatus(ApplicationStatus.WAITINGFORCONTROL);
+//        applicationService.listByStatus(ApplicationStatus.MISSINGDOCUMENT).forEach(prereviewList::add);
+//        model.addAttribute("prereview",prereviewList.size());
+//        List<Application> toverifyList= applicationService.listByStatus(ApplicationStatus.CONFIRMED);
+//        model.addAttribute("toverify",toverifyList.size());
+//        List<Application> declinedList= applicationService.listByStatus(ApplicationStatus.REJECTED);
+//        model.addAttribute("declined",declinedList.size());
+//        List<Application> verifiedList= applicationService.listByStatus(ApplicationStatus.VERIFIED);
+//        model.addAttribute("verified",verifiedList.size());
+//        return "/grad/application-before-forwarding-to-deparment";
+//    }
 
     @RequestMapping("/grad/applicationsBeforeForwarding")
     public String applicationsBeforeForwarding(Model model){
@@ -617,6 +630,40 @@ public class ApplicationHandler {
         return "/grad/declined-application";
     }
 
+    @RequestMapping("/grad/applicationsBeforeForwarding/accepted")
+    public String listAcceptedApplication(Model model){
+        List<Application> declinedList= applicationService.listByStatus(ApplicationStatus.ACCEPTED);
+        model.addAttribute("declined",declinedList);
+
+        return "/grad/accepted-applications";
+    }
+    @RequestMapping("/grad/applicationsBeforeForwarding/accepted/{id}")
+    public String listAcceptedApplications(@PathVariable String id,Model model){
+        Application application = applicationService.getById(Long.valueOf(id));
+        model.addAttribute("declinedApplication", application);
+        List passport = application.getDocuments().stream()
+                .filter(d -> d.getDocType().toString().equals("PASSPORT"))
+                .collect(Collectors.toList());
+        boolean isForeign = !passport.isEmpty();
+        model.addAttribute("isForeign", isForeign);
+
+        //  Same logic as passport
+        List permissionLetter = application.getDocuments().stream()
+                .filter(d -> d.getDocType().toString().equals("PERMISSIONLETTER"))
+                .collect(Collectors.toList());
+        boolean isWorking = !permissionLetter.isEmpty();
+        model.addAttribute("isWorking", isWorking);
+
+        //  Same logic as passport
+        List englishexam = application.getDocuments().stream()
+                .filter(d -> d.getDocType().toString().equals("ENGLISHEXAM"))
+                .collect(Collectors.toList());
+        boolean hasEnglishExam = !englishexam.isEmpty();
+        model.addAttribute("hasEnglishExam", hasEnglishExam);
+
+        return "/grad/accepted-application";
+    }
+
     @RequestMapping("/grad/applicationsBeforeForwarding/verifiedAndApproved")
     public String verifiedAndApprovedApplications(Model model){
         List<Application> verifiedList= applicationService.listByStatus(ApplicationStatus.VERIFIED);
@@ -732,6 +779,7 @@ public class ApplicationHandler {
         return "grad/see-applications";
 
     }
+    /*
     //TODO html is waiting elman
     @RequestMapping(path="/grad/applicationsFromDepartment/see-application/{id}")
     public String applicationFromDept(@PathVariable String id, Model model){
@@ -741,7 +789,7 @@ public class ApplicationHandler {
 
         return "grad/see-application";
 
-    }
+    }*/
 
 
 

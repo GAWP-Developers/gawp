@@ -9,9 +9,7 @@ public enum DepartmentType {
     PHYSICS,
     CHEMISTRY,
     MATHEMATICS;
-
-    /**@Override
-    public String toString() {
+    public String customToString() {
         switch(this) {
             case COMPUTERENGINEERING: return "Computer Engineering";
             case MECHANICALENGINEERING: return "Mechanical Engineering";
