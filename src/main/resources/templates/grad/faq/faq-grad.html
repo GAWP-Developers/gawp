@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Department Panel Main Page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>
+
+    <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
+            th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+
+    <link href="../../static/css/spring-core.css"
+          th:href="@{css/spring-core.css}" rel="stylesheet" media="screen"/>
+    <link href="../../../static/css/faq-grad.css" th:href="@{/css/faq-grad.css}" rel="stylesheet" type="text/css"/>
+    <script src="../../../static/js/faq-grad.js" th:src="@{/js/faq-grad.js}"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"/>
+</head>
+<body>
+    
+    <div class="container" style="margin-bottom: 10px; ">
+        <div class="container-section d-flex align-items-center justify-content-center col-4">
+            <div class="container-section-part">
+
+                <div class=" container-third-part">
+                    <div style="font-size:30px; display: flex; justify-content: center;">FAQ</div>
+
+
+                    <div class="row first-button-part">
+                        <div class="col-10 col-md-10 col-lg-10 button-description">
+                            <p style="margin-top: 10px;">How can I confirm a application?</p>
+                        </div>
+                        <div class="col-2 col-md-2 col-lg-2 button">
+                            <button onclick="open_close('sol1');" class="btn btn-next"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+                    <div id="sol1" class="row solution">
+                        <div class="col-12 col-md-12 col-lg-12 button-description">
+                            <p style="margin-top: 10px;">After open a application from Confirm part. Check it and then click Confirm. In this page you can see Add buttons if press them tahn the place whic add button belong, add to interrupted things part, and then you can send mail to applicant in ame page to edit the application from applicant.</p>
+                        </div>  
+                        
+                    </div>
+
+                    <div class=" row second-button-part">
+                        <div class="col-10 col-md-10 col-lg-10 button-description">
+                            <p style="margin-top: 10px;">How to approve confirmed application?</p>
+                        </div>
+                        <div class="col-2 col-md-2 col-lg-2 button">
+                                <button onclick="open_close('sol2');" class="btn btn-next"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+                    <div id="sol2" class="row solution">
+                        <div class="col-12 col-md-12 col-lg-12 button-description">
+                            <p style="margin-top: 10px;">Please come Approve page and select a application. Check it, if everything are correct approve it, else please decline it.</p>
+                        </div>  
+                        
+                    </div>
+
+
+                    <div class=" row second-button-part">
+                        <div class="col-10 col-md-10 col-lg-10 button-description">
+                            <p style="margin-top: 10px;">Where can I find other departmens' adverts or applications?</p>
+                        </div>
+                        <div class="col-2 col-md-2 col-lg-2 button">
+                            <a href="#">
+                                <button  onclick="open_close('sol3');" class="btn btn-next"><i class="fas fa-chevron-right"></i></button>
+                            </a>
+                        </div>
+                    </div>
+                    <div id="sol3" class="row solution">
+                        <div class="col-12 col-md-12 col-lg-12 button-description">
+                            <p style="margin-top: 10px;">Because of privacy, you can not find other departments adverts or applications.</p>
+                        </div>  
+                        
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

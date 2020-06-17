@@ -2,6 +2,7 @@ package com.gawpdevelopers.gawp.services;
 
 import com.gawpdevelopers.gawp.commands.ApplicationForm;
 import com.gawpdevelopers.gawp.converters.ApplicationFormToApplication;
+import com.gawpdevelopers.gawp.domain.Advert;
 import com.gawpdevelopers.gawp.domain.Applicant;
 import com.gawpdevelopers.gawp.domain.Application;
 import com.gawpdevelopers.gawp.domain.ApplicationStatus;
@@ -52,6 +53,18 @@ public class ApplicationServiceImpl implements ApplicationService {
         } else {
             return null;
         }
+    }
+
+    @Override
+    public List<Application> listAllInterviewedByAdvert(Advert advert) {
+        List<Application> applications = new ArrayList<>();
+
+        for(Application  app: applicationRepository.findApplicationsByAdvert(advert)){
+            if(app.getStatus()==ApplicationStatus.INTERVIEWED){
+                applications.add(app);
+            }
+        }
+        return applications;
     }
 
     @Override

@@ -65,7 +65,7 @@ public class LoginHandler {
           applicantService.saveOrUpdate(newApplicant);
       }
       model.addAttribute("name", attributes.get("name"));
-      return "redirect:applicant/";
+      return "redirect:/applicant";
 }
     @RequestMapping({"/login"})
     public String whoisit(Model  model){
@@ -122,5 +122,61 @@ public class LoginHandler {
         }
         return "redirect:/";
     }
+
+    //  FOOTER
+    @RequestMapping({"/department/policies", "/applicant/policies", "/grad/policies"})
+    public String policies(){
+        return "policies";
+    }
+
+    @RequestMapping({"/department/aboutUs", "/applicant/aboutUs", "/grad/aboutUs"})
+    public String aboutUs(){
+        return "about-us";
+    }
+
+    @RequestMapping({"/department/helpCenter", "/applicant/helpCenter", "/grad/helpCenter"})
+    public String helpCenter(){
+        return "help-center";
+    }
+
+    @RequestMapping("/department/faq")
+    public String deptFAQ(){
+        return "department/faq/faq-dept";
+    }
+
+    @RequestMapping("/grad/faq")
+    public String gradFAQ(){
+        return "grad/faq/faq-grad";
+    }
+
+    @RequestMapping("/applicant/faq")
+    public String applicantFAQ(){
+        return "applicant/faq/faq-applicant";
+    }
+
+    @RequestMapping("/department/navigator")
+    public String departmentNavigator(){
+        return "department/nav/navigator-dept";
+    }
+
+    @RequestMapping("/grad/navigator")
+    public String gradNavigator(){
+        return "grad/nav/navigator-grad";
+    }
+
+    @RequestMapping("/applicant/navigator")
+    public String applicantNavigator(){
+        return "applicant/nav/navigator-applicant";
+    }
+//    @RequestMapping("/applicant/policies")
+//    public String applicantPolicies(){
+//        return "policies";
+//    }
+//
+//    @RequestMapping("/grad/policies")
+//    public String gradPolicies(){
+//        return "policies";
+//    }
+
 
 }

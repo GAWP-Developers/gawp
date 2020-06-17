@@ -24,25 +24,20 @@
 	</script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"/>
 </head>
-<body>
+<body onload="initialLoad();">
     <nav class="navbar navbar-default">
 		<div class="container">
 			<div class="navbar-header">
-
-				<a href="#" class="navbar-brand">GAWP - Department Panel</a>
+				<a href="/department" class="navbar-brand">GAWP - Department Panel</a>
 			</div>
-			
+
 			<ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <span class="glyphicon glyphicon-menu-hamburger"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Settings</a></li>
-                        <li><a href="#">Sign Out</a></li>
-                    </ul>
-                </li>
-            </ul>
+				<li class="dropdown">
+					<a  href="/logout">
+						<i style='font-size:13px;' class='fas'>&#xf2f5; Sign Out</i>
+					</a>
+				</li>
+			</ul>
 		</div>
 	</nav><!-- end of the navbar-->
 			
@@ -58,16 +53,16 @@
                     </div>
 					
 					<div class="col-xs-4">
-						<div class="date-title col-xs-2 col-sm-2 col-md-2 col-lg-2">
-							<p>Expire Date: </p>
+						<div class="date-title col-xs-4 col-sm-4 col-md-4 col-lg-4">
+							<p>Deadline: <br><span th:utext="${#dates.format(applicationToReview.advert.deadlineDate,'dd/MM/yyyy')}"/> </p>
 						</div>
-						<div class="date col-xs-2 col-sm-2 col-md-2 col-lg-2">
-							<p><span th:utext="${applicationToReview.advert.deadlineDate}"/></p>
-						</div>
+						<!--<div class="date col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<p><span th:utext="${#dates.format(applicationToReview.advert.deadlineDate,'dd/MM/yyyy')}"/></p>
+						</div>-->
 					</div>
 					
                     <div class="cs-first-description col-xs-2">
-						<a th:href= "${'/grad/advert/show/' + applicationToReview.advert.id }" >
+						<a th:href= "${'/department/advert/show/' + applicationToReview.advert.id }" >
                             <button type="button" class="btn btn-default see-details" style="width: 100%;background: #fff;color:#3F78B3 ;border-color: #3F78B3;border-radius: 15px;">See Details</button>
                         </a>
                     </div>
@@ -208,16 +203,19 @@
 							</a>
 						</div>
 					</div>
-					
-					<div  class="row step-question-part">
-						<div class="just-letter col-xs-2 col-sm-2 col-md-2 col-lg-2">
-							<p>English Exam Result?</p>
-						</div>
-						<div th:each="doc : ${applicationToReview.getDocuments()}"
-							 th:if="${doc.getDocType().toString().equals('ENGLISHEXAM')}"class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
-							<a th:href="${'/docs/' + doc.getId()}" style="display: flex; justify-content: flex-end;">
-								<button type="button" class="btn btn-default Open File-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
-							</a>
+
+					<input hidden id="hasEnglishExam" th:value="${hasEnglishExam}"/>
+					<div id="englishExamPart">
+						<div  class="row step-question-part">
+							<div class="just-letter col-xs-2 col-sm-2 col-md-2 col-lg-2">
+								<p>English Exam Result?</p>
+							</div>
+							<div th:each="doc : ${applicationToReview.getDocuments()}"
+								 th:if="${doc.getDocType().toString().equals('ENGLISHEXAM')}"class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
+								<a th:href="${'/docs/' + doc.getId()}" style="display: flex; justify-content: flex-end;">
+									<button type="button" class="btn btn-default Open File-button" style="width: 100%;background: #fff;color:#B29B25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
+								</a>
+							</div>
 						</div>
 					</div>
 					 
@@ -309,29 +307,31 @@
 					</div>
 
 				</div>
-				
-						
-						
-				
-				
-				<div class="row step">
-                    <div class="row step-title">
-                        <p>PhD Application</p>
-                    </div>
-									
-					<div  class="row">
-						<div class="just-letter col-xs-12 col-sm-12 col-md-12 col-lg-12">
-							<p>You are in last step. You are trying  to apply to an PhD advert. Please Open File your Master Transcript to complete application.* </p>
+
+
+
+
+				<input hidden id="is-phd" th:value="${applicationToReview.getAdvert().getType().toString().equals('PHD')}"/>
+				<div id="phd-application" class="row step">
+					<div class="row step">
+						<div class="row step-title">
+							<p>PhD Application</p>
+						</div>
+
+						<div  class="row">
+							<div class="just-letter col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								<p>You are in last step. You are trying  to apply to an PhD advert. Please Open File your Master Transcript to complete application.* </p>
+							</div>
+
+
+							<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" ></div>
+							<div class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
+								<button type="button" class="btn btn-default Open File-button" style="width: 100%;background: #ffffff;color:#b29b25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
+							</div>
 						</div>
 
 
-						<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" ></div>
-						<div class="Open File col-xs-2 col-sm-2 col-md-2 col-lg-2">
-							<button type="button" class="btn btn-default Open File-button" style="width: 100%;background: #ffffff;color:#b29b25 ;border-color: #B29B25;border-radius: 15px;">Open File</button>
-						</div>
 					</div>
-						
-					
 				</div>
 
 
@@ -355,8 +355,6 @@
 						<input type="text" id="note" th:field="*{comment}" th:value="${interviewToReview.comment}" style="display: none;">
 
 					</div>
-
-
 
 
 
@@ -417,8 +415,62 @@
 	<!--İkinci string herzaman functionun döndürdüğü. Birinci ise o durumda normalde ne döneceğini elle gireceksiniz-->
 	<!--Mesale foreign ise normalde "abc" dönüyor ise, birinci string "abc", ikincisi ise function'un returnlediği değer olacak-->
 	<!--Olmaz ise bana salın-->
-	<script>checkPassport("yabancı ise", "asıl dönen");</script>
-	<script>checkWork("çalışıyorsa","asıl dönen");</script>
+<!--	<script>checkPassport("yabancı ise", "asıl dönen");</script>-->
+<!--	<script>checkWork("çalışıyorsa","asıl dönen");</script>-->
+
+
+	<!-- Footer -->
+	<footer>
+		<div class="footer" style="background-color:#e0e0e0; color: black; height: 300px; position: relative; margin-top: 300px;">
+			<div class="footer-content" style="padding: 30px; height: 250px;">
+				<div class="footer-section about col-4 col-md-4 col-lg-4">
+					<div class="about-title-part" style="text-align: center; font-size: 18px; letter-spacing: 0.3px;">
+						<div>
+							<p>ABOUT</p>
+						</div>
+					</div>
+					<ul style="margin: 0; padding: 0;">
+						<li style="text-align: center; list-style: none; font-size: 15px;"><a style=" text-decoration: none; color: #818181;" th:href="@{/department/aboutUs}" target="_blank">About us</a></li>
+					</ul>
+
+				</div>
+				<div class="footer-section support col-4 col-md-4 col-lg-4">
+					<div class="support-title-part"style="text-align: center; font-size: 18px; letter-spacing: 0.3px;">
+						<div>
+							<p>SUPPORT</p>
+						</div>
+					</div>
+					<ul style="margin: 0; padding: 0;">
+						<li style="text-align: center; list-style: none; font-size: 15px;"><a style=" text-decoration: none; color: #818181;" target="_blank" th:href="@{/department/helpCenter}">Help Center</a></li>
+						<li style="text-align: center; list-style: none; font-size: 15px; padding-top: 5px;"><a style=" text-decoration: none; color: #818181;" target="_blank" th:href="@{/department/navigator}">Navigator</a></li>
+						<li style="text-align: center; list-style: none; font-size: 15px; padding-top: 5px;"><a style=" text-decoration: none; color: #818181;" target="_blank" th:href="@{/department/faq}">FAQ</a></li>
+					</ul>
+				</div>
+				<div class="footer-section contact-us col-4 col-md-4 col-lg-4">
+					<div class="contact-title-part" style="text-align: center; font-size: 18px; letter-spacing: 0.3px;">
+						<div>
+							<p>CONTACT US</p>
+						</div>
+					</div>
+					<ul style="margin: 0; padding: 0;">
+						<li style="text-align: center; list-style: none; font-size: 15px; color: #818181;">group10.gawp@gmail.com</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="footer-bottom" style="color: #d6d6d6; height: 50px; text-align: center; position: absolute; bottom: 0; left: 0; width: 100%; font-size: 18px;">
+				<div class="menu" style="background-color: #c9c9c9; list-style: none; padding: 10px 0px 10px 0px;">
+					<ul style="margin: 0;">
+						<a th:href="@{/department/policies}" target="_blank">
+							<li style="color: rgb(77, 77, 77); display: inline; padding: 0px 30px 0px 30px;">Trust and Safety</li>
+							<li style="color: rgb(82, 82, 82); display: inline; padding: 0px 30px 0px 30px;">Term of Use</li>
+							<li style="color: rgb(82, 82, 82); display: inline; padding: 0px 30px 0px 30px;">Privacy Policy</li>
+						</a>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer>
 
 </body>
 </html>

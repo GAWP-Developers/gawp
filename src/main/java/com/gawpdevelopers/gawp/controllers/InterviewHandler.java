@@ -3,12 +3,6 @@ package com.gawpdevelopers.gawp.controllers;
 import com.gawpdevelopers.gawp.commands.InterviewForm;
 import com.gawpdevelopers.gawp.converters.InterviewToInterviewForm;
 import com.gawpdevelopers.gawp.domain.*;
-import com.gawpdevelopers.gawp.services.ApplicationService;
-import com.gawpdevelopers.gawp.services.InterviewService;
-import com.gawpdevelopers.gawp.services.MailService;
-import com.gawpdevelopers.gawp.services.UserDetailsServiceImpl;
-import com.gawpdevelopers.gawp.domain.Interview;
-import com.gawpdevelopers.gawp.domain.UserDetailsImpl;
 import com.gawpdevelopers.gawp.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -22,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -77,10 +70,12 @@ public class InterviewHandler {
         UserDetailsImpl  user =  (UserDetailsImpl) userDetailsService.loadUserByUsername(auth.getName());
         System.out.println(String.join("  ", user.getfName(), user.getlName()));
         model.addAttribute("name", String.join("  ", user.getfName(), user.getlName()));
+        model.addAttribute("deptName", user.getDepartmentType().customToString());
 
         int applicationsToInterviewCount =
                 applicationService.listAll().stream()
                         .filter(application -> application.getInterview() != null && application.getStatus() == ApplicationStatus.WAITINGFORINTERVIEW)
+                        .filter (application -> application.getAdvert().getDepartmentType() == user.getDepartmentType())
                         .collect(Collectors.toList())
                         .size();
         model.addAttribute("applicationsToInterviewCount", applicationsToInterviewCount);
@@ -88,6 +83,7 @@ public class InterviewHandler {
         int interviewedApplicationCount =
                 applicationService.listAll().stream()
                         .filter(application -> application.getInterview() != null && application.getStatus() == ApplicationStatus.INTERVIEWED)
+                        .filter(application -> application.getAdvert().getDepartmentType() == user.getDepartmentType())
                         .collect(Collectors.toList())
                         .size();
         model.addAttribute("interviewedApplicationCount", interviewedApplicationCount);
@@ -127,8 +123,6 @@ public class InterviewHandler {
         if(bindingResult.hasErrors())
             return "interview";
 
-        // TODO things to do before setting parameters?
-        // TODO @Valid Interview interview (as parameter)
         Interview interview = new Interview();
 
         interview.setPlace(place);
@@ -140,9 +134,16 @@ public class InterviewHandler {
         return "redirect:/department/interview/list";
     }*/
 
-    @RequestMapping("/department/interview/new/success")
-    public String interviewSuccess(){
-        return "department/succesful-interview";
+    @RequestMapping("/department/interview/new/success/{successMessage}")
+    public String interviewSuccess(Model model,
+                                   @PathVariable String successMessage){
+        if (successMessage.equals("interview-created"))
+            return "department/succesful-interview";
+
+        else if (successMessage.equals("interview-evaluated"))
+            return "department/evaluated-interview";
+
+        return "/department"; // TODO error page would be better.
     }
 
     @RequestMapping("/department/interview/new/{application_id}")
@@ -154,8 +155,9 @@ public class InterviewHandler {
         model.addAttribute("lname", applicationService.getById(application_id).getApplicant().getlName());
         model.addAttribute("advertName", applicationService.getById(application_id).getAdvert().getName());
         model.addAttribute("advertDeadline", applicationService.getById(application_id).getAdvert().getDeadlineDate());
+        model.addAttribute("advertID", applicationService.getById(application_id).getAdvert().getId());
 
-        System.out.println("BURDAYIM");
+        //System.out.println("BURDAYIM");
 
         /**System.out.println("application");
 
@@ -190,7 +192,7 @@ public class InterviewHandler {
         interviewForm.getApplication().setStatus(ApplicationStatus.WAITINGFORINTERVIEW);
         Interview savedInterview = interviewService.saveOrUpdateInterviewForm(interviewForm);
 
-        return "redirect:/department/interview/new/success";
+        return "redirect:/department/interview/new/success/interview-created";
     }
 
     private void sendMail(InterviewForm interviewForm, String mailContent) {
@@ -221,6 +223,13 @@ public class InterviewHandler {
 
         System.out.println(application.getId());
 
+
+        //  These are needed for applicant's foreign passport and permission letter parts
+        //  in the html
+
+        //  This is filtering with java streams.
+        //  it basically searches for documents with passport and returns them in a list.
+        //  If list is empty, isForeign = false.
         List passport = application.getDocuments().stream()
                 .filter(d -> d.getDocType().toString().equals("PASSPORT"))
                 .collect(Collectors.toList());
@@ -247,8 +256,46 @@ public class InterviewHandler {
 
     }
 
+    @RequestMapping("/department/interview/see/{id}")
+    public String seeInterview(@PathVariable String id, Model model){
+        Interview interview = interviewService.getById(Long.valueOf(id));
+        System.out.println(interview == null);
+        model.addAttribute("interviewToReview",interview);
+
+        Application application = applicationService.getById(interview.getApplication().getId());
+        model.addAttribute("applicationToReview", application);
+
+        //  These are needed for applicant's foreign passport and permission letter parts
+        //  in the html
+
+        //  This is filtering with java streams.
+        //  it basically searches for documents with passport and returns them in a list.
+        //  If list is empty, isForeign = false.
+        List passport = application.getDocuments().stream()
+                .filter(d -> d.getDocType().toString().equals("PASSPORT"))
+                .collect(Collectors.toList());
+        boolean isForeign = !passport.isEmpty();
+        model.addAttribute("isForeign", isForeign);
+
+        //  Same logic as passport
+        List permissionLetter = application.getDocuments().stream()
+                .filter(d -> d.getDocType().toString().equals("PERMISSIONLETTER"))
+                .collect(Collectors.toList());
+        boolean isWorking = !permissionLetter.isEmpty();
+        model.addAttribute("isWorking", isWorking);
+
+        //  Same logic as passport
+        List englishexam = application.getDocuments().stream()
+                .filter(d -> d.getDocType().toString().equals("ENGLISHEXAM"))
+                .collect(Collectors.toList());
+        boolean hasEnglishExam = !englishexam.isEmpty();
+        model.addAttribute("hasEnglishExam", hasEnglishExam);
+
+        return "department/see-interview";
+    }
+
     @RequestMapping(value = "/department/interview/afterreview", method = RequestMethod.POST)
-    public String UpdateInterviewAfter(@Valid InterviewForm interviewForm, BindingResult bindingResult){
+    public String updateInterviewAfter(@Valid InterviewForm interviewForm, BindingResult bindingResult){
 
         if(bindingResult.hasErrors()){
             return "department/interviewform";
@@ -259,7 +306,74 @@ public class InterviewHandler {
 
         System.out.println(savedInterview.getTime());
 
-        return "redirect:/department/interview/new/success";
+        return "redirect:/department/interview/new/success/interview-evaluated";
+    }
+    @RequestMapping(path="/grad/applicationsFromDepartment/application/{id}")
+    public String applicationFromDept(@PathVariable String id, Model model){
+        Application application = applicationService.getById(Long.valueOf(id));
+        model.addAttribute("interviewedApplication",application);
+        Interview interview = application.getInterview();
+        model.addAttribute("interview",interview);
+        List passport = application.getDocuments().stream()
+                .filter(d -> d.getDocType().toString().equals("PASSPORT"))
+                .collect(Collectors.toList());
+        boolean isForeign = !passport.isEmpty();
+        model.addAttribute("isForeign", isForeign);
+
+        //  Same logic as passport
+        List permissionLetter = application.getDocuments().stream()
+                .filter(d -> d.getDocType().toString().equals("PERMISSIONLETTER"))
+                .collect(Collectors.toList());
+        boolean isWorking = !permissionLetter.isEmpty();
+        model.addAttribute("isWorking", isWorking);
+
+        //  Same logic as passport
+        List englishexam = application.getDocuments().stream()
+                .filter(d -> d.getDocType().toString().equals("ENGLISHEXAM"))
+                .collect(Collectors.toList());
+        boolean hasEnglishExam = !englishexam.isEmpty();
+        model.addAttribute("hasEnglishExam", hasEnglishExam);
+
+        return "grad/see-interview-grad";
+
+    }
+    @RequestMapping(path="/grad/interview/accept/{id}")
+    public String accpet(@PathVariable String id){
+
+        Application application= applicationService.getById(Long.valueOf(id));
+        Advert advert = application.getAdvert();
+        String pathid = String.valueOf(advert.getId());
+        application.setStatus(ApplicationStatus.ACCEPTED);
+        Application saved = applicationService.saveOrUpdate(application);
+        Mail mail = new Mail();
+        System.out.println(mail.getContent());
+        mail.setFrom("noreply@gawp.com");
+        mail.setTo(saved.getApplicant().getEmail());
+        mail.setSubject("Application Inform Mail");
+        mail.setContent("Your application is accepted. We're happy to work with you");
+        emailService.sendSimpleMessage(mail);
+
+        return "redirect:/grad/applicationsFromDepartment/see-applications/"+pathid;
+
+    }
+    @RequestMapping(path="/grad/interview/reject/{id}")
+    public String reject(@PathVariable String id){
+
+        Application application= applicationService.getById(Long.valueOf(id));
+        Advert advert = application.getAdvert();
+        String pathid = String.valueOf(advert.getId());
+        application.setStatus(ApplicationStatus.REJECTED);
+        Application saved = applicationService.saveOrUpdate(application);
+        Mail mail = new Mail();
+        System.out.println(mail.getContent());
+        mail.setFrom("noreply@gawp.com");
+        mail.setTo(saved.getApplicant().getEmail());
+        mail.setSubject("Application Inform Mail");
+        mail.setContent("Your application is rejected");
+        emailService.sendSimpleMessage(mail);
+
+        return "redirect:/grad/applicationsFromDepartment/see-applications/"+pathid;
+
     }
 
     /*

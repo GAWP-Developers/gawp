@@ -1,24 +1,49 @@
-function enablePassport() {
-				document.getElementById("extra-1").style = "visibility: visable";
-	 			document.getElementById("no1").style = "display: block";
-        }
-	
-function disablePassport() {
-				document.getElementById("extra-1").style = "visibility: hidden";
-				document.getElementById("yes1").style = "display: block";
+function initialLoad(){
+    console.log(document.getElementById("is-phd"))
+    if (document.getElementById("is-phd").value === "false"){
+        console.log("GİRDİM")
+        makeUnvisiable("phd-application");
+    }
 
-        }
+    if(document.getElementById("hasEnglishExam").value === "false")
+        makeUnvisiable("englishExamPart");
+
+    console.log(document.getElementById("isForeign"))
+
+    if(document.getElementById("isForeign").value === "true")
+        enablePassport();
+    else
+        disablePassport();
+
+    if(document.getElementById("isWorking").value === "true")
+        enableWork();
+    else
+        disableWork();
+
+
+}
+
+function enablePassport() {
+    document.getElementById("extra-1").style = "visibility: visable";
+    document.getElementById("no1").style = "display: block";
+}
+
+function disablePassport() {
+    document.getElementById("extra-1").style = "visibility: hidden";
+    document.getElementById("yes1").style = "display: block";
+
+}
 
 function enableWork() {
-				document.getElementById("extra-2").style = "visibility: visable";
-	 			document.getElementById("yes2").style = "display: block";
-        }
-	
-function disableWork() {
-				document.getElementById("extra-2").style = "visibility: hidden";
-				document.getElementById("no2").style = "display: block";
+    document.getElementById("extra-2").style = "visibility: visable";
+    document.getElementById("yes2").style = "display: block";
+}
 
-        }
+function disableWork() {
+    document.getElementById("extra-2").style = "visibility: hidden";
+    document.getElementById("no2").style = "display: block";
+
+}
 
 
 $(document).ready(function () {
@@ -57,4 +82,22 @@ function checkPassport(string1, string2){
   else {
     disablePassport();
   }
+};
+
+function makeVisiable(elemID)
+{
+    var elem = document.getElementById(elemID);
+    elem.style = "display: block";
+};
+
+function makeUnvisiable(elemID)
+{
+    var elem = document.getElementById(elemID);
+    elem.style = "display: none";
+};
+
+function addChecked(){
+    var star = document.getElementById("star-number");
+    console.log(star);
+    document.getElementById(star.value).checked = "true";
 };

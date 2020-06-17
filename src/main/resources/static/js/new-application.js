@@ -94,20 +94,7 @@ $(document).ready(function () {
 
 function createAddress()
       {
-		var elem = document.getElementById('address-full');
-        var elem1 = document.getElementById('country');  
-		var elem2 = document.getElementById("city");
-		var elem3 = document.getElementById("town");
-		var elem4 = document.getElementById('addr-details');
-
-		elem.value += elem4.value;
-		elem.value += " ";
-		elem.value += elem3.value;
-		elem.value += " ";
-		elem.value += elem2.value;
-		elem.value += " ";
-		elem.value += elem1.value;
-
+      	document.getElementById('address-full').value = document.getElementById('addr-details').value;
         
 	  };
 	  
@@ -391,5 +378,9 @@ function checkRequiredInputs(){
  function addPropopose(){
 	 var elem = document.getElementById('propose-input');
 	 var elem1 = document.getElementById('propose');
-	 elem.innerHTML = elem1.value;
+	 elem.value = elem1.value;
  };
+
+ function submitForm(){
+	 document.getElementById("applicationForm").submit();
+ }

@@ -20,7 +20,7 @@ public class Applicant {
     private String apiID;
     private String email;
     private boolean active;
-    private String roles; // TODO why?
+    private String roles;
     private String  pictureUrl;
     @OneToMany(mappedBy = "applicant")
     private List<Application> applications;

@@ -1,0 +1,103 @@
+@charset "utf-8";
+
+body{
+    height: 100vh;
+    width: 100%;
+    background-color: #f6f6f6;
+}
+
+.navbar-default .navbar-brand {
+    color: #ffffff;
+	display: inline-block;
+    float: none;
+}
+
+ .navbar-header {
+    text-align: center;
+    width: 90%;
+    color: #FFFFFF;
+}
+
+
+.navbar-default{
+	background: #5F262F;
+}
+
+
+.dropdown-menu {
+	color: #000000;
+}
+.nav.navbar-nav.navbar-right li a {
+    color: white;
+}
+
+.nav.navbar-nav.navbar-right li  ul li a {
+    color: black;
+}
+
+.container-section{
+    padding-top: 40px;
+}
+
+.container-section-part .container-title{
+    padding-right: 200px;
+}
+
+.container-second-section{
+    padding-top: 50px;
+}
+
+.container-second-section .attribute-part{
+    padding: 0;
+    margin: 0;
+    border:solid 1px #f0a9b483;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    background-color: #f0a9b483;
+}
+
+.container-second-section .attribute-part .id-part{
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    color: #606060;
+}
+
+.container-second-section .attribute-part .from-part{
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    color: #606060;
+}
+
+.container-second-section .attribute-part .name-part{
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    color: #606060;
+    text-align: center;
+}
+
+.container-second-section .attribute-part .star-part{
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    color: #5F262F;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.container-second-section .attribute-part .button-part{
+    margin: 0;
+    padding: 0;
+    text-align: end;
+    
+}
+.container-second-section .attribute-part .button-part .btn-search , .btn-wrong , .btn-correct{
+    background-color: #da7a8883;
+    font-size: 20px;
+    color: #FFFFFF;
+    outline: 0;
+
+}

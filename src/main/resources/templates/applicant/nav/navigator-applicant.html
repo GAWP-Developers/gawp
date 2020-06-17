@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Department Panel Main Page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>
+
+    <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
+            th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+
+    <link href="../../static/css/spring-core.css"
+          th:href="@{css/spring-core.css}" rel="stylesheet" media="screen"/>
+    <link href="../../../static/css/navigator-applicant.css"
+          th:href="@{/css/navigator-applicant.css}" rel="stylesheet" type="text/css"/>
+    <script src="../../../static/js/navigator-applicant.js"
+            th:src="@{/js/navigator-applicant.js}"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"/>
+</head>
+<body>
+    
+    <div class="container" style="margin-bottom: 10px; ">
+        <div class="container-section d-flex align-items-center justify-content-center col-4">
+            <div class="container-section-part">
+
+                <div class=" container-third-part">
+                    <div style="font-size:30px; display: flex; justify-content: center;">Navigator</div>
+
+
+                    <div class="row first-button-part">
+                        <div class="col-10 col-md-10 col-lg-10 button-description">
+                            <p style="margin-top: 10px;">Where is advert apply page?</p>
+                        </div>
+                        <div class="col-2 col-md-2 col-lg-2 button">
+                            <button onclick="open_close('sol1');" class="btn btn-next"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+                    <div id="sol1" class="row solution">
+                        <div class="col-12 col-md-12 col-lg-12 button-description">
+                            <p style="margin-top: 10px;">Firstly, please sure be in home page. If not when you can press top to logo that is "Graduate Application Program", you will go to home page. After that please find "Apply" button and press it. Then you will go to advert page. Please select a advert which is good for you think and press on it or it's See Details button. Here you can find details of the advert. If you press Apply then you reach "Application form". Enjoy it! </p>
+                            <p style="color: rgb(177, 153, 50);">Home Page  + Apply(button) -> Advert Page + See Details(button) -> Advert Details + Apply(button) -> Application Form</p>
+                        </div>  
+                        
+                    </div>
+
+                    <div class=" row second-button-part">
+                        <div class="col-10 col-md-10 col-lg-10 button-description">
+                            <p style="margin-top: 10px;">Where is my applications?</p>
+                        </div>
+                        <div class="col-2 col-md-2 col-lg-2 button">
+                                <button onclick="open_close('sol2');" class="btn btn-next"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+                    <div id="sol2" class="row solution">
+                        <div class="col-12 col-md-12 col-lg-12 button-description">
+                            <p style="margin-top: 10px;">Firstly, please sure be in home page. If not, when you can press top to logo that is "Graduate Application Program",you will go to home page. After that please find "My Applications" button and press it.Enjoy it.</p>
+                            <p style="color: rgb(177, 153, 50);">Home Page  + My Applications(button) -> My Application Page</p>
+                        </div>  
+                        
+                    </div>
+
+
+                    <div class=" row second-button-part">
+                        <div class="col-10 col-md-10 col-lg-10 button-description">
+                            <p style="margin-top: 10px;">Where can I edit my profile informations?</p>
+                        </div>
+                        <div class="col-2 col-md-2 col-lg-2 button">
+                            <a href="#">
+                                <button  onclick="open_close('sol3');" class="btn btn-next"><i class="fas fa-chevron-right"></i></button>
+                            </a>
+                        </div>
+                    </div>
+                    <div id="sol3" class="row solution">
+                        <div class="col-12 col-md-12 col-lg-12 button-description">
+                            <p style="margin-top: 10px;">In main page, you can find "Edit Profile" button from top right. If you are not in main page,you can press top to logo that is "Graduate Application Program",you will go to home page.</p>
+                            <p style="color: rgb(177, 153, 50);">Home Page  + Edit Profile(button) -> Edit Profile Page</p>
+                        </div>  
+                        
+                    </div>
+
+
+                    <div class=" row second-button-part">
+                        <div class="col-10 col-md-10 col-lg-10 button-description">
+                            <p style="margin-top: 10px;">Where can I change my application form?</p>
+                        </div>
+                        <div class="col-2 col-md-2 col-lg-2 button">
+                            <a href="#">
+                                <button  onclick="open_close('sol4');" class="btn btn-next"><i class="fas fa-chevron-right"></i></button>
+                            </a>
+                        </div>
+                    </div>
+                    <div id="sol4" class="row solution">
+                        <div class="col-12 col-md-12 col-lg-12 button-description">
+                            <p style="margin-top: 10px;">In main page, you can find "My Applications" button from right. If you are not in main page,you can press top to logo that is "Graduate Application Program",you will go to home page.Than select a application whixh do you want to edit.</p>
+                            <p style="color: rgb(177, 153, 50);">Home Page  + My Applications(button) -> My Applications Page</p>
+                        </div>  
+                        
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>

@@ -169,4 +169,12 @@ function makeUnvisiable(elemID)
 	elem.style = "display: none";
 }
 
+function setMail(){
+	document.getElementById("mail-input").value = document.getElementById("sum-missing-info").innerHTML
+}
+
+function submitForm(){
+	document.getElementById("mail-form").submit();
+}
+
 
