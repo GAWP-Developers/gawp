@@ -9,7 +9,6 @@ public enum DepartmentType {
     PHYSICS,
     CHEMISTRY,
     MATHEMATICS;
-
     public String customToString() {
         switch(this) {
             case COMPUTERENGINEERING: return "Computer Engineering";
@@ -22,5 +21,5 @@ public enum DepartmentType {
             case MATHEMATICS: return "Mathematics";
             default: throw new IllegalArgumentException();
         }
-    }
+    }*/
 }
