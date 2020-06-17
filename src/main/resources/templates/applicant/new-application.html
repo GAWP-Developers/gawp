@@ -21,25 +21,21 @@
 			th:src="@{/js/new-application.js}"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"/>
 </head>
-<body>
+<body >
     <nav class="navbar navbar-default">
 		<div class="container">
 			<div class="navbar-header">
 
-				<a href="#" class="navbar-brand">Graduate Application Program</a>
+				<a href="/applicant" class="navbar-brand">Graduate Application Program</a>
 			</div>
-			
+
 			<ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <span class="glyphicon glyphicon-menu-hamburger"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Settings</a></li>
-                        <li><a href="#">Sign Out</a></li>
-                    </ul>
-                </li>
-            </ul>
+				<li class="dropdown">
+					<a  href="/logout">
+						<i style='font-size:13px;' class='fas'>&#xf2f5; Sign Out</i>
+					</a>
+				</li>
+			</ul>
 		</div>
 	</nav><!-- end of the navbar-->
 			
@@ -49,20 +45,25 @@
             <div class="container-section-part ">
                 <div class="row cs-first">
                     <div class="row cs-first-title col-xs-6">
-                        <p>Advert Name Is This.</p>
+                        <p th:text="${applicationForm.advert.getType() + ' in ' + applicationForm.advert.getName()}"></p>
                     </div>
 					
-					<div class="col-xs-4">
-						<div class="date-title col-xs-2 col-sm-2 col-md-2 col-lg-2">
-							<p>Expire Date: </p>
+					<!--<div class="col-xs-4">
+						<div class="date-title col-xs-2 col-sm-2 col-md-2 col-lg-2" >
+							<p>Expire Date:</p>
 						</div>
-						<div class="date col-xs-2 col-sm-2 col-md-2 col-lg-2">
-							<p>02/05/2020</p>
+						<div class="date col-xs-2 col-sm-2 col-md-2 col-lg-2" style="margin-top:9px">
+							<p><span th:text="${#dates.format(applicationForm.advert.deadlineDate, 'dd/MM/yyyy')}"/> </p>
+						</div>
+					</div>-->
+					<div class="col-xs-4">
+						<div class="date-title col-xs-4 col-sm-4 col-md-4 col-lg-4">
+							<p>Deadline: <br><span th:utext="${#dates.format(applicationForm.advert.deadlineDate,'dd/MM/yyyy')}"/> </p>
 						</div>
 					</div>
 					
                     <div class="cs-first-description col-xs-2">
-                        <a href="#" style="display: flex; justify-content: flex-end;">
+                        <a th:href="${'/applicant/advert/show/' + applicationForm.advert.id}" style="display: flex; justify-content: flex-end;">
                             <button type="button" class="btn btn-default see-details" style="width: 100%;background: #fff;color:#3F78B3 ;border-color: #3F78B3;border-radius: 15px;">See Details</button>
                         </a>
                     </div>
@@ -76,63 +77,71 @@
         <div class="container-section d-flex align-items-center justify-content-center col-4" style="padding-top: 10px;">
             <form id="applicationForm" class="container-section-part " th:object="${applicationForm}" th:action="@{/application}" method="post" enctype="multipart/form-data">
 
+				<input hidden th:field="*{id}" th:value="${applicationForm.id}"/>
+				<input hidden th:field="*{advert}" th:value="${applicationForm.advert}"/>
+				<input hidden th:field="*{applicant}" th:value="${applicationForm.applicant}" />
+
                 <div class="row step">
                     <div class="row step-title">
                         <p>STEP-1</p>
 					
 					<div class="row">
-						<textarea data-limit-rows="true" class="info-letter col-xs-6 col-sm-6 col-md-6 col-lg-6" placeholder="Name" rows="1" required>Elman</textarea>
-						<textarea data-limit-rows="true" class="info-letter col-xs-6 col-sm-6 col-md-6 col-lg-6" placeholder="Surname" rows="1" required>Hamdi</textarea>
-					</div>
-					
-					<div class="row">
-						<textarea data-limit-rows="true" class="info-letter col-xs-6 col-sm-6 col-md-6 col-lg-6" placeholder="E-mail" rows="1" required>mail@mail.com</textarea>
-						<textarea data-limit-rows="true" class="info-letter col-xs-6 col-sm-6 col-md-6 col-lg-6" placeholder="E-mail again" rows="1" required>mail@mail.com</textarea>
-					</div>
-					
-					<div  class="row">
-						<input type="date" placeholder="Birth Date" class="info-letter col-xs-6 col-sm-6 col-md-6 col-lg-6" value="1998-01-01" required/>
-						<input type="number" class="info-letter col-xs-6 col-sm-6 col-md-6 col-lg-6" value="905370000000" required/>
-							
-						
+						<input data-limit-rows="true" class="info-letter col-xs-6 col-sm-6 col-md-6 col-lg-6" placeholder="Name" rows="1"
+							   th:field="*{applicant.fName}"
+							   th:value="${applicationForm.applicant.fName}" required>
+						<input data-limit-rows="true" class="info-letter col-xs-6 col-sm-6 col-md-6 col-lg-6" placeholder="Surname" rows="1"
+							   th:field="*{applicant.lName}"
+							   th:value="${applicationForm.applicant.lName}" required>
 					</div>
 					
 					<div  class="row">
-						<select type="text" placeholder="Gender" class="info-letter col-xs-6 col-sm-6 col-md-6 col-lg-6" required>
-							
-                        	<option value=""  disabled style="color: #9C9C9C">Gender</option>
-							<option value="woman">Woman</option>
-							<option selected value="men">Male</option>
-							<option value="none">Not want to specify</option>
-                        </select>
-						<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-						</div>
+						<input type="date" placeholder="Birth Date" class="info-letter col-xs-6 col-sm-6 col-md-6 col-lg-6"
+							   th:field="*{applicant.birthDate}"
+							   th:value="${applicationForm.applicant.birthDate}" required/>
+						<input type="number" class="info-letter col-xs-6 col-sm-6 col-md-6 col-lg-6" placeholder="Phone Number"
+							   th:field="*{applicant.phone}"
+							   th:value="${applicationForm.applicant.phone}" required/>
+
 					</div>
+					
+<!--					<div  class="row">-->
+<!--						<select type="text" placeholder="Gender" class="info-letter col-xs-6 col-sm-6 col-md-6 col-lg-6" required>-->
+<!--							-->
+<!--                        	<option value=""  disabled style="color: #9C9C9C">Gender</option>-->
+<!--							<option value="woman">Woman</option>-->
+<!--							<option selected value="men">Male</option>-->
+<!--							<option value="none">Not want to specify</option>-->
+<!--                        </select>-->
+<!--						<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">-->
+<!--						</div>-->
+<!--					</div>-->
 						
 						
 					<div class="address-part">
                             <div class="title-part">
                                 <p>Address</p>
                             </div>
-                            <div class="row text-area-fourth-section">
-                                <div class="col-4 col-md-4 col-lg-4 text-area-part">
-                                    <input id="country" class="text-area" type="text" placeholder="Country" value="Turkey" required>
-                                </div>
-                                <div class="col-4 col-md-4 col-lg-4 text-area-part">
-                                    <input id ="city" class="text-area" type="text" placeholder="City" value="Izmir" required>
-                                </div>
-                                <div class="col-4 col-md-4 col-lg-4 text-area-part">
-                                    <input id="town"  class="text-area" type="text" placeholder="Town" value="Urla" required>
-                                </div>
-                                
-                            </div>
+<!--                            <div class="row text-area-fourth-section">-->
+<!--                                <div class="col-4 col-md-4 col-lg-4 text-area-part">-->
+<!--                                    <input id="country" class="text-area" type="text" placeholder="Country" value="Turkey" required>-->
+<!--                                </div>-->
+<!--                                <div class="col-4 col-md-4 col-lg-4 text-area-part">-->
+<!--                                    <input id ="city" class="text-area" type="text" placeholder="City" value="Izmir" required>-->
+<!--                                </div>-->
+<!--                                <div class="col-4 col-md-4 col-lg-4 text-area-part">-->
+<!--                                    <input id="town"  class="text-area" type="text" placeholder="Town" value="Urla" required>-->
+<!--                                </div>-->
+<!--                                -->
+<!--                            </div>-->
 
                             <div class="text-area-last-section">
-                                <textarea id="addr-details" class="text-area" rows="5" placeholder="Address Details.." required></textarea>
+                                <textarea id="addr-details" class="text-area" rows="5" placeholder="Address Details.." required
+										  th:value="${applicationForm.applicant.address}"></textarea>
                             </div>
 							
 							<!--Can address inputu olarak aşağıdakini al-->
-							<input id="address-full"  name="address" type="text" value="" style="display:none"/>
+							<input id="address-full"  name="address" type="text" value="" style="display:none"
+								   th:field="*{applicant.address}"/>
                     </div>
 						
 				</div>
@@ -229,8 +238,8 @@
 						<div class="just-letter col-xs-12 col-sm-12 col-md-12 col-lg-12">
 							<p>Why you are applying to Master in Computer Engineering - Network Enginnering? Please write a purpose of that?* </p>
 						</div>
-						<textarea id="propose" onchange="addPropopose()"class="info-letter big  col-xs-12 col-sm-12 col-md-12 col-lg-12" style="width: 90%" placeholder="About Advert ..." rows="10" required>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia voluptatem distinctio veritatis modi incidunt animi, totam nihil molestiae molestias, dolor quod neque numquam tempora odio fugiat magnam? Eos, alias reprehenderit!</textarea>
-						<input id="propose-input" name="statementOfPurpose" required type="file" accept=".pdf" style=" visibility:hidden;" >
+						<textarea id="propose" onchange="addPropopose()"class="info-letter big  col-xs-12 col-sm-12 col-md-12 col-lg-12" style="width: 90%" placeholder="Your Statement of Purpose" rows="10" required></textarea>
+						<input id="propose-input" th:field="*{statementOfPurpose}" name="statementOfPurpose" required style=" visibility:hidden;" >
 						
 						
 						<div class="row" >
@@ -345,8 +354,10 @@
 						</div>
 					</div>
 				</div>
-				
-				
+
+				<div id="advert_type" th:value="${applicationForm.advert.type.toString()}"/>
+<!--				<input hidden id="dummy" name="masterTranscript" type="file" />-->
+				<div th:if="${applicationForm.advert.type.toString().equals('PHD')}" >
 				<div class="row step">
                     <div class="row step-title">
                         <p>PhD Application</p>
@@ -373,19 +384,20 @@
 
 					</div>
 				</div>
+				</div>
 				
 				
 				<div class="bottom-buttons">
 					<div class="col-xs-8"></div>
 					<div class="cs-first-description col-xs-2">
-							<a  style="display: flex; justify-content: flex-end;">
+							<a  href= "/applicant/advert/" style="display: flex; justify-content: flex-end;">
 								<button onClick="createAddress()" type="button" class="btn btn-default cancel" style="width: 100%;background: #fff;color:#3F78B3 ;border-color: #3F78B3;border-radius: 15px;">Cancel</button>
 							</a>
 					</div>
 
 					<div class="cs-first-description col-xs-2">
 							<a href="#" style="display: flex; justify-content: flex-end;">
-								<button  type="submit" onclick="checkRequiredInputs()" class="btn btn-default update" style="width: 100%;background: #3F78B3;color:#fff ;border-color: #3F78B3;border-radius: 15px;">Apply</button>
+								<button  type="submit" onclick="createAddress();checkRequiredInputs();" class="btn btn-default update" style="width: 100%;background: #3F78B3;color:#fff ;border-color: #3F78B3;border-radius: 15px;">Apply</button>
 							</a>
 					</div>
 
@@ -398,6 +410,56 @@
 		</div>
 	</div>
 
+	<footer>
+		<div class="footer" style="background-color:#e0e0e0; color: black; height: 300px; position: relative; margin-top: 300px;">
+			<div class="footer-content" style="padding: 30px; height: 250px;">
+				<div class="footer-section about col-4 col-md-4 col-lg-4">
+					<div class="about-title-part" style="text-align: center; font-size: 18px; letter-spacing: 0.3px;">
+						<div>
+							<p>ABOUT</p>
+						</div>
+					</div>
+					<ul style="margin: 0; padding: 0;">
+						<li style="text-align: center; list-style: none; font-size: 15px;"><a style=" text-decoration: none; color: #818181;" th:href="@{/applicant/aboutUs}" target="_blank">About us</a></li>
+					</ul>
 
+				</div>
+				<div class="footer-section support col-4 col-md-4 col-lg-4">
+					<div class="support-title-part"style="text-align: center; font-size: 18px; letter-spacing: 0.3px;">
+						<div>
+							<p>SUPPORT</p>
+						</div>
+					</div>
+					<ul style="margin: 0; padding: 0;">
+						<li style="text-align: center; list-style: none; font-size: 15px;"><a style=" text-decoration: none; color: #818181;" target="_blank" th:href="@{/applicant/helpCenter}">Help Center</a></li>
+						<li style="text-align: center; list-style: none; font-size: 15px; padding-top: 5px;"><a style=" text-decoration: none; color: #818181;" target="_blank" th:href="@{/applicant/navigator}">Navigator</a></li>
+						<li style="text-align: center; list-style: none; font-size: 15px; padding-top: 5px;"><a style=" text-decoration: none; color: #818181;" target="_blank" th:href="@{/applicant/faq}">FAQ</a></li>
+					</ul>
+				</div>
+				<div class="footer-section contact-us col-4 col-md-4 col-lg-4">
+					<div class="contact-title-part" style="text-align: center; font-size: 18px; letter-spacing: 0.3px;">
+						<div>
+							<p>CONTACT US</p>
+						</div>
+					</div>
+					<ul style="margin: 0; padding: 0;">
+						<li style="text-align: center; list-style: none; font-size: 15px; color: #818181;">group10.gawp@gmail.com</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="footer-bottom" style="color: #d6d6d6; height: 50px; text-align: center; position: absolute; bottom: 0; left: 0; width: 100%; font-size: 18px;">
+				<div class="menu" style="background-color: #c9c9c9; list-style: none; padding: 10px 0px 10px 0px;">
+					<ul style="margin: 0;">
+						<a th:href="@{/applicant/policies}" target="_blank">
+							<li style="color: rgb(77, 77, 77); display: inline; padding: 0px 30px 0px 30px;">Trust and Safety</li>
+							<li style="color: rgb(82, 82, 82); display: inline; padding: 0px 30px 0px 30px;">Term of Use</li>
+							<li style="color: rgb(82, 82, 82); display: inline; padding: 0px 30px 0px 30px;">Privacy Policy</li>
+						</a>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer>
 </body>
 </html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Department Panel Main Page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>
+
+    <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
+            th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+
+    <link href="../../static/css/spring-core.css"
+          th:href="@{css/spring-core.css}" rel="stylesheet" media="screen"/>
+    <link href="../../../static/css/navigator-grad.css" th:href="@{/css/navigator-grad.css}" rel="stylesheet" type="text/css"/>
+    <script src="../../../static/js/navigator-grad.js" th:src="@{/js/navigator-grad.js}"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"/>
+</head>
+<body>
+    
+    <div class="container" style="margin-bottom: 10px; ">
+        <div class="container-section d-flex align-items-center justify-content-center col-4">
+            <div class="container-section-part">
+
+                <div class=" container-third-part">
+                    <div style="font-size:30px; display: flex; justify-content: center;">Navigator</div>
+
+
+                    <div class="row first-button-part">
+                        <div class="col-10 col-md-10 col-lg-10 button-description">
+                            <p style="margin-top: 10px;">Where is application control page?</p>
+                        </div>
+                        <div class="col-2 col-md-2 col-lg-2 button">
+                            <button onclick="open_close('sol1');" class="btn btn-next"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+                    <div id="sol1" class="row solution">
+                        <div class="col-12 col-md-12 col-lg-12 button-description">
+                            <p style="margin-top: 10px;">Firstly, please sure be in home page. If not when you can press top to logo that is "Graduate Application Program", you will go to home page. After that please find "Applications Before Forwarding to Department" button and press it. Then you find "Application to Preview" and "Verify Approved Applications". Enjoy it! </p>
+                            <p style="color: rgb(177, 153, 50);">Home Page  + Applications Before Forwarding to Department(button) -> Applications Before Forwarding to Department Page +Applications to Pre-Review -> Applications to Pre-Review Page</p>                   
+                        </div>  
+                        
+                    </div>
+
+                    <div class=" row second-button-part">
+                        <div class="col-10 col-md-10 col-lg-10 button-description">
+                            <p style="margin-top: 10px;">Where can I find application after department reviewd them?</p>
+                        </div>
+                        <div class="col-2 col-md-2 col-lg-2 button">
+                                <button onclick="open_close('sol2');" class="btn btn-next"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+                    <div id="sol2" class="row solution">
+                        <div class="col-12 col-md-12 col-lg-12 button-description">
+                            <p style="margin-top: 10px;">Go to home page. Then, click "Applications From Department" button. You can see some adverts in this page. Select a advert, and then you can see the applications which are interviewd by the resposible dept.</p>
+                            <p style="color: rgb(177, 153, 50);">Home Page  + Applications From Department(button) ->Applications From Department Page -> Adverts + See Applications(button) -> Applications</p>
+                        </div>  
+                        
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>

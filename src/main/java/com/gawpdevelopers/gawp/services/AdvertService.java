@@ -8,8 +8,9 @@ import java.util.List;
 public interface AdvertService {
 
     List<Advert> listAll();
-
+    List<Advert> listByGradID(Long id);
     Advert getById(Long id);
+
 
     Advert saveOrUpdate(Advert advert);
 

@@ -51,7 +51,7 @@ public class LoginHandler {
   public String login(@RegisteredOAuth2AuthorizedClient OAuth2AuthorizedClient authorizedClient,
                       @AuthenticationPrincipal OAuth2User oauth2User, Model model) {
 
-
+    // TODO fname lname
       Map<String, Object> attributes = oauth2User.getAttributes();
       if(applicantService.getByApiId(oauth2User.getName())==null){
           Applicant newApplicant = new Applicant();
@@ -65,13 +65,13 @@ public class LoginHandler {
           applicantService.saveOrUpdate(newApplicant);
       }
       model.addAttribute("name", attributes.get("name"));
-      return "applicant/main-page-applicant";
+      return "redirect:/applicant";
 }
     @RequestMapping({"/login"})
     public String whoisit(Model  model){
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        model.addAttribute("mail",auth.getAuthorities());
+        model.addAttribute("mail",auth.getAuthorities().toString());
 
 
         model.addAttribute("name",auth.getName() );
@@ -81,13 +81,12 @@ public class LoginHandler {
   
   @RequestMapping("/login-error")  
   public String loginError(Model model) {  
-      model.addAttribute("loginError", true);  
+      model.addAttribute("msg", " something went wrong. try again.");
       return "index";  
   }
 
   @RequestMapping("/index")
   public String perIndex(){
-
       return "/persLogin";
   }
 
@@ -98,9 +97,22 @@ public class LoginHandler {
     }
     @RequestMapping(value="/persLogin",method=RequestMethod.POST)
     public String perIndex(@ModelAttribute("userForm") User userForm){
-        System.out.println("name "+userForm.getUserName());
-        System.out.println("Grad");
-        return "redirect:/grad";
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        return "check";
+    }
+    @RequestMapping("/check")
+    public String check(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if(auth.getAuthorities().toString().equals("[ROLE_DEPT]")){
+            return "redirect:/department";
+        }
+        
+        if(auth.getAuthorities().toString().equals("[ROLE_GRAD]")){
+            return "redirect:/grad";
+        }
+
+        return "redirect:/logout";
     }
     @RequestMapping(value="/logout", method=RequestMethod.GET)
     public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
@@ -110,5 +122,61 @@ public class LoginHandler {
         }
         return "redirect:/";
     }
+
+    //  FOOTER
+    @RequestMapping({"/department/policies", "/applicant/policies", "/grad/policies"})
+    public String policies(){
+        return "policies";
+    }
+
+    @RequestMapping({"/department/aboutUs", "/applicant/aboutUs", "/grad/aboutUs"})
+    public String aboutUs(){
+        return "about-us";
+    }
+
+    @RequestMapping({"/department/helpCenter", "/applicant/helpCenter", "/grad/helpCenter"})
+    public String helpCenter(){
+        return "help-center";
+    }
+
+    @RequestMapping("/department/faq")
+    public String deptFAQ(){
+        return "department/faq/faq-dept";
+    }
+
+    @RequestMapping("/grad/faq")
+    public String gradFAQ(){
+        return "grad/faq/faq-grad";
+    }
+
+    @RequestMapping("/applicant/faq")
+    public String applicantFAQ(){
+        return "applicant/faq/faq-applicant";
+    }
+
+    @RequestMapping("/department/navigator")
+    public String departmentNavigator(){
+        return "department/nav/navigator-dept";
+    }
+
+    @RequestMapping("/grad/navigator")
+    public String gradNavigator(){
+        return "grad/nav/navigator-grad";
+    }
+
+    @RequestMapping("/applicant/navigator")
+    public String applicantNavigator(){
+        return "applicant/nav/navigator-applicant";
+    }
+//    @RequestMapping("/applicant/policies")
+//    public String applicantPolicies(){
+//        return "policies";
+//    }
+//
+//    @RequestMapping("/grad/policies")
+//    public String gradPolicies(){
+//        return "policies";
+//    }
+
 
 }

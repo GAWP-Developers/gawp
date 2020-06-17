@@ -1,0 +1,71 @@
+@charset "utf-8";
+
+body{
+    height: 100vh;
+    width: 100%;
+    background-color: #f6f6f6;
+}
+
+.navbar-default .navbar-brand {
+    color: #ffffff;
+	display: inline-block;
+    float: none;
+}
+
+ .navbar-header {
+    text-align: center;
+    width: 90%;
+    color: #FFFFFF;
+}
+
+
+.navbar-default{
+	background: #26425F;
+}
+
+.dropdown-menu{
+    color: #000000;
+}
+
+.nav.navbar-nav.navbar-right li a {
+    color: white;
+}
+
+.nav.navbar-nav.navbar-right li  ul li a {
+    color: #000000;
+}
+
+
+.container-title-part{
+    padding-left: 40px;
+    font-size: 23px;
+    border-bottom: solid 1px #707070;
+    color: #474747;
+    margin-top: 30px;
+}
+
+
+.btn.btn-default{
+    border-radius: 20px;
+    padding-left: 30px;	
+	padding-right: 30px;	
+}
+
+.button-part , .add-interview-results-part , .add-interview-date-part{
+    display: flex;
+    justify-content: center;
+}
+
+.container-section .all-adverts-dept-section .job-attribute-part{
+    font-size: 15px;
+    color:#35609F ;
+    text-decoration: none;
+    font-weight: 400;
+}
+
+.container-section .all-adverts-dept-section .expire-date-part{
+    font-size: 15px;
+    text-decoration: none;
+    font-weight: 400;
+}
+

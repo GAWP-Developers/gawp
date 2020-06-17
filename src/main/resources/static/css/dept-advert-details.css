@@ -1,0 +1,105 @@
+@charset "utf-8";
+
+body{
+    height: 100vh;
+    width: 100%;
+    background-color: #f6f6f6;
+}
+
+.navbar-default .navbar-brand {
+    color: #d6d6d6;
+	display: inline-block;
+    float: none;
+}
+
+ .navbar-header {
+    text-align: center;
+    width: 90%;
+    color: #FFFFFF;
+}
+
+
+.navbar-default{
+	background: #26425F;
+}
+
+
+.dropdown-menu {
+	color: #000000;
+}
+.nav.navbar-nav.navbar-right li a {
+    color: white;
+}
+
+.nav.navbar-nav.navbar-right li  ul li a {
+    color: black;
+}
+.container-section{
+    padding-top: 40px;
+}
+
+.container .container-section .container-section-part{
+    box-sizing: border-box;
+    border:solid 1px #ececd1;
+    padding: 40px 40px 40px 60px;
+    border-radius: 30px;
+    background-color: #FFFFFF;
+    box-shadow: -2px 3px 4px #f7e4e4;
+}
+
+
+
+.container .container-section .container-section-part .cs-first-title{
+    font-size: 20px;
+    color: #35609F;
+}
+
+.container .container-section .container-section-part .cs-first-title p{
+	margin-bottom:  0;
+    
+}
+
+.container .container-section .container-section-part .cs-second-part{
+	margin-bottom: 20px;
+
+}
+
+
+.container .container-section .container-section-part .cs-second-part .date{
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 0;
+	margin-left: -15px;
+    
+}
+
+.container .container-section .container-section-part .cs-third-part{
+	margin-right: 20px;
+}
+
+@media screen and (max-width: 650px){
+	.container .container-section .container-section-part .cs-second-part .date{
+    	margin-left: 0px;
+	}
+}
+
+@media screen and (max-width: 500px){
+	.container .container-section .container-section-part .cs-first-title{
+    	font-size: 15px;
+	}
+	
+	.container .container-section .container-section-part .cs-first .cs-first-description .see-details{
+    	padding-right: 40px;
+	}
+	
+	.container .container-section .container-section-part .cs-second-part .date-title{
+   		font-size: 10px;
+	}
+	
+	.container .container-section .container-section-part .cs-second-part .date{
+   		font-size: 10px;
+	}
+	
+	
+}
+

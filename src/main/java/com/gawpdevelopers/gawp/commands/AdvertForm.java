@@ -2,6 +2,7 @@ package com.gawpdevelopers.gawp.commands;
 
 
 import com.gawpdevelopers.gawp.domain.AdvertType;
+import com.gawpdevelopers.gawp.domain.DepartmentType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 
@@ -22,6 +23,7 @@ public class AdvertForm {
     private Date deadlineDate;
     private AdvertType type;
     private String details;
+    private DepartmentType departmentType;
 
     public Long getId() {
         return id;
@@ -85,5 +87,13 @@ public class AdvertForm {
 
     public void setDetails(String details) {
         this.details = details;
+    }
+
+    public DepartmentType getDepartmentType() {
+        return departmentType;
+    }
+
+    public void setDepartmentType(DepartmentType departmentType) {
+        this.departmentType = departmentType;
     }
 }

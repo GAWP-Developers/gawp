@@ -3,6 +3,7 @@ package com.gawpdevelopers.gawp.commands;
 import com.gawpdevelopers.gawp.domain.Advert;
 import com.gawpdevelopers.gawp.domain.Applicant;
 import com.gawpdevelopers.gawp.domain.ApplicationStatus;
+import com.gawpdevelopers.gawp.domain.Interview;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -14,14 +15,13 @@ import java.util.List;
  */
 public class ApplicationForm {
     private Long id;
-    private Advert advert;  // Advert ID - Will be Set Later
-    private Long intID;     //  Interview ID - Will be Set Later
+    private Advert advert;
+    private Interview interview;
     private Applicant applicant;
     private ApplicationStatus status;
-    private String applicationDegree; //TODO Keep it or lose it.
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date lastUpdateDate;
-    private List<Integer> docIDs;   //TODO Plan is to keep documents in different folders for all applications.
+    private List<Integer> docIDs;
 
     public Long getId() {
         return id;
@@ -39,12 +39,12 @@ public class ApplicationForm {
         this.advert = advert;
     }
 
-    public Long getIntID() {
-        return intID;
+    public Interview getInterview() {
+        return interview;
     }
 
-    public void setIntID(Long intID) {
-        this.intID = intID;
+    public void setInterview(Interview interview) {
+        this.interview = interview;
     }
 
     public Applicant getApplicant() {
@@ -61,14 +61,6 @@ public class ApplicationForm {
 
     public void setStatus(ApplicationStatus status) {
         this.status = status;
-    }
-
-    public String getApplicationDegree() {
-        return applicationDegree;
-    }
-
-    public void setApplicationDegree(String applicationDegree) {
-        this.applicationDegree = applicationDegree;
     }
 
     public Date getLastUpdateDate() {

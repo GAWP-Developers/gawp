@@ -1,5 +1,6 @@
 package com.gawpdevelopers.gawp.services;
 
+import com.gawpdevelopers.gawp.domain.Document;
 import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -10,13 +11,15 @@ public interface StorageService {
 
 	void init();
 
-	Path store(MultipartFile file);
+	Path store(MultipartFile file, Integer applicationId);
 
 	Stream<Path> loadAll();
 
 	Path load(String filename);
 
 	Resource loadAsResource(String filename);
+
+	Resource loadAsResource(Document doc);
 
 	void deleteAll();
 

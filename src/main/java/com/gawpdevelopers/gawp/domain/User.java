@@ -11,7 +11,11 @@ public class User {
     private String userName;
     private String password;
     private boolean active;
-    private String roles;
+    private UserRoles role;
+    private String fName;
+    private String lName;
+    private DepartmentType departmentType;
+
 
     public long getId() {
         return id;
@@ -45,11 +49,31 @@ public class User {
         this.active = active;
     }
 
-    public String getRoles() {
-        return roles;
+    public UserRoles getRole() { return role; }
+
+    public void setRole() { this.role = role; }
+
+    public String getfName() {
+        return fName;
     }
 
-    public void setRoles(String roles) {
-        this.roles = roles;
+    public void setfName(String fName) {
+        this.fName = fName;
+    }
+
+    public String getlName() {
+        return lName;
+    }
+
+    public void setlName(String lName) {
+        this.lName = lName;
+    }
+
+    public DepartmentType getDepartmentType() {
+        return departmentType;
+    }
+
+    public void setDepartmentType(DepartmentType departmentType) {
+        this.departmentType = departmentType;
     }
 }
