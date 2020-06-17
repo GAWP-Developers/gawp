@@ -114,14 +114,14 @@ public class AdvertHandler {
     }
 
     @RequestMapping(value = "/advert", method = RequestMethod.POST)
-    public String saveOrUpdateAdvert(@Valid AdvertForm advertForm, BindingResult bindingResult){
-        if(bindingResult.hasErrors()){
-            return "advert/advertform";
-        }
+    public String saveOrUpdateAdvert(@Valid Advert advertForm, BindingResult bindingResult){
+//        if(bindingResult.hasErrors()){
+//            return "advert/advertform";
+//        }
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetailsImpl  user =  (UserDetailsImpl) userDetailsService.loadUserByUsername(auth.getName());
         advertForm.setGradID(user.getId());
-        Advert savedAdvert = advertService.saveOrUpdateAdvertForm(advertForm);
+        Advert savedAdvert = advertService.saveOrUpdate(advertForm);
         System.out.println(user.getDepartmentType());
         System.out.println(savedAdvert.getDepartmentType());
 
