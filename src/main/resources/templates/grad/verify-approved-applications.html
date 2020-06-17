@@ -56,7 +56,7 @@
                         <p style="margin-top:10px;">from</p>
                     </div>
                     <div class="col-3 col-md-3 col-lg-3 name-part">
-                        <p style="margin-top: 10px;"th:text="'#' + ${vApplication.applicant.userName}"></p>
+                        <p style="margin-top: 10px;"th:text="'#' + ${vApplication.applicant.fName + ' ' + vApplication.applicant.lName}"></p>
                     </div>
                     <div class="col-3 col-md-3 col-lg-3 button-part">
                         <a  th:href="${'/grad/applicationsBeforeForwarding/verify/' + vApplication.id}">

@@ -217,8 +217,8 @@ public class AdvertHandler {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetailsImpl  user =  (UserDetailsImpl) userDetailsService.loadUserByUsername(auth.getName());
         DepartmentType currentDepartmentType = user.getDepartmentType();
-        System.out.println(user.getUsername());
-        System.out.println(currentDepartmentType);
+        //System.out.println(user.getUsername());
+        //System.out.println(currentDepartmentType);
         for (int i = 0; i < allAdverts.size();i++){
             Advert advert = (Advert) allAdverts.get(i);
             if (currentDepartmentType == advert.getDepartmentType()){
