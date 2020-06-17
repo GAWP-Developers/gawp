@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Department Panel Main Page</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -15,8 +15,10 @@
 
     <link href="../../static/css/spring-core.css"
           th:href="@{css/spring-core.css}" rel="stylesheet" media="screen"/>
-    <link href="faq-applicant.css" rel="stylesheet" type="text/css"/>
-    <script src="faq-applicant.js"></script>
+    <link href="../../../static/css/faq-applicant.css"
+          th:href="@{/css/faq-applicant.css}" rel="stylesheet" type="text/css"/>
+    <script src="../../../static/js/faq-applicant.js"
+            th:src="@{/js/faq-applicant.js}"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"/>
 </head>
 <body>
