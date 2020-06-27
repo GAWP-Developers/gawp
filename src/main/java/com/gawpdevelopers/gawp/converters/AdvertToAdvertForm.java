@@ -19,6 +19,7 @@ public class AdvertToAdvertForm implements Converter<Advert, AdvertForm> {
         advertForm.setDeadlineDate(advert.getDeadlineDate());
         advertForm.setType(advert.getType());
         advertForm.setDetails(advert.getDetails());
+        advertForm.setDepartmentType(advertForm.getDepartmentType());
         return advertForm;
     }
 }

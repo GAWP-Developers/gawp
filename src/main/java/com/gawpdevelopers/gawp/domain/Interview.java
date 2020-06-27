@@ -11,13 +11,22 @@ public class Interview {
     private String place;
     private Date date;
     private String comment;
-    private Double point;
+    private Integer point;
     @ManyToOne
     @JoinColumn(name = "INTINFO_ID")
     private InterviewInfo info;
     @OneToOne
     @JoinColumn(name = "APPLICATION_ID")
     private Application application;
+    private String time;
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
 
     public Long getId() {
         return id;
@@ -51,11 +60,11 @@ public class Interview {
         this.comment = comment;
     }
 
-    public Double getPoint() {
+    public Integer getPoint() {
         return point;
     }
 
-    public void setPoint(Double point) {
+    public void setPoint(Integer point) {
         this.point = point;
     }
 

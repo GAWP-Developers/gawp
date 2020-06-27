@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create New Interview</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>
+
+    <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
+            th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+
+    <link href="../../static/css/spring-core.css"
+          th:href="@{css/spring-core.css}" rel="stylesheet" media="screen"/>
+    <link href="../../static/css/add-advert.css"
+          th:href="@{/css/add-advert.css}" rel="stylesheet" type="text/css"/>
+
+
+</head>
+<body>
+    <nav class="navbar navbar-default">
+		<div class="container">
+			<div class="navbar-header">
+				<a href="/department" class="navbar-brand">GAWP - Grad School</a>
+			</div>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a  href="/logout">
+                        <i style='font-size:13px;' class='fas'>&#xf2f5; Sign Out</i>
+                    </a>
+                </li>
+            </ul>
+		</div>
+	</nav><!-- end of the navbar-->
+
+
+
+    <div class="container">
+        <div class="container-section d-flex align-items-center justify-content-center col-4">
+            <div class="add-new-advert-title" th:if="*{interviewForm.id == null}">
+                <p>Create New Interview</p>
+            </div>
+            <div class="add-new-advert-title" th:unless="*{interviewForm.id == null}">
+                <p>Modify Interview</p>
+            </div>
+
+            <div class="second-container">
+                <div class="second-container-attributes">
+                    <div class="add-advert-description-part">
+                        <p>General Information</p>
+                    </div>
+
+                    <form class="form-horizontal" th:object="${interviewForm}" th:action="@{/interview}" method="post">
+                        <input type="hidden" th:field="*{id}"/>
+                        <div class="row name-of-advert-section" style="margin:0;">
+                            <div class="description-part" style="    color: #333; font-weight: 700; font-size: 15px; letter-spacing: 0.2px;">
+                                <p>Point</p>
+                            </div>
+                            <div class="text-area-part">
+                                <label>
+                                    <input type="range" id="point" name="point" min="0" max="10" value="5.0" step="0.5" oninput="this.form.pointInput.value=this.value"/>
+                                    <input type="number" name="pointInput" min="0" max="20" value="5.0" step="0.5" oninput="this.form.point.value=this.value" />
+                                </label>
+                            </div>
+
+                        </div>
+                        <div class="row name-of-advert-section" style="margin:0;">
+                            <div class="description-part" style="    color: #333; font-weight: 700; font-size: 15px; letter-spacing: 0.2px;">
+                                <p>Place</p>
+                            </div>
+                            <div class="text-area-part">
+                                <label>
+                                    <input class="text-area" th:field="*{place}" type="text"/>
+                                </label>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 ">
+                                <div class="form-group" th:class="${#fields.hasErrors('date')} ? 'form-group has-error' : 'form-group'"></div>
+                                <label class="col control-label">Date</label>
+                                <div class="col">
+                                    <label>
+                                        <input type="date" class="form-control" th:field="*{date}" th:errorclass="has-error"/>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row about-advert-part" style="margin: 0;">
+                            <div class="description-part">
+                                <p style="margin: 0;     color: #333; font-weight: 700; font-size: 15px; letter-spacing: 0.2px;">Comment</p>
+                            </div>
+                            <div class="text-area-part">
+                                <label for="about-advert"></label>
+                                <textarea th:field="*{comment}" class="about-advert-textarea" placeholder="About Advert ..." rows="15"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="row button-part">
+                            <button type="submit" class="btn btn-default cancel">Cancel</button>
+                            <button type="submit" class="btn btn-default share">Share</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer" style="background-color:#e0e0e0; color: black; height: 300px; position: relative; margin-top: 300px;">
+            <div class="footer-content" style="padding: 30px; height: 250px;">
+                <div class="footer-section about col-4 col-md-4 col-lg-4">
+                    <div class="about-title-part" style="text-align: center; font-size: 18px; letter-spacing: 0.3px;">
+                        <div>
+                            <p>ABOUT</p>
+                        </div>
+                    </div>
+                    <ul style="margin: 0; padding: 0;">
+                        <li style="text-align: center; list-style: none; font-size: 15px;"><a style=" text-decoration: none; color: #818181;" th:href="@{/department/aboutUs}" target="_blank">About us</a></li>
+                    </ul>
+
+                </div>
+                <div class="footer-section support col-4 col-md-4 col-lg-4">
+                    <div class="support-title-part"style="text-align: center; font-size: 18px; letter-spacing: 0.3px;">
+                        <div>
+                            <p>SUPPORT</p>
+                        </div>
+                    </div>
+                    <ul style="margin: 0; padding: 0;">
+                        <li style="text-align: center; list-style: none; font-size: 15px;"><a style=" text-decoration: none; color: #818181;" target="_blank" th:href="@{/department/helpCenter}">Help Center</a></li>
+                        <li style="text-align: center; list-style: none; font-size: 15px; padding-top: 5px;"><a style=" text-decoration: none; color: #818181;" target="_blank" th:href="@{/department/navigator}">Navigator</a></li>
+                        <li style="text-align: center; list-style: none; font-size: 15px; padding-top: 5px;"><a style=" text-decoration: none; color: #818181;" target="_blank" th:href="@{/department/faq}">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section contact-us col-4 col-md-4 col-lg-4">
+                    <div class="contact-title-part" style="text-align: center; font-size: 18px; letter-spacing: 0.3px;">
+                        <div>
+                            <p>CONTACT US</p>
+                        </div>
+                    </div>
+                    <ul style="margin: 0; padding: 0;">
+                        <li style="text-align: center; list-style: none; font-size: 15px; color: #818181;">group10.gawp@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom" style="color: #d6d6d6; height: 50px; text-align: center; position: absolute; bottom: 0; left: 0; width: 100%; font-size: 18px;">
+                <div class="menu" style="background-color: #c9c9c9; list-style: none; padding: 10px 0px 10px 0px;">
+                    <ul style="margin: 0;">
+                        <a th:href="@{/department/policies}" target="_blank">
+                            <li style="color: rgb(77, 77, 77); display: inline; padding: 0px 30px 0px 30px;">Trust and Safety</li>
+                            <li style="color: rgb(82, 82, 82); display: inline; padding: 0px 30px 0px 30px;">Term of Use</li>
+                            <li style="color: rgb(82, 82, 82); display: inline; padding: 0px 30px 0px 30px;">Privacy Policy</li>
+                        </a>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

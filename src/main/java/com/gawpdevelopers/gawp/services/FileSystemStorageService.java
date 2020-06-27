@@ -1,5 +1,6 @@
 package com.gawpdevelopers.gawp.services;
 
+import com.gawpdevelopers.gawp.domain.Document;
 import com.gawpdevelopers.gawp.storage.StorageFileNotFoundException;
 import com.gawpdevelopers.gawp.storage.StorageProperties;
 import com.gawpdevelopers.gawp.storage.StorageException;
@@ -9,8 +10,10 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -31,7 +34,7 @@ public class FileSystemStorageService implements StorageService {
 	}
 
 	@Override
-	public Path store(MultipartFile file) {
+	public Path store(MultipartFile file, Integer applicationId) {
 		String filename = StringUtils.cleanPath(file.getOriginalFilename());
 		try {
 			if (file.isEmpty()) {
@@ -44,7 +47,13 @@ public class FileSystemStorageService implements StorageService {
 								+ filename);
 			}
 			try (InputStream inputStream = file.getInputStream()) {
-				Path filePath = this.rootLocation.resolve(filename);
+				Path filePath = this.rootLocation.resolve(applicationId.toString());
+				File directory = new File(filePath.toString());
+
+				if(!directory.exists())
+					directory.mkdir();
+
+				filePath = filePath.resolve(filename);
 				Files.copy(inputStream, filePath,
 					StandardCopyOption.REPLACE_EXISTING);
 				return filePath;
@@ -93,6 +102,28 @@ public class FileSystemStorageService implements StorageService {
 			throw new StorageFileNotFoundException("Could not read file: " + filename, e);
 		}
 	}
+
+	@Override
+	public Resource loadAsResource(Document doc) {
+		try {
+//			Path file = load(doc.getPath());
+			Path file = Paths.get(doc.getPath());
+			Resource resource = new UrlResource(file.toUri());
+			if (resource.exists() || resource.isReadable()) {
+				return resource;
+			}
+			else {
+				throw new StorageFileNotFoundException(
+						"Could not read doc: " + doc.getDocType());
+
+			}
+		}
+		catch (MalformedURLException e) {
+			throw new StorageFileNotFoundException("Could not read doc: " + doc.getDocType(), e);
+		}
+	}
+
+
 
 	@Override
 	public void deleteAll() {

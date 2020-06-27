@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>New Application</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+	<script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
+			th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>
+
+
+    <link href="../../static/css/spring-core.css"
+          th:href="@{css/spring-core.css}" rel="stylesheet" media="screen"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"/>
+	<script src="../../static/js/edit-profile.js"
+			th:src="@{/js/edit-profile.js}"></script>
+	<link href="../../static/css/edit-profile.css"
+		  th:href="@{/css/edit-profile.css}" rel="stylesheet"  type="text/css"/>
+</head>
+<body>
+<nav class="navbar navbar-default">
+	<div class="container">
+		<div class="navbar-header">
+
+			<a href="/applicant" class="navbar-brand">Graduate Application Program</a>
+		</div>
+
+		<ul class="nav navbar-nav navbar-right">
+			<li class="dropdown">
+				<a  href="/logout">
+					<i style='font-size:13px;' class='fas'>&#xf2f5; Sign Out</i>
+				</a>
+			</li>
+		</ul>
+	</div>
+</nav><!-- end of the navbar-->
+			
+
+	<div class="container" style="margin-bottom: 10px; ">
+        <div id="onlyForm" class="container-section d-flex align-items-center justify-content-center col-4" style="padding-top: 10px;">
+            <form th:object="${applicant}" th:action="@{/applicant/edit}" method="post" class="container-section-part ">
+				<input th:field="*{id}" th:value="${applicant.id}" type="hidden">
+				<input th:field="*{apiID}" th:value="${applicant.apiID}" type="hidden">
+				<input th:field="*{active}" th:value="${applicant.active}" type="hidden">
+				<input th:field="*{email}" th:value="${applicant.email}" type="hidden">
+				<input th:field="*{pictureUrl}" th:value="${applicant.pictureUrl}" type="hidden">
+				<input th:field="*{provider}" th:value="${applicant.provider}" type="hidden">
+				<input th:field="*{roles}" th:value="${applicant.roles}" type="hidden">
+				<input th:field="*{userName}" th:value="${applicant.userName}" type="hidden">
+
+				
+                <div class="row step">
+                    <div class="row step-title" style="font-size: 25px;">
+                        <p>Edit Profile</p>
+					</div>
+					<div class="row">
+						<input data-limit-rows="true" class="info-letter col-xs-6 col-sm-6 col-md-6 col-lg-6" placeholder="Name" rows="1" th:field="*{fName}" th:value="${applicant.fName}" required />
+						<input data-limit-rows="true" class="info-letter col-xs-6 col-sm-6 col-md-6 col-lg-6" placeholder="Surname" rows="1" th:field="*{lName}" th:value="${applicant.lName}" required />
+					</div>
+					
+					<div  class="row">
+						<input type="date" placeholder="Birth Date" class="info-letter col-xs-6 col-sm-6 col-md-6 col-lg-6" th:field="*{birthDate}" th:value="${applicant.birthDate}" required />
+						<input type="number" class="info-letter col-xs-6 col-sm-6 col-md-6 col-lg-6" th:field="*{phone}" th:value="${applicant.phone}" required/>
+
+					</div>
+						
+					<div class="address-part">
+                            <div class="title-part">
+                                <p>Address</p>
+                            </div>
+
+                            <div class="text-area-last-section">
+                                <textarea id="addr-details" onload="createAddress()" onchange="createAddress()" class="text-area" rows="5"  placeholder="Address Details.." required><th:block th:text="${applicant.address}" /></textarea>
+                            </div>
+							
+							<!--Can address inputu olarak aşağıdakini al-->
+							<input id="address-full" th:field="*{address}"  type="text" value="" style="display:none" required/>
+                    </div>
+						
+				</div>
+             
+				
+
+				
+				<div class="bottom-buttons">
+					<div class="col-xs-8"></div>
+					<div class="cs-first-description col-xs-2">
+							<a th:href="@{/applicant}" style="display: flex; justify-content: flex-end;">
+								<button  type="button" class="btn btn-default cancel" style="width: 100%;background: #fff;color:#3F78B3 ;border-color: #3F78B3;border-radius: 15px;">Cancel</button>
+							</a>
+					</div>
+
+					<div class="cs-first-description col-xs-2">
+							<div style="display: flex; justify-content: flex-end;">
+								<button  type="submit" class="btn btn-default update" style="width: 100%;background: #3F78B3;color:#fff ;border-color: #3F78B3;border-radius: 15px;">Save</button>
+							</div>
+					</div>
+
+					<div class="col-xs-8"></div>
+					<div id="apply-error" class="col-xs-4" style="color: red; text-align: center; display:none"> Please complete required places.</div>
+				</div>
+
+				
+			</form>
+		</div>
+	</div>
+
+<footer>
+	<div class="footer" style="background-color:#e0e0e0; color: black; height: 300px; position: relative; margin-top: 300px;">
+		<div class="footer-content" style="padding: 30px; height: 250px;">
+			<div class="footer-section about col-4 col-md-4 col-lg-4">
+				<div class="about-title-part" style="text-align: center; font-size: 18px; letter-spacing: 0.3px;">
+					<div>
+						<p>ABOUT</p>
+					</div>
+				</div>
+				<ul style="margin: 0; padding: 0;">
+					<li style="text-align: center; list-style: none; font-size: 15px;"><a style=" text-decoration: none; color: #818181;" th:href="@{/applicant/aboutUs}" target="_blank">About us</a></li>
+				</ul>
+
+			</div>
+			<div class="footer-section support col-4 col-md-4 col-lg-4">
+				<div class="support-title-part"style="text-align: center; font-size: 18px; letter-spacing: 0.3px;">
+					<div>
+						<p>SUPPORT</p>
+					</div>
+				</div>
+				<ul style="margin: 0; padding: 0;">
+					<li style="text-align: center; list-style: none; font-size: 15px;"><a style=" text-decoration: none; color: #818181;" target="_blank" th:href="@{/applicant/helpCenter}">Help Center</a></li>
+					<li style="text-align: center; list-style: none; font-size: 15px; padding-top: 5px;"><a style=" text-decoration: none; color: #818181;" target="_blank" th:href="@{/applicant/navigator}">Navigator</a></li>
+					<li style="text-align: center; list-style: none; font-size: 15px; padding-top: 5px;"><a style=" text-decoration: none; color: #818181;" target="_blank" th:href="@{/applicant/faq}">FAQ</a></li>
+				</ul>
+			</div>
+			<div class="footer-section contact-us col-4 col-md-4 col-lg-4">
+				<div class="contact-title-part" style="text-align: center; font-size: 18px; letter-spacing: 0.3px;">
+					<div>
+						<p>CONTACT US</p>
+					</div>
+				</div>
+				<ul style="margin: 0; padding: 0;">
+					<li style="text-align: center; list-style: none; font-size: 15px; color: #818181;">group10.gawp@gmail.com</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="footer-bottom" style="color: #d6d6d6; height: 50px; text-align: center; position: absolute; bottom: 0; left: 0; width: 100%; font-size: 18px;">
+			<div class="menu" style="background-color: #c9c9c9; list-style: none; padding: 10px 0px 10px 0px;">
+				<ul style="margin: 0;">
+					<a th:href="@{/applicant/policies}" target="_blank">
+						<li style="color: rgb(77, 77, 77); display: inline; padding: 0px 30px 0px 30px;">Trust and Safety</li>
+						<li style="color: rgb(82, 82, 82); display: inline; padding: 0px 30px 0px 30px;">Term of Use</li>
+						<li style="color: rgb(82, 82, 82); display: inline; padding: 0px 30px 0px 30px;">Privacy Policy</li>
+					</a>
+				</ul>
+			</div>
+		</div>
+	</div>
+</footer>
+</body>
+</html>

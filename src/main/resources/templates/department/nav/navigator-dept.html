@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Department Panel Main Page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>
+
+    <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
+            th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+
+    <link href="../../static/css/spring-core.css"
+          th:href="@{css/spring-core.css}" rel="stylesheet" media="screen"/>
+    <link href="../../../static/css/navigator-dept.css"
+          th:href="@{/css/navigator-dept.css}" rel="stylesheet" type="text/css"/>
+    <script src="../../../static/js/navigator-dept.js"
+            th:src="@{/js/navigator-dept.js}"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"/>
+</head>
+<body>
+    
+    <div class="container" style="margin-bottom: 10px; ">
+        <div class="container-section d-flex align-items-center justify-content-center col-4">
+            <div class="container-section-part">
+
+                <div class=" container-third-part">
+                    <div style="font-size:30px; display: flex; justify-content: center;">Navigator</div>
+
+
+                    <div class="row first-button-part">
+                        <div class="col-10 col-md-10 col-lg-10 button-description">
+                            <p style="margin-top: 10px;">Where is interview Page, where can I make interview?</p>
+                        </div>
+                        <div class="col-2 col-md-2 col-lg-2 button">
+                            <button onclick="open_close('sol1');" class="btn btn-next"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+                    <div id="sol1" class="row solution">
+                        <div class="col-12 col-md-12 col-lg-12 button-description">
+                            <p style="margin-top: 10px;">Go to main page. Click "Application to Review" then you reach with a adverts list page. Select a advert and click "See Applications" You will see a application List now, and select a application and make interview.</p>
+                            <p style="color: rgb(177, 153, 50);">Home Page  + Application to Review(button) -> Application to Review Page + See Applications(Button) -> Interview Page</p>                   
+                        </div>  
+                        
+                    </div>
+
+                    <div class=" row second-button-part">
+                        <div class="col-10 col-md-10 col-lg-10 button-description">
+                            <p style="margin-top: 10px;">Where can I find adverts?</p>
+                        </div>
+                        <div class="col-2 col-md-2 col-lg-2 button">
+                                <button onclick="open_close('sol2');" class="btn btn-next"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+                    <div id="sol2" class="row solution">
+                        <div class="col-12 col-md-12 col-lg-12 button-description">
+                            <p style="margin-top: 10px;">You can find all adverts in bottom button which name is "See <i>Your Department</i> Adverts" in main page </p>
+                            <p style="color: rgb(177, 153, 50);">Home Page  + "See <i>Your Department</i> Adverts"(button) -> All Adverts Page</p>
+                        </div>  
+                        
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>

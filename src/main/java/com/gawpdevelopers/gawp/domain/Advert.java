@@ -2,6 +2,7 @@ package com.gawpdevelopers.gawp.domain;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 
 @Entity
@@ -11,6 +12,8 @@ public class Advert {
     @Column(name = "ADVERT_ID")
     private Long id;
     private String name;
+    @OneToMany(mappedBy = "advert")
+    private List<Application> applications;
     //TODO @OneToOne(fetch = FetchType.LAZY)
     //     @JoinColumn(name = "GRAD_ID")
     private Long gradID;
@@ -20,7 +23,9 @@ public class Advert {
     private Date shareDate;
     private Date deadlineDate;
     private AdvertType type;
+    @Column(columnDefinition = "varchar(max)")
     private String details;
+    private DepartmentType departmentType;
 
     public Long getId() {
         return id;
@@ -84,5 +89,21 @@ public class Advert {
 
     public void setDetails(String details) {
         this.details = details;
+    }
+
+    public List<Application> getApplications() {
+        return applications;
+    }
+
+    public void setApplications(List<Application> applications) {
+        this.applications = applications;
+    }
+
+    public DepartmentType getDepartmentType() {
+        return departmentType;
+    }
+
+    public void setDepartmentType(DepartmentType departmentType) {
+        this.departmentType = departmentType;
     }
 }

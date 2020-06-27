@@ -27,24 +27,19 @@
 		<div class="container">
 			<div class="navbar-header">
 
-				<a href="#" class="navbar-brand">Graduate Application Program</a>
+				<a href="/applicant" class="navbar-brand">Graduate Application Program</a>
 			</div>
-			
-			<ul class="nav navbar-nav navbar-right">
-    <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-            <span class="glyphicon glyphicon-menu-hamburger"></span>
-        </a>
-        <ul class="dropdown-menu">
-            <li><a href="#">Settings</a></li>
-            <li><a href="#">Sign Out</a></li>
-        </ul>
-    </li>
-</ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a  href="/logout">
+                        <i style='font-size:13px;' class='fas'>&#xf2f5; Sign Out</i>
+                    </a>
+                </li>
+            </ul>
 		</div>
 	</nav><!-- end of the navbar-->
 
-    <a href="/logout ">Click here to logout</a>
 
 <div class="section">
     <div th:if="${not #lists.isEmpty(adverts)}">
@@ -69,7 +64,7 @@
                         </a>
                     </div>
 					<div class="col-md-3 col-lg-3 button-part-second" > 
-                        <a th:href="${'/applicant/advert/show/' + advert.id}">
+                        <a th:href="${'/applicant/application/new/' + advert.id}">
                             <button type="submit"  class="btn btn-default apply" >Apply</button>
                         </a>
                     </div>
@@ -82,7 +77,57 @@
 
 </div>
 
+    <footer>
+        <div class="footer" style="background-color:#e0e0e0; color: black; height: 300px; position: relative; margin-top: 300px;">
+            <div class="footer-content" style="padding: 30px; height: 250px;">
+                <div class="footer-section about col-4 col-md-4 col-lg-4">
+                    <div class="about-title-part" style="text-align: center; font-size: 18px; letter-spacing: 0.3px;">
+                        <div>
+                            <p>ABOUT</p>
+                        </div>
+                    </div>
+                    <ul style="margin: 0; padding: 0;">
+                        <li style="text-align: center; list-style: none; font-size: 15px;"><a style=" text-decoration: none; color: #818181;" th:href="@{/applicant/aboutUs}" target="_blank">About us</a></li>
+                    </ul>
 
+                </div>
+                <div class="footer-section support col-4 col-md-4 col-lg-4">
+                    <div class="support-title-part"style="text-align: center; font-size: 18px; letter-spacing: 0.3px;">
+                        <div>
+                            <p>SUPPORT</p>
+                        </div>
+                    </div>
+                    <ul style="margin: 0; padding: 0;">
+                        <li style="text-align: center; list-style: none; font-size: 15px;"><a style=" text-decoration: none; color: #818181;" target="_blank" th:href="@{/applicant/helpCenter}">Help Center</a></li>
+                        <li style="text-align: center; list-style: none; font-size: 15px; padding-top: 5px;"><a style=" text-decoration: none; color: #818181;" target="_blank" th:href="@{/applicant/navigator}">Navigator</a></li>
+                        <li style="text-align: center; list-style: none; font-size: 15px; padding-top: 5px;"><a style=" text-decoration: none; color: #818181;" target="_blank" th:href="@{/applicant/faq}">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section contact-us col-4 col-md-4 col-lg-4">
+                    <div class="contact-title-part" style="text-align: center; font-size: 18px; letter-spacing: 0.3px;">
+                        <div>
+                            <p>CONTACT US</p>
+                        </div>
+                    </div>
+                    <ul style="margin: 0; padding: 0;">
+                        <li style="text-align: center; list-style: none; font-size: 15px; color: #818181;">group10.gawp@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom" style="color: #d6d6d6; height: 50px; text-align: center; position: absolute; bottom: 0; left: 0; width: 100%; font-size: 18px;">
+                <div class="menu" style="background-color: #c9c9c9; list-style: none; padding: 10px 0px 10px 0px;">
+                    <ul style="margin: 0;">
+                        <a th:href="@{/applicant/policies}" target="_blank">
+                            <li style="color: rgb(77, 77, 77); display: inline; padding: 0px 30px 0px 30px;">Trust and Safety</li>
+                            <li style="color: rgb(82, 82, 82); display: inline; padding: 0px 30px 0px 30px;">Term of Use</li>
+                            <li style="color: rgb(82, 82, 82); display: inline; padding: 0px 30px 0px 30px;">Privacy Policy</li>
+                        </a>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
 
 </body>
 </html>
