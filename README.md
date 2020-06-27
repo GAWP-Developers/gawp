@@ -1,7 +1,7 @@
 # Graduate Application Web Program by GAWP_Developers
 
 ## How To Access h2 Database on IntelliJ
-![Recordit GIF](http://g.recordit.co/6992VeoSqv.gif)
+[H2 GIF](http://g.recordit.co/6992VeoSqv.gif)
 
 Directly adding entrys to the database is not recommended. Only add entries to the user table, where type 0 is admin and type 1 is department user.
 For any other database, simply paste jdbc url to the url part.
