@@ -1,4 +1,4 @@
-# Graduate Application Web Program by GAWP_Developers
+# Graduate Application Web Page by GAWP_Developers
 
 ## How To Access h2 Database on IntelliJ
 [H2 GIF](http://g.recordit.co/6992VeoSqv.gif)
